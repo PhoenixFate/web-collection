@@ -4,6 +4,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Index from "~/pages/index.vue";
 import About from "~/pages/about.vue";
 import Login from "~/pages/login.vue";
+import Cookie from "~/pages/cookie.vue";
+import Test from "~/pages/test.vue";
 import NotFound from "~/pages/404.vue";
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -19,6 +21,14 @@ const routes = [
   {
     path: "/login",
     component: Login,
+  },
+  {
+    path: "/test",
+    component: Test,
+  },
+  {
+    path: "/cookie",
+    component: Cookie,
   },
   {
     // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下

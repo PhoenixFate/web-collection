@@ -40,8 +40,18 @@ npm install element-plus --save
 windicss  (www.windicss.org/cn.windicss.org)  
 npm i -D vite-plugin-windicss windicss
 
-vue-router (vue3需要vue-router4以上)
-npm install --save vue-router@4
+vue-router (vue3需要vue-router4以上)  
+npm install vue-router@4 --save 
+
+axios
+npm install axios --save
+
+vueUse
+npm i @vueuse/integrations --save  
+npm i universal-cookie --save  
+
+vuex (vue3需要vuex4以上)
+npm install vuex@next --save 
 
 ## Visual Studio Code常用插件
 - Vue Language Features (Volar)
