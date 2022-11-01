@@ -1,6 +1,7 @@
 import axios from "axios";
-import { getToken } from "~/composables/auth";
+import { getToken, removeToken } from "~/composables/auth";
 import { showMessage } from "~/composables/util";
+import store from "./store";
 const service = axios.create({
   baseURL: "/api",
 });
@@ -34,7 +35,21 @@ service.interceptors.response.use(
   (error) => {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
-    showMessage(error.response.data.msg || "请求失败","error")
+    const message = error.response.data.msg;
+    if (message === "非法token，请先登录！") {
+      console.log("非法token，请先登录！");
+      //正常应该用返回到http状态码401，然后重新登录
+      //移除cookie中的token
+      removeToken();
+      //清楚当前用户状: 清除vuex.state中的user
+      store.commit("SET_USERINFO", {});
+      //刷新页面，这时候已经没有token了，刷新页面的时候，会调用路由全局前置守卫，没有token又会跳转到登录页面
+      setTimeout(()=>{
+        location.reload();
+      },1000)
+    }
+
+    showMessage(error.response.data.msg || "请求失败", "error");
     return Promise.reject(error);
   }
 );

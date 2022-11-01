@@ -47,6 +47,7 @@ axios
 npm install axios --save
 
 vueUse
+npm i @vueuse/core --save
 npm i @vueuse/integrations --save  
 npm i universal-cookie --save  
 
