@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 // 1. 从其他文件导入路由组件.
+import MainLayout from "~/layouts/MainLayout.vue";
 import Index from "~/pages/index.vue";
 import About from "~/pages/about.vue";
 import Login from "~/pages/login.vue";
@@ -12,23 +13,45 @@ import NotFound from "~/pages/404.vue";
 const routes = [
   {
     path: "/",
-    component: Index,
+    component: MainLayout,
+    //子路由
+    children: [
+      {
+        path: "/",
+        component: Index,
+        meta: {
+          title: "后台首页",
+        },
+      },
+    ],
   },
   {
     path: "/about",
     component: About,
+    meta: {
+      title: "项目详情页面",
+    },
   },
   {
     path: "/login",
     component: Login,
+    meta: {
+      title: "登录页",
+    },
   },
   {
     path: "/test",
     component: Test,
+    meta: {
+      title: "测试页",
+    },
   },
   {
     path: "/cookie",
     component: Cookie,
+    meta: {
+      title: "cookie测试页",
+    },
   },
   {
     // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下

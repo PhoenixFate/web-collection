@@ -53,6 +53,9 @@ npm i universal-cookie --save
 vuex (vue3需要vuex4以上)
 npm install vuex@next --save 
 
+nprogress (顶部进度条)
+npm install --save nprogress
+
 ## Visual Studio Code常用插件
 - Vue Language Features (Volar)
 - vue3-snippets

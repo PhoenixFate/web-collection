@@ -32,10 +32,14 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 // 集成element-plus-icon  --end
 
 // 集成vuex  --start
-// npm install vuex@next --save 
+// npm install vuex@next --save
 import store from "./store";
 app.use(store);
 // 集成vuex  --start
 
+import "./permission";
+
+// 集成第三方顶部进度条
+import "nprogress/nprogress.css";
 
 app.mount("#app");

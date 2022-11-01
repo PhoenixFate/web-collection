@@ -1,0 +1,9 @@
+html,body,#app{
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#nprogress .bar {
+  background-color: #f4f4f4!important;
+  height: 4px;
+}
