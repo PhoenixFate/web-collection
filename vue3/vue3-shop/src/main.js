@@ -42,4 +42,6 @@ import "./permission";
 // 集成第三方顶部进度条
 import "nprogress/nprogress.css";
 
+// 滑动验证码
+
 app.mount("#app");

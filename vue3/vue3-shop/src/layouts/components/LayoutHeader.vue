@@ -43,11 +43,14 @@
       </el-dropdown>
     </div>
   </div>
-  <el-drawer
-    v-model="showChangePasswordDrawer"
+  <FormDrawer
     title="修改密码"
+    ref="formDrawerRef"
     size="45%"
-    :close-on-click-modal="false"
+    :closeOnClickModal="true"
+    :destoryOnClose="true"
+    confirmText="确认提交"
+    @submit="onSubmitChangePassword"
   >
     <el-form
       ref="formRef"
@@ -83,25 +86,14 @@
         >
         </el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button
-          class="w-[250px]"
-          type="primary"
-          @click="onSubmitChangePassword"
-          :loading="changePasswordLoading"
-          >提交
-        </el-button>
-      </el-form-item>
     </el-form>
-  </el-drawer>
+  </FormDrawer>
 </template>
 <script setup>
-import { showMessageBox, showMessage } from "~/composables/util";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { ref, reactive } from "vue";
 import { useFullscreen } from "@vueuse/core";
-import { updatePassword } from "~/api/manager";
+import FormDrawer from "~/components/FormDrawer.vue";
+import { useChangePassword } from "~/composables/useManager";
+import { useLogout } from "~/composables/useManager";
 const {
   // 是否是全屏
   isFullscreen,
@@ -109,77 +101,23 @@ const {
   toggle,
 } = useFullscreen();
 
-const router = useRouter();
-const store = useStore();
-
-const showChangePasswordDrawer = ref(false);
-
-const form = reactive({
-  oldPassword: "",
-  newPassword: "",
-  checkNewPassword: "",
-});
-const changePasswordLoading = ref(false);
-
-const rules = {
-  oldPassword: [
-    { required: true, message: "原密码不能为空", trigger: "blur" },
-    { min: 3, max: 30, message: "原密码长度必须为6-30", trigger: "blur" },
-  ],
-  newPassword: [
-    { required: true, message: "新密码不能为空", trigger: "blur" },
-    { min: 3, max: 30, message: "新密码长度必须为6-30", trigger: "blur" },
-  ],
-  checkNewPassword: [
-    { required: true, message: "确认密码不能为空", trigger: "blur" },
-    { min: 3, max: 30, message: "确认密码长度必须为6-30", trigger: "blur" },
-  ],
-};
-
-const formRef = ref();
-function handlerLogout() {
-  showMessageBox("是否要退出登录？").then(() => {
-    //用户点击了确认
-    console.log("用户退出登录");
-    store.dispatch("logoutAction").then(() => {
-      //返回首页
-      router.push("/login");
-      //提示退出登录成功
-      showMessage("退出登录成功", "success");
-    });
-  });
-}
+const {
+  formDrawerRef,
+  form,
+  rules,
+  formRef,
+  onSubmitChangePassword,
+  openChangePasswordForm,
+} = useChangePassword();
 
 function handleRefresh() {
   //原生js
   location.reload();
 }
 
-function toPersonal() {}
+const { handlerLogout } = useLogout;
 
-const onSubmitChangePassword = () => {
-  formRef.value.validate((valid) => {
-    console.log(valid);
-    if (!valid) {
-      return false;
-    }
-    console.log("验证通过");
-    //显示正在加载
-    changePasswordLoading.value = true;
-    updatePassword(form)
-      .then((response) => {
-        showMessage("修改密码成功，请重新登录");
-        //退出登录
-        store.dispatch("logoutAction");
-        //跳转回登录页
-        router.push("/push");
-      })
-      .finally(() => {
-        //取消正在加载
-        changePasswordLoading.value = false;
-      });
-  });
-};
+function toPersonal() {}
 
 const handleCommand = (command) => {
   console.log(command);
@@ -192,7 +130,7 @@ const handleCommand = (command) => {
       break;
     case "changePassword":
       console.log("changePassword");
-      showChangePasswordDrawer.value = true;
+      openChangePasswordForm();
       break;
   }
 };
