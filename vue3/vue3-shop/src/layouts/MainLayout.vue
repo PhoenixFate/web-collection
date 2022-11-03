@@ -4,12 +4,12 @@
       <LayoutHeaderVue />
     </el-header>
     <el-container>
-      <el-aside>
+      <el-aside :width="$store.state.asideWidth">
         <LayoutMenuVue />
       </el-aside>
       <el-main>
         <LayoutTagListVue />
-        <router-view/>
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
@@ -19,3 +19,9 @@ import LayoutHeaderVue from "./components/LayoutHeader.vue";
 import LayoutMenuVue from "./components/LayoutMenu.vue";
 import LayoutTagListVue from "./components/LayoutTagList.vue";
 </script>
+<style>
+.el-aside {
+  transition: all 0.6s;
+  /* transition: max-width 0.5s ease-out; */
+}
+</style>

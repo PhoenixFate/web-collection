@@ -3,9 +3,14 @@
     <span class="logo">
       <el-icon class="mr-2"> <Pear /> </el-icon>Vue3-Shop
     </span>
-    <el-tooltip effect="dark" content="折叠菜单" placement="bottom">
-      <el-icon class="icon-btn">
-        <Fold />
+    <el-tooltip effect="dark" content="折叠菜单" placement="bottom" v-if="$store.state.asideWidth == '250px'">
+      <el-icon class="icon-btn" @click="collpaseMenu()">
+        <Fold  />
+      </el-icon>
+    </el-tooltip>
+    <el-tooltip effect="dark" content="展开菜单" placement="bottom" v-else>
+      <el-icon class="icon-btn" @click="extendMenu()">
+        <Expand/>
       </el-icon>
     </el-tooltip>
     <el-tooltip effect="dark" content="刷新" placement="bottom">
@@ -94,6 +99,8 @@ import { useFullscreen } from "@vueuse/core";
 import FormDrawer from "~/components/FormDrawer.vue";
 import { useChangePassword } from "~/composables/useManager";
 import { useLogout } from "~/composables/useManager";
+import { useStore } from "vuex";
+const store = useStore();
 const {
   // 是否是全屏
   isFullscreen,
@@ -113,6 +120,20 @@ const {
 function handleRefresh() {
   //原生js
   location.reload();
+}
+
+const collpaseMenu = () => {
+  store.commit("HANDLE_ASIDE_WIDTH");
+  setTimeout(()=>{
+    store.commit("COLLAPSE_MENU");
+  },500)
+};
+
+const extendMenu=()=>{
+  store.commit("HANDLE_ASIDE_WIDTH");
+  setTimeout(()=>{
+    store.commit("COLLAPSE_MENU");
+  },160)
 }
 
 const { handlerLogout } = useLogout;

@@ -8,6 +8,7 @@ import Login from "~/pages/login.vue";
 import Cookie from "~/pages/cookie.vue";
 import Test from "~/pages/test.vue";
 import NotFound from "~/pages/404.vue";
+import GoodList from "~/pages/goods/list.vue";
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
 const routes = [
@@ -21,6 +22,13 @@ const routes = [
         component: Index,
         meta: {
           title: "后台首页",
+        },
+      },
+      {
+        path: "/goods/list",
+        component: GoodList,
+        meta: {
+          title: "商品管理",
         },
       },
     ],

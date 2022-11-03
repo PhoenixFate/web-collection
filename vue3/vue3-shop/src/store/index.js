@@ -10,6 +10,9 @@ const store = createStore({
     return {
       //用户信息
       user: {},
+      isCollapse: false,
+      //侧边菜单宽度
+      asideWidth: "250px",
     };
   },
   mutations: {
@@ -17,6 +20,13 @@ const store = createStore({
     //记录用户信息
     SET_USERINFO(state, user) {
       state.user = user;
+    },
+    //展开或者缩起侧边菜单
+    HANDLE_ASIDE_WIDTH(state) {
+      state.asideWidth = state.asideWidth == "250px" ? "64px" : "250px";
+    },
+    COLLAPSE_MENU(state) {
+      state.isCollapse = !state.isCollapse;
     },
   },
   actions: {
