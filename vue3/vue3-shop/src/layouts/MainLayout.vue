@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header class="h-[64px]">
       <LayoutHeaderVue />
     </el-header>
     <el-container>
