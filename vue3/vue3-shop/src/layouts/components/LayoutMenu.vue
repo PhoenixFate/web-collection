@@ -1,5 +1,9 @@
 <template>
-  <div class="layout-menu" :style="{ width: $store.state.asideWidth }">
+  <div
+    class="layout-menu"
+    :style="{ width: $store.state.asideWidth }"
+    :class="{'aside-remove-menu':!($store.state.asideWidth=='250px')}"
+  >
     <el-menu
       :collapse="$store.state.isCollapse"
       :collapse-transition="false"
@@ -84,7 +88,6 @@ const handleSelect = (e) => {
 <style scoped>
 .layout-menu {
   transition: all 0.6s;
-  /* transition: max-width 0.5s ease-out; */
   top: 64px;
   bottom: 0;
   left: 0;
@@ -93,4 +96,6 @@ const handleSelect = (e) => {
   overflow-x: hidden;
   @apply shadow-md fixed bg-light-50;
 }
+
+
 </style>

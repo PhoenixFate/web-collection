@@ -47,3 +47,7 @@ body,
 ::-webkit-scrollbar-corner {
   background-color: black;
 }
+
+.aside-remove-menu .el-sub-menu .el-sub-menu__icon-arrow {
+  display: none;
+}
