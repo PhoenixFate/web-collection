@@ -1,6 +1,6 @@
 import { ref, reactive } from "vue";
 import { updatePassword } from "~/api/manager";
-import { showMessage } from "~/composables/util";
+import { showMessage, showMessageBox } from "~/composables/util";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -66,9 +66,9 @@ export function useChangePassword() {
 }
 
 export function useLogout() {
+  const router = useRouter();
+  const store = useStore();
   function handlerLogout() {
-    const router = useRouter();
-    const store = useStore();
     showMessageBox("是否要退出登录？").then(() => {
       //用户点击了确认
       console.log("用户退出登录");

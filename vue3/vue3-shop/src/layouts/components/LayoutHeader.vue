@@ -136,7 +136,7 @@ const extendMenu=()=>{
   },160)
 }
 
-const { handlerLogout } = useLogout;
+const { handlerLogout } = useLogout();
 
 function toPersonal() {}
 
@@ -144,6 +144,7 @@ const handleCommand = (command) => {
   console.log(command);
   switch (command) {
     case "logout":
+      console.log(handlerLogout)
       handlerLogout();
       break;
     case "personal":
@@ -158,7 +159,7 @@ const handleCommand = (command) => {
 </script>
 <style scoped>
 .layout-header {
-  @apply flex items-center bg-indigo-700 text-light-50 fixed top-0 left-0 right-0 pr-5;
+  @apply flex items-center bg-indigo-700 text-light-50 fixed top-0 left-0 right-0 pr-20;
   height: 64px;
 }
 

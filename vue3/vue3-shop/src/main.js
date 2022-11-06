@@ -15,7 +15,7 @@ import "virtual:windi.css";
 //集成windicss  -end
 
 //集成vue-router  --start
-import router from "./router";
+import {router} from "./router";
 app.use(router);
 //通过调用 app.use(router)，我们可以在任意组件中以 this.$router 的形式访问它，并且以 this.$route 的形式访问当前路由
 // this.$route.params.username

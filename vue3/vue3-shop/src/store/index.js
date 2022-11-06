@@ -13,6 +13,10 @@ const store = createStore({
       isCollapse: false,
       //侧边菜单宽度
       asideWidth: "250px",
+
+      //所有菜单列表
+      menus: [],
+      ruleNames: [],
     };
   },
   mutations: {
@@ -27,6 +31,12 @@ const store = createStore({
     },
     COLLAPSE_MENU(state) {
       state.isCollapse = !state.isCollapse;
+    },
+    SET_MENUS(state, menus) {
+      state.menus = menus;
+    },
+    SET_RULENAMES(state, ruleNames) {
+      state.ruleNames = ruleNames;
     },
   },
   actions: {
@@ -60,6 +70,9 @@ const store = createStore({
           .then((response) => {
             //保存用户信息到vuex中
             commit("SET_USERINFO", response);
+            commit("SET_MENUS", response.menus);
+            commit("SET_RULENAMES", response.ruleNames);
+            console.log(response);
             resolve(response);
           })
           .catch((error) => {

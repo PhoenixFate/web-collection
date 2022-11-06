@@ -1,4 +1,4 @@
-import router from "~/router";
+import { router, addRoutes } from "~/router";
 import { getToken } from "~/composables/auth";
 import {
   showMessage,
@@ -7,6 +7,7 @@ import {
 } from "~/composables/util";
 import store from "./store";
 
+let hasGetInfo = false;
 // 你可以使用 router.beforeEach 注册一个全局前置守卫：
 router.beforeEach(async (to, from, next) => {
   // to: 即将要进入的目标 用一种标准化的方式
@@ -33,14 +34,19 @@ router.beforeEach(async (to, from, next) => {
   }
 
   //如果用户登录了，就自动获取用户信息，并存储在vuex中
-  if (token) {
+  let hasNewRoutes = false;
+  if (token && !hasGetInfo) {
     // console.log(store.state.user);
     // console.log(JSON.stringify(store.state.user));
     if (JSON.stringify(store.state.user) === "{}") {
       console.log("该user对象为空");
       //通过store.dispatch调用store中的actions里面的方法
       //store中定义的getUserInfoAction是一个promise，是一个异步操作，需要await同步等待一下
-      await store.dispatch("getUserInfoAction");
+      let { menus } = await store.dispatch("getUserInfoAction");
+      console.log(menus);
+      hasGetInfo = true;
+      //动态添加路由
+      hasNewRoutes = addRoutes(menus);
     }
   }
 
@@ -48,7 +54,7 @@ router.beforeEach(async (to, from, next) => {
   console.log(to);
   let title = (to.meta.title ? to.meta.title : "") + " Vue3-Shop";
   document.title = title;
-  next();
+  hasNewRoutes ? next(to.fullPath) : next();
 });
 
 //全局后置守卫

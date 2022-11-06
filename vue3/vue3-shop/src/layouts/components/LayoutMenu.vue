@@ -2,12 +2,13 @@
   <div
     class="layout-menu"
     :style="{ width: $store.state.asideWidth }"
-    :class="{'aside-remove-menu':!($store.state.asideWidth=='250px')}"
+    :class="{ 'aside-remove-menu': !($store.state.asideWidth == '250px') }"
   >
     <el-menu
       :collapse="$store.state.isCollapse"
       :collapse-transition="false"
-      :unique-opened="true"
+      :default-active="defaultActive"
+      :unique-opened="false"
       class="border-0"
       @select="handleSelect"
     >
@@ -44,18 +45,27 @@
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
-import { useRouter } from "vue-router";
+import { computed, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 const router = useRouter();
 const store = useStore();
+const route = useRoute();
+
+//默认选中当前路由
+const defaultActive = ref(route.path);
+
 //计算菜单是否折叠
 const isCollapse = computed(() => {
   // return !(store.state.asideWidth == "250px");
   return store.state.isCollapse;
 });
 
-const asideMenus = [
+const asideMenus = computed(() => {
+  return store.state.menus;
+});
+
+const asideMenus2 = [
   {
     name: "后台面版",
     icon: "help",
@@ -85,7 +95,7 @@ const handleSelect = (e) => {
   router.push(e);
 };
 </script>
-<style scoped>
+<style>
 .layout-menu {
   transition: all 0.6s;
   top: 64px;
@@ -96,6 +106,8 @@ const handleSelect = (e) => {
   overflow-x: hidden;
   @apply shadow-md fixed bg-light-50;
 }
-
-
+/* 设置菜单的滚动条的宽度为0 */
+.layout-menu::-webkit-scrollbar {
+  width: 0px;
+}
 </style>

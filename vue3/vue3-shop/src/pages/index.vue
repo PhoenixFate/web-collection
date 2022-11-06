@@ -1,78 +1,86 @@
 <template>
   <div>
-    后台首页 <br />
-    {{ this.$store.state.user.username }} <br />
+    <el-row :gutter="20">
+      <template v-if="!panels || panels.length == 0">
+        <el-col :span="6" :offset="0" v-for="i in 4" :key="i">
+          <el-skeleton style="width: 100%" animated loading>
+            <template #template>
+              <el-card
+                shadow="always"
+                class="border-0 index-card"
+                :body-style="{ padding: '20px' }"
+              >
+                <template #header>
+                  <div class="flex justify-between">
+                    <el-skeleton-item variant="text" style="width: 30%" />
+                    <el-skeleton-item variant="text" style="width: 20%" />
+                  </div>
+                </template>
+                <el-skeleton-item variant="h3" style="width: 50%" />
+                <el-divider />
+                <div class="flex justify-between">
+                  <el-skeleton-item variant="text" style="width: 30%" />
+                  <el-skeleton-item variant="text" style="width: 20%" />
+                </div>
+              </el-card>
+            </template>
+          </el-skeleton>
+        </el-col>
+      </template>
 
-    <div class="silde_box">
-      <slide-verify
-        class="silde_box"
-        ref="block"
-        :slider-text="text"
-        :accuracy="accuracy"
-        @again="onAgain"
-        @success="onSuccess"
-        @fail="onFail"
-        @refresh="onRefresh"
-      ></slide-verify>
-      <button class="btn" @click="handleClick">在父组件可以点我刷新哦</button>
-      <div>{{ msg }}</div>
-    </div>
+      <el-col
+        :span="6"
+        :offset="0"
+        v-for="(item, index) in panels"
+        :key="index"
+      >
+        <el-card
+          shadow="always"
+          class="border-0 index-card"
+          :body-style="{ padding: '20px' }"
+        >
+          <template #header>
+            <div class="flex justify-between">
+              <span>
+                {{ item.title }}
+              </span>
+              <el-tag :type="item.unitColor" effect="plain">
+                {{ item.unit }}
+              </el-tag>
+            </div>
+          </template>
+          <span class="text-3xl font-bold text-gray-500">
+            <!-- {{ item.value }} -->
+            <!-- 基于gas的封装的数字滚动动画 -->
+            <CountTo :value="item.value"></CountTo>
+          </span>
+          <el-divider />
+          <div class="flex justify-between">
+            <span>{{ item.subTitle }}</span>
+            <span>{{ item.subValue }}</span>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <IndexNavs/>
   </div>
 </template>
-<script>
-import { defineComponent, ref } from "vue";
-// 局部注册组件，需要单独引用组件样式
-// 只提供局部引用的方式，不再采用插件形式，方便按需加载，减少主包大小
-import SlideVerify from "vue3-slide-verify";
-import "vue3-slide-verify/dist/style.css";
+<script setup>
+import { ref } from "vue";
+import { getStatistics1 } from "~/api/index.js";
+import CountTo from "~/components/CountTo.vue";
+import IndexNavs from "~/components/IndexNavs.vue";
 
-export default defineComponent({
-  components: { SlideVerify },
-
-  setup() {
-    const msg = ref("");
-    const block = ref("");
-
-    const onAgain = () => {
-      msg.value = "检测到非人为操作的哦！ try again";
-      // 刷新
-      block.value.refresh();
-    };
-
-    const onSuccess = (times) => {
-      msg.value = `login success, 耗时${(times / 1000).toFixed(1)}s`;
-    };
-
-    const onFail = () => {
-      msg.value = "验证不通过";
-    };
-
-    const onRefresh = () => {
-      msg.value = "点击了刷新小图标";
-    };
-
-    const handleClick = () => {
-      // 刷新
-      block.value.refresh();
-      msg.value = "";
-    };
-
-    return {
-      block,
-      msg,
-      text: "向右滑动->",
-      accuracy: 1,
-      onAgain,
-      onSuccess,
-      onFail,
-      onRefresh,
-      handleClick,
-    };
-  },
+const panels = ref([]);
+getStatistics1().then((response) => {
+  console.log(response);
+  panels.value = response.panels;
 });
 </script>
 <style scoped>
-.silde_box {
-  margin: 0 auto;
+.index-card:hover {
+  @apply shadow-light-900 shadow-md;
+  background-color: #f2f6fc;
 }
 </style>

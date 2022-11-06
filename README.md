@@ -57,7 +57,14 @@ npm install vuex@next --save
 nprogress (顶部进度条)
 npm install --save nprogress
 
+gsap (第三方动画库)
+npm install gsap --save
+
+echarts
+npm install echarts --save
+
 ## Visual Studio Code常用插件
 - Vue Language Features (Volar)
 - vue3-snippets
 - WindiCSS IntelliSense
+- element-plus 
