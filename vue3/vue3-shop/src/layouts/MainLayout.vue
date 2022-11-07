@@ -10,16 +10,18 @@
       <el-main class="main-right">
         <div class="main-body">
           <LayoutTagListVue />
-          <!--  v-solt="{ Component }": 解构获得动态组件-->
-          <router-view v-slot="{ Component }" class="main-view">
-            <!-- vue中使用transtion标签，里面子组件的根节点必须只有一个 -->
-            <transition name="fade">
-              <!-- keep-alive必须包着component组件，通过max指定最大缓存的组件 -->
-              <keep-alive :max="20">
-                <component :is="Component"></component>
-              </keep-alive>
-            </transition>
-          </router-view>
+          <div class="main-body-main">
+            <!--  v-solt="{ Component }": 解构获得动态组件-->
+            <router-view v-slot="{ Component }">
+              <!-- vue中使用transtion标签，里面子组件的根节点必须只有一个 -->
+              <transition name="fade">
+                <!-- keep-alive必须包着component组件，通过max指定最大缓存的组件 -->
+                <keep-alive :max="20">
+                  <component :is="Component"></component>
+                </keep-alive>
+              </transition>
+            </router-view>
+          </div>
         </div>
       </el-main>
     </el-container>
@@ -50,10 +52,13 @@ import LayoutTagListVue from "./components/LayoutTagList.vue";
   background-color: white;
   @apply rounded-2xl;
   box-shadow: 0 0 10px -4px #000;
+  padding: 1rem;
 }
-.main-view {
+.main-body-main {
+  height: 100%;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
+  overflow-y: scroll;
 }
 
 /* 进入之前的动画效果 开始 */
@@ -79,6 +84,6 @@ import LayoutTagListVue from "./components/LayoutTagList.vue";
 }
 /* 进入的动画延迟3秒 */
 .fade-enter-active {
-  transition-delay:0.3s;
+  transition-delay: 0.3s;
 }
 </style>

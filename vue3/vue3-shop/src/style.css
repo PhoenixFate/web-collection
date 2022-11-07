@@ -39,16 +39,15 @@ body,
 }
 
 /*滚动条两端的按钮。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
-
 ::-webkit-scrollbar-button {
   background-color: #eee;
   display: none;
 }
 
 /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
-
 ::-webkit-scrollbar-corner {
-  background-color: black;
+  background-color: white;
+  display: none;
 }
 
 .aside-remove-menu .el-sub-menu .el-sub-menu__icon-arrow {

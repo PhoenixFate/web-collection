@@ -44,4 +44,8 @@ import "nprogress/nprogress.css";
 
 // 滑动验证码
 
+import permission from "~/directives/permission.js"
+app.use(permission)
+
+
 app.mount("#app");
