@@ -4,7 +4,7 @@ import nProgress from "nprogress";
 export function showMessage(
   message,
   type = "success",
-  dangerouslyUseHTMLString = false
+  dangerouslyUseHTMLString = true
 ) {
   ElNotification({
     message,
