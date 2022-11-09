@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "hlb";
+  /* 欢乐堡 */
+  src: url("hlb.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "jxht";
+  /* 觉醒黑体 */
+  src: url("jxht.ttf");
+  font-weight: normal;
+  font-style: normal;
+}

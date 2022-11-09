@@ -1,0 +1,108 @@
+html,
+body,
+#app {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#nprogress .bar {
+  background-color: #f4f4f4 !important;
+  height: 4px;
+}
+/*滚动条宽 长,滚动条整体部分，其中的属性有width,height,background,border等。*/
+::-webkit-scrollbar {
+  /* height: 10px; */
+  width: 3px;
+}
+
+/*滚动条的滑轨背景颜色,可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+::-webkit-scrollbar-track {
+  background-color: white;
+  /* -webkit-box-shadow: inset 0 0 3px rgba(116, 116, 116, 0.1); */
+  border-radius: 5px;
+}
+
+/* 滑块颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(57, 56, 56, 0.2);
+  border-radius: 5px;
+}
+
+/*滚动条两端的按钮。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+::-webkit-scrollbar-button {
+  background-color: #eee;
+  display: none;
+}
+
+/* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+::-webkit-scrollbar-corner {
+  background-color: white;
+  display: none;
+}
+
+.aside-remove-menu .el-sub-menu .el-sub-menu__icon-arrow {
+  display: none;
+}
+
+.layout-tag-list .el-tabs__header .el-tabs__item.is-active {
+  color: var(--el-color-primary);
+  background: var(--el-color-primary-light-9);
+  z-index: 10;
+  box-shadow:0px -2px 10px -8px inset rgb(11, 78, 233);
+}
+
+.layout-tag-list .el-tabs__header .el-tabs__item.is-active:hover {
+  color: var(--el-color-primary-dark-2);
+  padding: 0 46px!important;
+  background: var(--el-color-primary-light-7);
+}
+
+.layout-tag-list .el-tabs__header .el-tabs__item {
+  padding: 0 38px!important;
+  margin-right: -22px;
+  line-height: 38px;
+  text-align: center;
+  border: 0;
+  -webkit-mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+  mask: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANoAAAAkBAMAAAAdqzmBAAAAMFBMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlTPQ5AAAAD3RSTlMAr3DvEM8wgCBA379gj5//tJBPAAAAnUlEQVRIx2NgAAM27fj/tAO/xBsYkIHyf9qCT8iWMf6nNQhAsk2f5rYheY7Dnua2/U+A28ZEe8v+F9Ax2v7/F4DbxkUH2wzgtvHTwbYPo7aN2jZq26hto7aN2jZq25Cy7Qvctnw62PYNbls9HWz7S8/G6//PsI6H4396gAUQy1je08W2jxDbpv6nD4gB2uWp+J9eYPsEhv/0BPS1DQBvoBLVZ3BppgAAAABJRU5ErkJggg==);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background-color: white;
+  box-shadow:0px -2px 10px -10px inset rgb(47, 47, 47);
+}
+.layout-tag-list .el-tabs__header .el-tabs__item:hover {
+  padding: 0 46px!important;
+  z-index: 20;
+  color: var(--el-color-black);
+  background: #dee1e6;
+}
+.layout-tag-list .el-tabs__header .el-tabs__nav-wrap .el-tabs__nav-scroll {
+  padding-right: 20px;
+}
+.layout-tag-list .el-tabs--card>.el-tabs__header {
+  border-bottom: 0;
+}
+.layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__nav {
+  border: none;
+}
+.layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item.is-closable:hover {
+  padding: 0 46px!important;
+}
+.layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item.is-active.is-closable {
+  padding: 0 38px!important;
+}
+.layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item.is-active.is-closable:hover {
+  padding: 0 46px!important;
+}
+
+.layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+  /* border-bottom-color: var(--el-bg-color); */
+  border-bottom: none;
+}
+
+.layout-tag-list .el-tabs__header .el-tabs__nav-scroll {
+  border-radius: 4px;
+}
