@@ -1,11 +1,8 @@
-<script setup>
-
-</script>
-
 <template>
-  <router-view></router-view>
+    <router-view></router-view>
 </template>
+<script setup></script>
+<style>
+@import "./assets/font/font.css";
 
-<style >
-@import './assets/font/font.css';
 </style>

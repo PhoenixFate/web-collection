@@ -99,7 +99,7 @@ const onSubmit = () => {
         //跳转到首页
         //提示成功
         showMessage("登录成功", "success");
-        router.push("/");
+        router.push("/loading");
       })
       .finally(() => {
         //取消正在加载

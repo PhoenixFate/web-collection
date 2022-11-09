@@ -4,6 +4,10 @@
   src: url("hlb.ttf");
   font-weight: normal;
   font-style: normal;
+  /*为字体规则添加属性font-display*/
+  font-display: auto;
+  /*默认block，为字体提供一个短暂的阻塞周期和无限的交换周期。
+     font-display支持auto | block | swap | fallback | optional五种值*/
 }
 
 @font-face {
@@ -12,4 +16,6 @@
   src: url("jxht.ttf");
   font-weight: normal;
   font-style: normal;
+  /*默认block，为字体提供一个短暂的阻塞周期和无限的交换周期。
+     font-display支持auto | block | swap | fallback | optional五种值*/
 }

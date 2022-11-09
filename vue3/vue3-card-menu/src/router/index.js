@@ -17,7 +17,7 @@ import ImageList from "~/pages/image/list.vue";
 import NoticeList from "~/pages/notice/list.vue";
 import SettingBase from "~/pages/setting/base.vue";
 import CouponList from "~/pages/coupon/list.vue";
-
+import Loading from "~/pages/loading.vue";
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
 // const routes = [
@@ -98,6 +98,13 @@ const routes = [
     component: Login,
     meta: {
       title: "登录页",
+    },
+  },
+  {
+    path: "/loading",
+    component: Loading,
+    meta: {
+      title: "系统初始化",
     },
   },
   {

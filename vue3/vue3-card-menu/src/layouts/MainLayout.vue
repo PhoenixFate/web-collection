@@ -12,14 +12,13 @@
           <div
             class="left-menu-item"
             v-for="(item, index) in $store.state.menus"
-            :key="index"
             :class="{ 'left-menu-item-active': index == bigMenuIndex }"
+            :key="index"
+            @click="chooseBigMenu(index)"
           >
-            <el-icon
-              :size="25"
-              ><Setting
-            /></el-icon>
+            <el-icon :size="25"><Setting /></el-icon>
             <span class="mt-1">{{ item.name }}</span>
+            <div></div>
           </div>
         </div>
       </div>
@@ -124,6 +123,10 @@ import LayoutMenuVue from "./components/LayoutMenu.vue";
 import LayoutTagListVue from "./components/LayoutTagList.vue";
 import { ref } from "vue";
 const bigMenuIndex = ref(0);
+
+const chooseBigMenu = (index) => {
+  bigMenuIndex.value = index;
+};
 </script>
 <style>
 .app-main {
@@ -145,21 +148,37 @@ const bigMenuIndex = ref(0);
   top: 170px;
   @apply absolute right-0 overflow-y-auto;
 }
-.left-menu::-webkit-scrollbar-track {
+.left-menu::-webkit-scrollbar {
   display: none;
 }
-.left-menu::-webkit-scrollbar-thumb {
-  display: none;
-}
-
 .left-menu-item {
   font-weight: 500;
-  @apply text-white flex flex-col justify-center items-center text-lg p-y-2 mb-4 rounded-l-xl;
+  @apply text-white flex flex-col justify-center items-center text-lg p-y-2 mb-4 rounded-l-xl relative;
   font-family: "jxht", sans-serif;
 }
 
+.left-menu-item > div {
+  transition: all 0.5s;
+  background-color: white;
+  left: 120px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  @apply rounded-l-xl;
+}
+
 .left-menu-item-active {
-  @apply bg-gray-50 text-gray-800;
+  @apply text-gray-800 relative rounded-l-xl;
+}
+.left-menu-item-active > i {
+  z-index: 5;
+}
+.left-menu-item-active > span {
+  z-index: 5;
+}
+.left-menu-item-active > div {
+  left: 0;
 }
 
 .left-logo img {
