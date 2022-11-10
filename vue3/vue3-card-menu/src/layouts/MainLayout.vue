@@ -1,9 +1,7 @@
 <template>
   <el-container class="app-main">
     <el-aside width="400px" class="flex pl-3 h-[100%] relative">
-      <div
-        class="w-[140px] h-[100%] bg-gray-800 rounded-2xl relative overflow-hidden"
-      >
+      <div class="left-main">
         <div class="left-logo">
           <img src="/logo.png" alt="" />
         </div>
@@ -12,11 +10,16 @@
           <div
             class="left-menu-item"
             v-for="(item, index) in $store.state.menus"
-            :class="{ 'left-menu-item-active': index == bigMenuIndex }"
+            :class="[
+              { 'left-menu-item-active': index == bigMenuIndex },
+              { 'left-menu-item-temp': tempFlag && index == bigMenuLastIndex },
+            ]"
             :key="index"
             @click="chooseBigMenu(index)"
           >
-            <el-icon :size="25"><Setting /></el-icon>
+            <el-icon :size="25">
+              <component :is="item.icon" />
+            </el-icon>
             <span class="mt-1">{{ item.name }}</span>
             <div></div>
           </div>
@@ -35,7 +38,30 @@
         </div>
         <div class="middle-menu">
           <ul class="cards">
-            <li class="card card--current">
+            <li
+              class="card"
+              v-for="(item, index) in $store.state.menus"
+              :class="[
+                { 'card-current': index == bigMenuIndex },
+                { 'card-next': index == middleNextIndex },
+                { 'card-third': index == middleThirdIndex },
+                { 'card-last-temp': index == middleLastIndex },
+                { 'card-out': index == middleOutIndex },
+              ]"
+              :key="index"
+            >
+              <ul v-if="item.child">
+                <li v-for="(childMenu, index2) in item.child" :key="index2">
+                  <el-icon :size="25">
+                    <component :is="childMenu.icon" />
+                  </el-icon>
+                  <span>{{ childMenu.name }}</span>
+                </li>
+              </ul>
+              <span v-else>当前菜单无子菜单</span>
+            </li>
+
+            <!-- <li class="card card--current">
               <h1>系统管理</h1>
               <ul>
                 <li>用户管理</li>
@@ -68,7 +94,7 @@
                 <li>定时任务管理</li>
               </ul>
             </li>
-            <li class="card card--out--temp">
+            <li class="card">
               <h1>系统管理</h1>
               <ul>
                 <li>用户管理</li>
@@ -78,7 +104,7 @@
                 <li>权限管理</li>
                 <li>定时任务管理</li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -122,10 +148,75 @@ import LayoutHeaderVue from "./components/LayoutHeader.vue";
 import LayoutMenuVue from "./components/LayoutMenu.vue";
 import LayoutTagListVue from "./components/LayoutTagList.vue";
 import { ref } from "vue";
+
+import store from "~/store";
+
 const bigMenuIndex = ref(0);
+//左侧菜单上一次点击的index，用于动画切换
+const bigMenuLastIndex = ref(0);
+//用于左侧动画
+const tempFlag = ref(false);
+
+const middleNextIndex = ref(-1);
+const middleThirdIndex = ref(-1);
+//初始化有用，其他时候没用
+const middleLastIndex = ref(-1);
+const middleOutIndex = ref(-1);
+if (!store.state.menus || store.state.menus.length == 1) {
+  //card动画一个4个card，当menus只有一个，只显示第一个card-current
+} else if (store.state.menus.length == 2) {
+  //当menus只有两个的时候，只显示card-current card-next
+  middleNextIndex.value = 1;
+} else if (store.state.menus.length == 3) {
+  //当menus只有三个的时候，只显示card-current card-next card-third
+  middleNextIndex.value = 1;
+  middleThirdIndex.value = 2;
+} else {
+  //当menus大于等于4个的时候只显示card-current card-next card-third card-last-temp
+  middleNextIndex.value = 1;
+  middleThirdIndex.value = 2;
+  middleLastIndex.value = store.state.menus.length - 1;
+}
 
 const chooseBigMenu = (index) => {
+  console.log(store.state.menus[index]);
+  if (index == bigMenuIndex.value) {
+    return;
+  }
+  tempFlag.value = true;
+  setTimeout(() => {
+    tempFlag.value = false;
+  }, 200);
+  bigMenuLastIndex.value = bigMenuIndex.value;
   bigMenuIndex.value = index;
+
+  //middle 的4个card动画切换
+  middleLastIndex.value = -1;
+  //上一个middle菜单添加飞出去的动画，当前的index，添加card-current
+  middleOutIndex.value = bigMenuLastIndex.value;
+  if (store.state.menus.length == 2) {
+    //当menus只有两个的时候，只显示card-current card-out
+  } else if (store.state.menus.length == 3) {
+    //当menus只有两个的时候，只显示card-current card-next card-out
+    const indexArray = []
+    store.state.menus.forEach((menu, i) => {
+       if(i != bigMenuLastIndex.value && i != bigMenuIndex.value){
+        indexArray.push(i)
+       }
+    });
+    middleNextIndex.value = indexArray[0];
+  } else {
+    //当menus有4个及4个以上的时候
+    const indexArray=[]
+    store.state.menus.forEach((menu, i) => {
+      if(i != bigMenuLastIndex.value && i != bigMenuIndex.value){
+        indexArray.push(i)
+      }
+    });
+    console.log(indexArray)
+    middleNextIndex.value = indexArray[0];
+    middleThirdIndex.value = indexArray[1];
+  }
 };
 </script>
 <style>
@@ -134,16 +225,19 @@ const chooseBigMenu = (index) => {
   height: 100vh;
   width: 100vw;
 }
+.left-main {
+  @apply w-[140px] h-[100%] bg-blue-gray-600  rounded-2xl relative;
+}
 
 .left-logo {
-  width: 120px;
+  width: 124px;
   height: 120px;
   @apply bg-white rounded-l-3xl absolute right-0 top-3 flex justify-center items-center;
 }
 
 .left-menu {
-  height: calc(100vh - 280px);
-  width: 120px;
+  height: calc(100vh - 260px);
+  width: 124px;
   z-index: 100;
   top: 170px;
   @apply absolute right-0 overflow-y-auto;
@@ -153,30 +247,36 @@ const chooseBigMenu = (index) => {
 }
 .left-menu-item {
   font-weight: 500;
-  @apply text-white flex flex-col justify-center items-center text-lg p-y-2 mb-4 rounded-l-xl relative;
+  color: white;
+  @apply flex flex-col justify-center items-center p-y-2  text-lg mb-3 pr-4 rounded-l-xl relative;
   font-family: "jxht", sans-serif;
 }
 
 .left-menu-item > div {
-  transition: all 0.5s;
+  transition: all 0.3s;
   background-color: white;
-  left: 120px;
+  left: 124px;
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 0;
   @apply rounded-l-xl;
 }
 
+.left-menu-item > span,
+.left-menu-item > i {
+  z-index: 5;
+}
+
 .left-menu-item-active {
-  @apply text-gray-800 relative rounded-l-xl;
+  @apply relative rounded-l-xl text-gray-800;
 }
-.left-menu-item-active > i {
-  z-index: 5;
+
+.left-menu-item-temp > span,
+.left-menu-item-temp > i {
+  mix-blend-mode: difference;
 }
-.left-menu-item-active > span {
-  z-index: 5;
-}
+
 .left-menu-item-active > div {
   left: 0;
 }
@@ -234,9 +334,9 @@ const chooseBigMenu = (index) => {
   border-radius: 30px;
   padding: 40px;
   width: 90%;
+  box-shadow: 0 0 1px 1px #c5c5c5;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 0 4px 2px #a6a5a5;
   transform: translateY(25px) rotate(3deg) translateX(20px) scale(1);
   transform-origin: 0 0;
   transition: transform 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8) 0.1s;
@@ -247,14 +347,27 @@ const chooseBigMenu = (index) => {
   user-select: none;
 }
 
-.card--next {
+.card-current {
+  position: relative;
+  z-index: 10;
+  opacity: 1;
+  background: white;
+  transform: translateX(0%) scale(1);
+  box-shadow: 0 0 4px 2px #cbcbcb;
+}
+
+.card-next {
   z-index: 5;
   transform: translateY(10px) rotate(1deg) translateX(10px) scale(1);
   background: white;
   box-shadow: 0 0 4px 2px #a6a5a5;
 }
 
-.card--out {
+.card-third {
+  box-shadow: 0 0 4px 2px #a6a5a5;
+}
+
+.card-out {
   -webkit-animation: card-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
   animation: card-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
   transform: translateY(40px) rotate(4deg) translateX(40px) scale(0.95);
@@ -263,7 +376,7 @@ const chooseBigMenu = (index) => {
   box-shadow: 0 0 4px 2px #a6a5a5;
 }
 
-.card--out--temp {
+.card-last-temp {
   transform: translateY(46px) rotate(5deg) translateX(40px) scale(0.95);
   z-index: 1;
   background: #dcdcdc;
@@ -294,7 +407,7 @@ const chooseBigMenu = (index) => {
 
 @keyframes card-out {
   0% {
-    z-index: 20;
+    z-index: 200;
     transform: translateY(0px) rotate(-4deg);
   }
 
@@ -341,16 +454,6 @@ const chooseBigMenu = (index) => {
   100% {
     transform: translateY(0) translateX(0);
   }
-}
-
-.card--current {
-  position: relative;
-  z-index: 10;
-  opacity: 1;
-  background: white;
-  /*transform: rotate(-1deg) translateX(0%) scale(1)*/
-  transform: translateX(0%) scale(1);
-  box-shadow: 0 0 4px 2px #cbcbcb;
 }
 
 .bounce {

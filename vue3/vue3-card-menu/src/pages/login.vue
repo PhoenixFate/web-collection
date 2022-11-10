@@ -86,11 +86,9 @@ const loading = ref(false);
 
 const onSubmit = () => {
   formRef.value.validate((valid) => {
-    console.log(valid);
     if (!valid) {
       return false;
     }
-    console.log("验证通过");
     //显示正在加载
     loading.value = true;
     store
@@ -109,7 +107,6 @@ const onSubmit = () => {
 };
 
 function onKeyUp(e) {
-  console.log(e);
   if(e.key==='Enter') onSubmit()
 }
 
