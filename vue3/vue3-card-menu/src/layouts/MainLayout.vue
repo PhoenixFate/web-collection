@@ -17,7 +17,7 @@
             :key="index"
             @click="chooseBigMenu(index)"
           >
-            <el-icon :size="25">
+            <el-icon :size="28">
               <component :is="item.icon" />
             </el-icon>
             <span class="mt-1">{{ item.name }}</span>
@@ -36,82 +36,81 @@
             <span class="letter">统</span>
           </div>
         </div>
-        <div class="middle-menu">
-          <ul class="cards">
-            <li
-              class="card"
-              v-for="(item, index) in $store.state.menus"
-              :class="[
-                { 'card-current': index == bigMenuIndex },
-                { 'card-next': index == middleNextIndex },
-                { 'card-third': index == middleThirdIndex },
-                { 'card-last-temp': index == middleLastIndex },
-                { 'card-out': index == middleOutIndex },
-              ]"
-              :key="index"
-            >
-              <ul v-if="item.child">
-                <li v-for="(childMenu, index2) in item.child" :key="index2">
-                  <el-icon :size="25">
-                    <component :is="childMenu.icon" />
-                  </el-icon>
-                  <span>{{ childMenu.name }}</span>
-                </li>
-              </ul>
-              <span v-else>当前菜单无子菜单</span>
-            </li>
-
-            <!-- <li class="card card--current">
-              <h1>系统管理</h1>
-              <ul>
-                <li>用户管理</li>
-                <li>菜单管理</li>
-                <li>日志管理</li>
-                <li>角色管理</li>
-                <li>权限管理</li>
-                <li>定时任务管理</li>
-              </ul>
-            </li>
-            <li class="card card--next">
-              <h1>系统管理</h1>
-              <ul>
-                <li>用户管理</li>
-                <li>菜单管理</li>
-                <li>日志管理</li>
-                <li>角色管理</li>
-                <li>权限管理</li>
-                <li>定时任务管理</li>
-              </ul>
-            </li>
-            <li class="card">
-              <h1>系统管理</h1>
-              <ul>
-                <li>用户管理</li>
-                <li>菜单管理</li>
-                <li>日志管理</li>
-                <li>角色管理</li>
-                <li>权限管理</li>
-                <li>定时任务管理</li>
-              </ul>
-            </li>
-            <li class="card">
-              <h1>系统管理</h1>
-              <ul>
-                <li>用户管理</li>
-                <li>菜单管理</li>
-                <li>日志管理</li>
-                <li>角色管理</li>
-                <li>权限管理</li>
-                <li>定时任务管理</li>
-              </ul>
-            </li> -->
-          </ul>
-        </div>
       </div>
     </el-aside>
     <el-main class="p-0 0 relative">
       <div class="right-header"></div>
     </el-main>
+    <div class="middle-menu">
+      <ul class="cards">
+        <li
+          class="card"
+          v-for="(menu, index) in $store.state.menus"
+          :class="[
+            { 'card-current': index == bigMenuIndex },
+            { 'card-next': index == middleNextIndex },
+            { 'card-third': index == middleThirdIndex },
+            { 'card-last-temp': index == middleLastIndex },
+            { 'card-out': index == middleOutIndex },
+          ]"
+          :key="index"
+
+        >
+        <Transition name="fade">
+          <el-menu
+            :collapse="false"
+            :collapse-transition="false"
+            :default-active="defaultActive"
+            :unique-opened="false"
+            class="border-0 bg-transparent"
+            v-if="menu.child"
+            @select="handleSelect"
+          >
+            <template v-for="(item, menu) in menu.child" :key="index">
+              <el-sub-menu
+                :index="item.name"
+                v-if="item.child && item.child.length > 0"
+              >
+                <template #title>
+                  <el-icon :size="24">
+                    <component :is="item.icon" />
+                  </el-icon>
+                  <span> {{ item.name }}</span>
+                </template>
+                <el-menu-item
+                  v-for="(item2, index2) in item.child"
+                  :key="index2"
+                  :index="item2.frontpath"
+                >
+                  <el-icon :size="24">
+                    <component :is="item2.icon" />
+                  </el-icon>
+                  <span> {{ item2.name }}</span>
+                </el-menu-item>
+              </el-sub-menu>
+              <el-menu-item v-else :index="item.frontpath">
+                <el-icon :size="24">
+                  <component :is="item.icon" />
+                </el-icon>
+                <span class="ml-2"> {{ item.name }}</span>
+              </el-menu-item>
+            </template>
+          </el-menu>
+        </Transition>
+      
+
+          <!-- <ul v-if="item.child">
+            <li v-for="(childMenu, index2) in item.child" :key="index2">
+              <el-icon :size="25">
+                <component :is="childMenu.icon" />
+              </el-icon>
+              <span>{{ childMenu.name }}</span>
+            </li>
+          </ul>
+          <span v-else>当前菜单无子菜单</span> -->
+        </li>
+      </ul>
+    </div>
   </el-container>
 
   <!-- <el-container class="app-main">
@@ -147,10 +146,22 @@ import { storeKey } from "vuex";
 import LayoutHeaderVue from "./components/LayoutHeader.vue";
 import LayoutMenuVue from "./components/LayoutMenu.vue";
 import LayoutTagListVue from "./components/LayoutTagList.vue";
-import { ref } from "vue";
+import { ref, onBeforeUpdate,computed } from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
 
-import store from "~/store";
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
 
+//默认选中当前路由
+// const defaultActive = ref(route.path);
+const defaultActive = computed(()=>route.path);
+
+
+onBeforeUpdate(() => {
+  
+});
 const bigMenuIndex = ref(0);
 //左侧菜单上一次点击的index，用于动画切换
 const bigMenuLastIndex = ref(0);
@@ -178,6 +189,10 @@ if (!store.state.menus || store.state.menus.length == 1) {
   middleLastIndex.value = store.state.menus.length - 1;
 }
 
+const handleSelect = (e) => {
+  router.push(e);
+};
+
 const chooseBigMenu = (index) => {
   console.log(store.state.menus[index]);
   if (index == bigMenuIndex.value) {
@@ -198,22 +213,22 @@ const chooseBigMenu = (index) => {
     //当menus只有两个的时候，只显示card-current card-out
   } else if (store.state.menus.length == 3) {
     //当menus只有两个的时候，只显示card-current card-next card-out
-    const indexArray = []
+    const indexArray = [];
     store.state.menus.forEach((menu, i) => {
-       if(i != bigMenuLastIndex.value && i != bigMenuIndex.value){
-        indexArray.push(i)
-       }
+      if (i != bigMenuLastIndex.value && i != bigMenuIndex.value) {
+        indexArray.push(i);
+      }
     });
     middleNextIndex.value = indexArray[0];
   } else {
     //当menus有4个及4个以上的时候
-    const indexArray=[]
+    const indexArray = [];
     store.state.menus.forEach((menu, i) => {
-      if(i != bigMenuLastIndex.value && i != bigMenuIndex.value){
-        indexArray.push(i)
+      if (i != bigMenuLastIndex.value && i != bigMenuIndex.value) {
+        indexArray.push(i);
       }
     });
-    console.log(indexArray)
+    console.log(indexArray);
     middleNextIndex.value = indexArray[0];
     middleThirdIndex.value = indexArray[1];
   }
@@ -224,9 +239,10 @@ const chooseBigMenu = (index) => {
   @apply bg-gray-200;
   height: 100vh;
   width: 100vw;
+  position: relative;
 }
 .left-main {
-  @apply w-[140px] h-[100%] bg-blue-gray-600  rounded-2xl relative;
+  @apply w-[140px] h-[100%] bg-blue-gray-800  rounded-3xl relative;
 }
 
 .left-logo {
@@ -240,6 +256,11 @@ const chooseBigMenu = (index) => {
   width: 124px;
   z-index: 100;
   top: 170px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   @apply absolute right-0 overflow-y-auto;
 }
 .left-menu::-webkit-scrollbar {
@@ -293,9 +314,10 @@ const chooseBigMenu = (index) => {
 }
 
 .middle-menu {
-  width: 100%;
+  width: 240px;
+  left: 148px;
   height: calc(100% - 100px - 1rem);
-  @apply absolute bottom-2 left-0;
+  @apply absolute bottom-2;
 }
 
 .right-header {
@@ -308,14 +330,62 @@ const chooseBigMenu = (index) => {
   position: absolute;
   top: -30px;
   left: -10px;
-  width: 86%;
+  width: 94%;
   list-style-type: none;
   height: calc(100% - 20px);
 }
 .card > ul > li {
   margin: 20px auto;
-  height: 40px;
+  height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @apply rounded-lg text-lg;
 }
+
+.card > ul > li.is-active {
+  z-index: 1000;
+  animation:pulse 0.4s;
+  @apply bg-light-blue-200 text-light-blue-700;
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.card > ul > li:hover {
+  @apply bg-light-blue-100 text-light-blue-600;
+}
+
 .cards-out {
   animation: cards-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
   animation-fill-mode: forwards;
@@ -332,8 +402,8 @@ const chooseBigMenu = (index) => {
   z-index: 2;
   background: white;
   border-radius: 30px;
-  padding: 40px;
-  width: 90%;
+  padding: 50px 20px 50px 20px;
+  width: 100%;
   box-shadow: 0 0 1px 1px #c5c5c5;
   height: 100%;
   overflow: hidden;
@@ -565,10 +635,10 @@ const chooseBigMenu = (index) => {
 /* 动画时长 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.3s;
+  transition: all 3s;
 }
 /* 进入的动画延迟3秒 */
 .fade-enter-active {
-  transition-delay: 0.3s;
+  transition-delay: 3s;
 }
 </style>
