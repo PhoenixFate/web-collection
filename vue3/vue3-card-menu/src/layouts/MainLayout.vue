@@ -1,11 +1,13 @@
 <template>
   <el-container class="app-main">
-    <el-aside width="400px" class="flex pl-3 h-[100%] relative">
+    <el-aside
+      :style="{ width: $store.state.asideWidth }"
+      class="flex pl-3 h-[100%] relative"
+    >
       <div class="left-main">
         <div class="left-logo">
           <img src="/logo.png" alt="" />
         </div>
-
         <div class="left-menu">
           <div
             class="left-menu-item"
@@ -25,92 +27,165 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 h-[100%] relative">
-        <div class="middle-logo">
-          <div class="bounce">
-            <span class="letter">O</span>
-            <span class="letter mr-2">A</span>
-            <span class="letter">办</span>
-            <span class="letter">公</span>
-            <span class="letter">系</span>
-            <span class="letter">统</span>
+      <Transition name="middle-toggle">
+        <div class="left-right" v-show="!$store.state.isCollapse">
+          <div class="middle-logo">
+            <div class="bounce">
+              <span class="letter">O</span>
+              <span class="letter mr-2">A</span>
+              <span class="letter">办</span>
+              <span class="letter">公</span>
+              <span class="letter">系</span>
+              <span class="letter">统</span>
+            </div>
           </div>
         </div>
-      </div>
+      </Transition>
     </el-aside>
-    <el-main class="p-0 0 relative">
-      <div class="right-header"></div>
-    </el-main>
-    <div class="middle-menu">
-      <ul class="cards">
-        <li
-          class="card"
-          v-for="(menu, index) in $store.state.menus"
-          :class="[
-            { 'card-current': index == bigMenuIndex },
-            { 'card-next': index == middleNextIndex },
-            { 'card-third': index == middleThirdIndex },
-            { 'card-last-temp': index == middleLastIndex },
-            { 'card-out': index == middleOutIndex },
-          ]"
-          :key="index"
+    <el-main class="p-0 relative">
+      <div class="right-header">
+        <div class="right-header-top">
+          <div class="header-btn">
+            <el-tooltip
+              effect="dark"
+              content="折叠与展开菜单"
+              placement="bottom"
+            >
+              <div class="header-btn-body" @click="toggleMenu()">
+                <div
+                  class="umbrella"
+                  :class="{ 'umbrella-active': !$store.state.isCollapse }"
+                >
+                  <div class="canopy"></div>
+                  <div class="shaft"></div>
+                </div>
+              </div>
+            </el-tooltip>
+          </div>
+          <div class="header-btn">
+            <el-tooltip effect="dark" content="刷新页面" placement="bottom">
+              <div class="header-btn-body" @click="handleRefresh()">
+                <el-icon class="icon-btn" :size="24">
+                  <Refresh color="#555" />
+                </el-icon>
+              </div>
+            </el-tooltip>
+          </div>
 
-        >
-        <Transition name="fade">
-          <el-menu
-            :collapse="false"
-            :collapse-transition="false"
-            :default-active="defaultActive"
-            :unique-opened="false"
-            class="border-0 bg-transparent"
-            v-if="menu.child"
-            @select="handleSelect"
+          <div class="ml-auto flex justify-center items-center h-[100%]">
+            <div class="mr-4 h-[100%]">
+              <div class="header-btn" v-if="!isFullscreen">
+                <el-tooltip effect="dark" content="全屏" placement="bottom">
+                  <div class="header-btn-body" @click="toggle()">
+                    <el-icon :size="24">
+                      <FullScreen color="#555" />
+                    </el-icon>
+                  </div>
+                </el-tooltip>
+              </div>
+              <div class="header-btn" v-if="isFullscreen">
+                <el-tooltip effect="dark" content="退出全屏" placement="bottom">
+                  <div class="header-btn-body" @click="toggle()">
+                    <el-icon :size="24">
+                      <Aim color="#555" />
+                    </el-icon>
+                  </div>
+                </el-tooltip>
+              </div>
+            </div>
+
+            <el-dropdown class="dropdown" @command="handleCommand">
+              <span class="flex items-center text-gray-800">
+                <el-avatar
+                  class="mr-3 user-avatar"
+                  :size="62"
+                  :src="$store.state.user.avatar"
+                />
+                <div class="user-info">
+                  <span>{{ $store.state.user.username }}</span>
+                  <span>信息中心</span>
+                </div>
+                <el-icon class="el-icon--right" :size="16">
+                  <arrow-down color="#555" />
+                </el-icon>
+              </span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="personal"
+                    >个人中心</el-dropdown-item
+                  >
+                  <el-dropdown-item command="changePassword"
+                    >修改密码</el-dropdown-item
+                  >
+                  <el-dropdown-item divided command="logout"
+                    >退出登录</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
+        </div>
+        <div class="right-header-bottom"></div>
+      </div>
+    </el-main>
+    <Transition name="cards-toggle">
+      <div class="middle-menu" v-if="!$store.state.isCollapse">
+        <ul class="cards">
+          <li
+            class="card"
+            v-for="(menu, index) in $store.state.menus"
+            :class="[
+              { 'card-current': index == bigMenuIndex },
+              { 'card-next': index == middleNextIndex },
+              { 'card-third': index == middleThirdIndex },
+              { 'card-last-temp': index == middleLastIndex },
+              { 'card-out': index == middleOutIndex },
+            ]"
+            :key="index"
           >
-            <template v-for="(item, menu) in menu.child" :key="index">
-              <el-sub-menu
-                :index="item.name"
-                v-if="item.child && item.child.length > 0"
-              >
-                <template #title>
+            <el-menu
+              :collapse="false"
+              :collapse-transition="false"
+              :default-active="defaultActive"
+              :unique-opened="false"
+              class="border-0 bg-transparent"
+              v-if="menu.child"
+              @select="handleSelect"
+            >
+              <template v-for="(item, menu) in menu.child" :key="index">
+                <el-sub-menu
+                  :index="item.name"
+                  v-if="item.child && item.child.length > 0"
+                >
+                  <template #title>
+                    <el-icon :size="24">
+                      <component :is="item.icon" />
+                    </el-icon>
+                    <span> {{ item.name }}</span>
+                  </template>
+                  <el-menu-item
+                    v-for="(item2, index2) in item.child"
+                    :key="index2"
+                    :index="item2.frontpath"
+                  >
+                    <el-icon :size="24">
+                      <component :is="item2.icon" />
+                    </el-icon>
+                    <span> {{ item2.name }}</span>
+                  </el-menu-item>
+                </el-sub-menu>
+                <el-menu-item v-else :index="item.frontpath">
                   <el-icon :size="24">
                     <component :is="item.icon" />
                   </el-icon>
-                  <span> {{ item.name }}</span>
-                </template>
-                <el-menu-item
-                  v-for="(item2, index2) in item.child"
-                  :key="index2"
-                  :index="item2.frontpath"
-                >
-                  <el-icon :size="24">
-                    <component :is="item2.icon" />
-                  </el-icon>
-                  <span> {{ item2.name }}</span>
+                  <span class="ml-2"> {{ item.name }}</span>
                 </el-menu-item>
-              </el-sub-menu>
-              <el-menu-item v-else :index="item.frontpath">
-                <el-icon :size="24">
-                  <component :is="item.icon" />
-                </el-icon>
-                <span class="ml-2"> {{ item.name }}</span>
-              </el-menu-item>
-            </template>
-          </el-menu>
-        </Transition>
-      
-
-          <!-- <ul v-if="item.child">
-            <li v-for="(childMenu, index2) in item.child" :key="index2">
-              <el-icon :size="25">
-                <component :is="childMenu.icon" />
-              </el-icon>
-              <span>{{ childMenu.name }}</span>
-            </li>
-          </ul>
-          <span v-else>当前菜单无子菜单</span> -->
-        </li>
-      </ul>
-    </div>
+              </template>
+            </el-menu>
+          </li>
+        </ul>
+      </div>
+    </Transition>
   </el-container>
 
   <!-- <el-container class="app-main">
@@ -146,9 +221,19 @@ import { storeKey } from "vuex";
 import LayoutHeaderVue from "./components/LayoutHeader.vue";
 import LayoutMenuVue from "./components/LayoutMenu.vue";
 import LayoutTagListVue from "./components/LayoutTagList.vue";
-import { ref, onBeforeUpdate,computed } from "vue";
+import { ref, onBeforeUpdate, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
+
+import { useCookies } from "@vueuse/integrations/useCookies";
+import { useFullscreen } from "@vueuse/core";
+const {
+  // 是否是全屏
+  isFullscreen,
+  // 切换全屏
+  toggle,
+} = useFullscreen();
+const cookie = useCookies();
 
 const store = useStore();
 const route = useRoute();
@@ -156,13 +241,16 @@ const router = useRouter();
 
 //默认选中当前路由
 // const defaultActive = ref(route.path);
-const defaultActive = computed(()=>route.path);
+const defaultActive = computed(() => route.path);
 
-
-onBeforeUpdate(() => {
-  
-});
+onBeforeUpdate(() => {});
 const bigMenuIndex = ref(0);
+
+let cookieBigMenuIndex = cookie.get("bigMenuIndex");
+if (cookieBigMenuIndex) {
+  bigMenuIndex.value = cookieBigMenuIndex;
+}
+
 //左侧菜单上一次点击的index，用于动画切换
 const bigMenuLastIndex = ref(0);
 //用于左侧动画
@@ -177,20 +265,64 @@ if (!store.state.menus || store.state.menus.length == 1) {
   //card动画一个4个card，当menus只有一个，只显示第一个card-current
 } else if (store.state.menus.length == 2) {
   //当menus只有两个的时候，只显示card-current card-next
-  middleNextIndex.value = 1;
+  let indexArray = [];
+  store.state.menus.forEach((menu, i) => {
+    if (i != bigMenuLastIndex.value && i != bigMenuIndex.value) {
+      indexArray.push(i);
+    }
+  });
+  middleNextIndex.value = indexArray[0];
 } else if (store.state.menus.length == 3) {
   //当menus只有三个的时候，只显示card-current card-next card-third
-  middleNextIndex.value = 1;
-  middleThirdIndex.value = 2;
+  let indexArray = [];
+  store.state.menus.forEach((menu, i) => {
+    if (i != bigMenuLastIndex.value && i != bigMenuIndex.value) {
+      indexArray.push(i);
+    }
+  });
+  middleNextIndex.value = indexArray[0];
+  middleThirdIndex.value = indexArray[1];
 } else {
   //当menus大于等于4个的时候只显示card-current card-next card-third card-last-temp
-  middleNextIndex.value = 1;
-  middleThirdIndex.value = 2;
   middleLastIndex.value = store.state.menus.length - 1;
+
+  let indexArray = [];
+  store.state.menus.forEach((menu, i) => {
+    if (i != bigMenuLastIndex.value && i != bigMenuIndex.value) {
+      indexArray.push(i);
+    }
+  });
+
+  middleNextIndex.value = indexArray[0];
+  middleThirdIndex.value = indexArray[1];
 }
 
 const handleSelect = (e) => {
   router.push(e);
+};
+
+function handleRefresh() {
+  //原生js
+  window.location.reload();
+}
+
+const toggleMenu = () => {
+  store.commit("HANDLE_ASIDE_WIDTH");
+  store.commit("COLLAPSE_MENU");
+};
+
+const collpaseMenu = () => {
+  store.commit("HANDLE_ASIDE_WIDTH");
+  setTimeout(() => {
+    store.commit("COLLAPSE_MENU");
+  }, 500);
+};
+
+const extendMenu = () => {
+  store.commit("HANDLE_ASIDE_WIDTH");
+  setTimeout(() => {
+    store.commit("COLLAPSE_MENU");
+  }, 160);
 };
 
 const chooseBigMenu = (index) => {
@@ -202,10 +334,12 @@ const chooseBigMenu = (index) => {
   setTimeout(() => {
     tempFlag.value = false;
   }, 200);
+
   bigMenuLastIndex.value = bigMenuIndex.value;
   bigMenuIndex.value = index;
+  cookie.set("bigMenuIndex", index);
 
-  //middle 的4个card动画切换
+  //middle 的4个card动画切换 middleLastIndex就初始化的时候用一下，初始化不动画，其他不用
   middleLastIndex.value = -1;
   //上一个middle菜单添加飞出去的动画，当前的index，添加card-current
   middleOutIndex.value = bigMenuLastIndex.value;
@@ -228,12 +362,29 @@ const chooseBigMenu = (index) => {
         indexArray.push(i);
       }
     });
-    console.log(indexArray);
     middleNextIndex.value = indexArray[0];
     middleThirdIndex.value = indexArray[1];
   }
 };
+
+const handleCommand = (command) => {
+  console.log(command);
+  switch (command) {
+    case "logout":
+      console.log(handlerLogout);
+      //handlerLogout();
+      break;
+    case "personal":
+      //toPersonal();
+      break;
+    case "changePassword":
+      console.log("changePassword");
+      //openChangePasswordForm();
+      break;
+  }
+};
 </script>
+<style scoped src="../assets/css/header/umbrella.css" />
 <style>
 .app-main {
   @apply bg-gray-200;
@@ -306,6 +457,12 @@ const chooseBigMenu = (index) => {
   width: 60px;
   height: 60px;
 }
+.left-right {
+  width: calc(400px - 140px - 0.75rem);
+  left: calc(140px + 0.75rem);
+  bottom: 0;
+  @apply h-[100%] relative absolute;
+}
 
 .middle-logo {
   width: 100%;
@@ -315,15 +472,81 @@ const chooseBigMenu = (index) => {
 
 .middle-menu {
   width: 240px;
-  left: 148px;
+  left: 154px;
   height: calc(100% - 100px - 1rem);
   @apply absolute bottom-2;
 }
 
 .right-header {
   height: 120px;
-  width: 100%;
+  width: calc(100% - 0.75rem);
   @apply absolute right-3 top-3 bg-white rounded-r-3xl;
+}
+
+.right-header-top {
+  width: 100%;
+  height: 80px;
+  @apply flex items-center justify-start pr-6;
+}
+
+.right-header-bottom {
+  width: 100%;
+  height: 40px;
+  @apply bg-blue-300;
+}
+
+.header-btn {
+  height: 100%;
+  width: 40px;
+  @apply py-3;
+}
+
+.header-btn-body {
+  width: 100%;
+  height: 100%;
+  @apply flex justify-center items-center;
+}
+
+.header-btn-body:hover {
+  @apply bg-blue-100 rounded-lg;
+}
+
+.user-avatar {
+  animation: breathe 16s linear infinite;
+}
+
+.user-info {
+  width: 80px;
+  @apply flex justify-center items-center flex-col;
+}
+.user-info span:nth-child(1) {
+  font-family: "jxht", sans-serif;
+
+  @apply mb-1 text-xl;
+}
+
+@keyframes breathe {
+  0% {
+    box-shadow: 0 0 0px #fcd34d;
+  }
+  20% {
+    box-shadow: 0 0 0px #fcd34d;
+  }
+  40% {
+    box-shadow: 0 0 10px #fcd34d;
+  }
+  50% {
+    box-shadow: 0 0 26px #f8f40f;
+  }
+  60% {
+    box-shadow: 0 0 10px #fcd34d;
+  }
+  80% {
+    box-shadow: 0 0 0px #fcd34d;
+  }
+  100% {
+    box-shadow: 0 0 0px #fcd34d;
+  }
 }
 
 .cards {
@@ -345,8 +568,8 @@ const chooseBigMenu = (index) => {
 
 .card > ul > li.is-active {
   z-index: 1000;
-  animation:pulse 0.4s;
-  @apply bg-light-blue-200 text-light-blue-700;
+  animation: pulse 0.4s;
+  @apply bg-blue-100 text-light-blue-700;
 }
 
 @-webkit-keyframes pulse {
@@ -383,16 +606,21 @@ const chooseBigMenu = (index) => {
 }
 
 .card > ul > li:hover {
-  @apply bg-light-blue-100 text-light-blue-600;
+  @apply bg-gray-200 text-blue-gray-500;
 }
 
-.cards-out {
+.cards-toggle-enter-active {
+  animation: cards-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8) reverse;
+}
+.cards-toggle-leave-active {
   animation: cards-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
-  animation-fill-mode: forwards;
 }
 
-.cards-in {
-  animation: cards-in 0.6s cubic-bezier(0.3, 0.6, 0.8, 0.8);
+.middle-toggle-enter-active {
+  animation: lightSpeedOutLeft 0.6s reverse;
+}
+.middle-toggle-leave-active {
+  animation: lightSpeedOutLeft 0.6s;
 }
 
 .card {
@@ -453,27 +681,24 @@ const chooseBigMenu = (index) => {
   box-shadow: 0 0 4px 2px #a6a5a5;
 }
 
-/*@-webkit-keyframes card-out {*/
-/*    0% {*/
-/*        z-index: 20;*/
-/*        transform: translateY(0px) rotate(-4deg)*/
-/*    }*/
+@-webkit-keyframes card-out {
+  0% {
+    z-index: 200;
+    transform: translateY(0px) rotate(-4deg);
+  }
 
-/*    50% {*/
-/*        transform: translateY(-120%) rotate(-5deg) translateX(-40px)*/
-/*        */
-/*    }*/
+  50% {
+    transform: translateY(-10%) rotate(-6deg) translateX(120%);
+  }
 
-/*    80% {*/
-/*        z-index: 1*/
-/*    }*/
+  80% {
+    z-index: 1;
+  }
 
-/*    100% {*/
-/*        !*transform: translateY(-50px) rotate(8deg) translateX(55px) scale(0.95)*!*/
-/*        transform: translateY(-50px) rotate(8deg) translateX(55px) scale(1)*/
-
-/*    }*/
-/*}*/
+  100% {
+    transform: translateY(-50px) rotate(8deg) translateX(55px) scale(0.7);
+  }
+}
 
 @keyframes card-out {
   0% {
@@ -494,7 +719,7 @@ const chooseBigMenu = (index) => {
   }
 }
 
-@keyframes cards-out {
+@-webkit-keyframes cards-out {
   0% {
     transform: translateY(0) translateX(0);
   }
@@ -510,10 +735,9 @@ const chooseBigMenu = (index) => {
   }
 }
 
-@keyframes cards-in {
+@keyframes cards-out {
   0% {
-    transform: translateY(0) translateX(-200px) scale(0.1);
-    opacity: 0;
+    transform: translateY(0) translateX(0);
   }
 
   50% {
@@ -522,7 +746,8 @@ const chooseBigMenu = (index) => {
   }
 
   100% {
-    transform: translateY(0) translateX(0);
+    transform: translateY(0) translateX(-200px) scale(0.1);
+    opacity: 0;
   }
 }
 
@@ -640,5 +865,63 @@ const chooseBigMenu = (index) => {
 /* 进入的动画延迟3秒 */
 .fade-enter-active {
   transition-delay: 3s;
+}
+
+@-webkit-keyframes zoomOutLeft {
+  40% {
+    opacity: 1;
+    -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale(0.1) translate3d(-2000px, 0, 0);
+    transform: scale(0.1) translate3d(-2000px, 0, 0);
+  }
+}
+@keyframes zoomOutLeft {
+  40% {
+    opacity: 1;
+    -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(42px, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: scale(0.1) translate3d(-2000px, 0, 0);
+    transform: scale(0.1) translate3d(-2000px, 0, 0);
+  }
+}
+
+@-webkit-keyframes lightSpeedOutLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0) skewX(-30deg);
+    transform: translate3d(-100%, 0, 0) skewX(-30deg);
+    opacity: 0;
+  }
+}
+@keyframes lightSpeedOutLeft {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0) skewX(-30deg);
+    transform: translate3d(-100%, 0, 0) skewX(-30deg);
+    opacity: 0;
+  }
+}
+@keyframes mineMiddleMenu {
+  from {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  to {
+    transform: translateY(0) translateX(-400px) scale(1);
+  }
 }
 </style>

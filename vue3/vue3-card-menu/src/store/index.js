@@ -10,12 +10,13 @@ const store = createStore({
     return {
       //用户信息
       user: {},
+      //是否折叠
       isCollapse: false,
       //侧边菜单宽度
-      asideWidth: "250px",
-
+      asideWidth: "400px",
       //所有菜单列表
       menus: [],
+      //权限列表
       ruleNames: [],
     };
   },
@@ -27,7 +28,7 @@ const store = createStore({
     },
     //展开或者缩起侧边菜单
     HANDLE_ASIDE_WIDTH(state) {
-      state.asideWidth = state.asideWidth == "250px" ? "64px" : "250px";
+      state.asideWidth = state.asideWidth == "400px" ? "152px" : "400px";
     },
     COLLAPSE_MENU(state) {
       state.isCollapse = !state.isCollapse;
