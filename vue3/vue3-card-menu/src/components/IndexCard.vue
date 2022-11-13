@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card shadow="always" :body-style="{ padding: '20px' }">
+        <el-card shadow="always" class="rounded-2xl" :body-style="{ padding: '20px' }">
             <template #header>
             <div class="flex justify-between">
                <span class="text-sm">{{title}}</span>
@@ -11,7 +11,7 @@
             </template>
             <el-row :gutter="20">
                 <el-col :span="6" :offset="0" v-for="(item,index) in btns" :key="index">
-                    <el-card shadow="hover" class="border-0 bg-light-400">
+                    <el-card shadow="hover" class="border-0 bg-light-400 rounded-lg">
                         <div class="flex flex-col items-center justify-center">
                             <span class="text-xl mb-2">{{item.value}}</span>
                             <span class="text-xs text-gray-500">{{item.label}}</span>

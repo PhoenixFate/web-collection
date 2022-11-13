@@ -1,9 +1,9 @@
 <template>
-  <div class="layout-tag-list" :style="{ left: $store.state.asideWidth }">
+  <div class="layout-tag-list">
     <el-tabs
       v-model="activeTab"
       type="card"
-      class="flex-1"
+      class="flex-1 px-4"
       style="min-width: 100px"
       @tab-remove="removeTab"
       @tab-change="changeTab"
@@ -16,8 +16,8 @@
         :name="item.path"
       >
         <template #label>
-          <span class="ml-[-4px]">
-            <el-icon class="mr-1 ml-[-5px]" style="vertical-align: -3px">
+          <span class="ml-[-6px]">
+            <el-icon class="mr-2" style="vertical-align: -2px">
               <component :is="item.icon" />
             </el-icon>
             <span>{{ item.title }}</span>
@@ -26,11 +26,15 @@
       </el-tab-pane>
     </el-tabs>
     <span class="tag-btn">
-      <el-dropdown @command="handleClose">
-        <span class="el-dropdown-link">
-          <el-icon>
-            <arrow-down />
-          </el-icon>
+      <el-dropdown @command="handleClose" @visible-change="visibleChange">
+        <span
+          class="vab-tabs-more"
+          :class="{ 'vab-tabs-more-active': dropdownVisible }"
+        >
+          <span class="vab-tabs-more-icon">
+            <i class="box box-t"></i>
+            <i class="box box-b"></i>
+          </span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
@@ -44,70 +48,28 @@
 </template>
 <script setup>
 import { useTabList } from "~/composables/useTabList.js";
-const { activeTab, tabList, changeTab, removeTab, handleClose } = useTabList();
+const {
+  dropdownVisible,
+  activeTab,
+  tabList,
+  changeTab,
+  removeTab,
+  handleClose,
+  visibleChange,
+} = useTabList();
 </script>
 <style scoped>
 .layout-tag-list {
-  top: 68px;
-  right: 0;
-  height: 1px;
+  width: 100%;
+  height: 40px;
   transition: all 0.6s;
-  @apply fixed flex items-center pl-4 pt-1;
+  @apply flex items-center;
 }
+
 .tag-btn {
-  @apply bg-white rounded ml-auto mr-4 flex items-center justify-center;
-  height: 32px;
-  width: 32px;
-  margin-top: -18px;
-  border-radius: 50%;
-  opacity: 0.7; /* 不透明度 */
-  overflow: hidden; /* 溢出隐藏 */
-
-  /* IE10、Firefox and Opera，IE9以及更早的版本不支持 */
-  animation-name: breath; /* 动画名称 */
-  animation-duration: 3s; /* 动画时长3秒 */
-  animation-timing-function: ease-in-out; /* 动画速度曲线：以低速开始和结束 */
-  animation-iteration-count: infinite; /* 播放次数：无限 */
-
-  /* Safari and Chrome */
-  -webkit-animation-name: breath; /* 动画名称 */
-  -webkit-animation-duration: 5s; /* 动画时长3秒 */
-  -webkit-animation-timing-function: ease-in-out; /* 动画速度曲线：以低速开始和结束 */
-  -webkit-animation-iteration-count: infinite; /* 播放次数：无限 */
-}
-
-.tag-btn:hover {
-  animation-name: none;
-}
-
-@keyframes breath {
-  from {
-    opacity: 0.7;
-    background-color: rgb(219, 219, 219);
-  } /* 动画开始时的不透明度 */
-  50% {
-    opacity: 1;
-    background-color: white;
-  } /* 动画50% 时的不透明度 */
-  to {
-    opacity: 0.7;
-    background-color: rgb(219, 219, 219);
-  } /* 动画结束时的不透明度 */
-}
-
-@-webkit-keyframes breath {
-  from {
-    opacity: 0.7;
-    background-color: rgb(219, 219, 219);
-  } /* 动画开始时的不透明度 */
-  50% {
-    opacity: 1;
-    background-color: white;
-  } /* 动画50% 时的不透明度 */
-  to {
-    opacity: 0.7;
-    background-color: rgb(219, 219, 219);
-  } /* 动画结束时的不透明度 */
+  @apply bg-white rounded-xl ml-auto mr-3 flex items-center justify-center;
+  height: 40px;
+  width: 40px;
 }
 
 :deep(.tag-btn .el-icon--right) {
@@ -119,4 +81,78 @@ const { activeTab, tabList, changeTab, removeTab, handleClose } = useTabList();
   margin-bottom: 0;
   @apply mb-0;
 }
+
+
+
+
+.vab-tabs-more {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  text-align: left;
+}
+
+.vab-tabs-more-icon {
+  display: inline-block;
+  color: #9a9a9a;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+}
+.vab-tabs-more-icon .box {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 8px;
+}
+
+.vab-tabs-more-icon .box-t:before {
+  transition: transform 0.3s ease-out 0.3s;
+}
+
+.vab-tabs-more-active:after,
+.vab-tabs-more:hover:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  content: "";
+}
+
+.vab-tabs-more-active .vab-tabs-more-icon,
+.vab-tabs-more:hover .vab-tabs-more-icon {
+  transform: rotate(90deg);
+}
+
+.vab-tabs-more-active .vab-tabs-more-icon .box-t:before,
+.vab-tabs-more:hover .vab-tabs-more-icon .box-t:before {
+  transform: rotate(45deg);
+}
+
+.vab-tabs-more-active .vab-tabs-more-icon .box:after,
+.vab-tabs-more-active .vab-tabs-more-icon .box:before,
+.vab-tabs-more:hover .vab-tabs-more-icon .box:after,
+.vab-tabs-more:hover .vab-tabs-more-icon .box:before {
+  background: var(--el-color-primary) !important;
+}
+
+.vab-tabs-more-icon .box:before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  content: "";
+  background: #9a9a9a;
+}
+.vab-tabs-more-icon .box:after {
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  content: "";
+  background: #9a9a9a;
+}
+
+
 </style>

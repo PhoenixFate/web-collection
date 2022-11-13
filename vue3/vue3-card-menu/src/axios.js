@@ -29,8 +29,6 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log("-----------------------")
-    console.log(response)
     if(!response.data){
       showMessage("后台服务异常，可能正在重启，如果等待1-2分钟依然异常，请联系管理员", "error");
       return;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="always">
+    <el-card shadow="always" class="rounded-2xl">
       <template #header>
         <div class="flex justify-between">
           <span class="text-sm">订单统计</span>

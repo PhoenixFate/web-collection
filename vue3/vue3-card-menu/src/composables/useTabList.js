@@ -2,6 +2,9 @@ import { ref } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { router } from "~/router";
+import { useMenu } from "~/composables/useMenu.js";
+import { getTabList, setTabList } from "~/composables/storage.js";
+
 export function useTabList() {
   const route = useRoute();
   const cookie = useCookies();
@@ -9,16 +12,14 @@ export function useTabList() {
   const activeTab = ref(route.path);
   const tabList = ref([
     {
-      title: "后台首页",
+      title: "主控台",
       path: "/",
       icon: "home-filled",
-    },
-    {
-      title: "商城管理",
-      path: "/goods/list",
-      icon: "shopping-cart-full",
+      bigMenuIndex: [0],
     },
   ]);
+
+  const dropdownVisible = ref(false);
 
   //添加标签导航
   function addTab(tab) {
@@ -26,11 +27,21 @@ export function useTabList() {
     if (noTab) {
       tabList.value.push(tab);
     }
-    cookie.set("tabList", tabList.value);
+    setTabList(tabList.value);
   }
+
+  const { chooseBigMenu } = useMenu();
 
   const changeTab = (path) => {
     console.log(path);
+
+    let temp = tabList.value.find((item) => item.path == path);
+    console.log("---------------");
+    console.log(temp);
+    if (temp && temp.bigMenuIndex && temp.bigMenuIndex.length > 0) {
+      console.log(chooseBigMenu);
+      chooseBigMenu(temp.bigMenuIndex[0]);
+    }
     // 点击tab，进行了路由跳转
     router.push(path);
   };
@@ -42,8 +53,10 @@ export function useTabList() {
       //标签只剩首页
       tabList.value = [
         {
-          title: "后台首页",
+          title: "主控台",
           path: "/",
+          icon: "home-filled",
+          bigMenuIndex: [0],
         },
       ];
     } else if (command == "clearOther") {
@@ -52,12 +65,12 @@ export function useTabList() {
         (tab) => tab.path == "/" || tab.path == activeTab.value
       );
     }
-    cookie.set("tabList", tabList.value);
+    setTabList(tabList.value);
   };
 
   //初始化标签导航列表
   function initTabList() {
-    let cookieTabList = cookie.get("tabList");
+    let cookieTabList = getTabList();
     if (cookieTabList) {
       tabList.value = cookieTabList;
     }
@@ -68,7 +81,12 @@ export function useTabList() {
   onBeforeRouteUpdate((to, from) => {
     console.log(to);
     activeTab.value = to.path;
-    addTab({ title: to.meta.title, path: to.path, icon: to.meta.icon });
+    addTab({
+      title: to.meta.title,
+      path: to.path,
+      icon: to.meta.icon,
+      bigMenuIndex: to.meta.bigMenuIndex,
+    });
   });
 
   const removeTab = (tag) => {
@@ -90,14 +108,20 @@ export function useTabList() {
     }
     activeTab.value = activeValue;
     tabList.value = tabList.value.filter((tab) => tab.path != tag);
-    cookie.set("tabList", tabList.value);
+    setTabList(tabList.value);
+  };
+  const visibleChange = (visible) => {
+    console.log(visible);
+    dropdownVisible.value = visible;
   };
 
   return {
+    dropdownVisible,
     activeTab,
     tabList,
     changeTab,
     removeTab,
     handleClose,
+    visibleChange,
   };
 }

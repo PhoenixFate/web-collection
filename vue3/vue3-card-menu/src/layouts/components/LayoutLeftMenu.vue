@@ -1,0 +1,215 @@
+<template>
+  <div class="left-main">
+    <div class="left-logo">
+      <img src="/logo.png" alt="" />
+    </div>
+    <div class="left-menu">
+      <div
+        class="left-menu-item"
+        v-for="(item, index) in $store.state.menus"
+        :class="[
+          { 'left-menu-item-active': index == $store.state.bigMenuIndex },
+          { 'left-menu-item-temp': $store.state.leftMenuAnimationFlag && index == $store.state.bigMenuLastIndex },
+        ]"
+        :key="index"
+        @click="$emit('chooseBigMenu', index)"
+      >
+        <el-icon :size="28">
+          <component :is="item.icon" />
+        </el-icon>
+        <span class="mt-1">{{ item.name }}</span>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</template>
+<script setup>
+defineEmits(["chooseBigMenu"]);
+</script>
+<style scoped>
+.left-main {
+  @apply w-[140px] h-[100%] bg-blue-gray-800  rounded-3xl relative;
+}
+
+.left-logo {
+  width: 124px;
+  height: 120px;
+  @apply bg-white rounded-l-3xl absolute right-0 top-3 flex justify-center items-center;
+}
+.left-logo img {
+  width: 60px;
+  height: 60px;
+}
+
+.left-logo img:hover {
+  animation: rocketRun 2.4s;
+}
+
+
+.left-menu {
+  height: calc(100vh - 260px);
+  width: 124px;
+  z-index: 100;
+  top: 170px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  @apply absolute right-0 overflow-y-auto;
+}
+.left-menu::-webkit-scrollbar {
+  display: none;
+}
+.left-menu-item {
+  font-weight: 500;
+  color: white;
+  @apply flex flex-col justify-center items-center p-y-2  text-lg mb-3 pr-4 rounded-l-xl relative;
+  font-family: "jxht", sans-serif;
+}
+
+.left-menu-item > div {
+  transition: all 0.3s;
+  background-color: white;
+  left: 124px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  @apply rounded-l-xl;
+}
+
+.left-menu-item > span,
+.left-menu-item > i {
+  z-index: 5;
+}
+
+.left-menu-item-active {
+  @apply relative rounded-l-xl text-gray-800;
+}
+
+.left-menu-item-temp > span,
+.left-menu-item-temp > i {
+  mix-blend-mode: difference;
+}
+
+.left-menu-item-active > div {
+  left: 0;
+}
+
+.left-menu-item:hover {
+  animation: headShake 1.4s;
+}
+
+@-webkit-keyframes headShake {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  6.5% {
+    -webkit-transform: translateX(-6px) rotateY(-9deg);
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+
+  18.5% {
+    -webkit-transform: translateX(5px) rotateY(7deg);
+    transform: translateX(5px) rotateY(7deg);
+  }
+
+  31.5% {
+    -webkit-transform: translateX(-3px) rotateY(-5deg);
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+
+  43.5% {
+    -webkit-transform: translateX(2px) rotateY(3deg);
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes headShake {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  6.5% {
+    -webkit-transform: translateX(-6px) rotateY(-9deg);
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+
+  18.5% {
+    -webkit-transform: translateX(5px) rotateY(7deg);
+    transform: translateX(5px) rotateY(7deg);
+  }
+
+  31.5% {
+    -webkit-transform: translateX(-3px) rotateY(-5deg);
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+
+  43.5% {
+    -webkit-transform: translateX(2px) rotateY(3deg);
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes rocketRun {
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(0, -16px, 0) rotate(-45deg);
+    transform: translate3d(0, -16px, 0) rotate(-45deg);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(0, 10px, 0) rotate(-45deg);
+    transform: translate3d(0, 10px, 0) rotate(-45deg);
+  }
+}
+@keyframes rocketRun {
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translate3d(0, -16px, 0) rotate(-45deg);
+    transform: translate3d(0, -16px, 0) rotate(-45deg);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translate3d(0, 10px, 0) rotate(-45deg);
+    transform: translate3d(0, 10px, 0) rotate(-45deg);
+  }
+}
+</style>

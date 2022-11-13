@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="index-main">
     <el-row :gutter="20">
       <template v-if="!panels || panels.length == 0">
         <el-col :span="6" :offset="0" v-for="i in 4" :key="i">
@@ -7,7 +7,7 @@
             <template #template>
               <el-card
                 shadow="always"
-                class="border-0 index-card"
+                class="border-0 index-card rounded-2xl"
                 :body-style="{ padding: '20px' }"
               >
                 <template #header>
@@ -36,7 +36,7 @@
       >
         <el-card
           shadow="always"
-          class="border-0 index-card"
+          class="border-0 index-card rounded-2xl"
           :body-style="{ padding: '20px' }"
         >
           <template #header>
@@ -98,8 +98,16 @@ getStatistics2().then((response) => {
 });
 </script>
 <style scoped>
+.index-main {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x:hidden;
+  @apply px-3 py-1;
+}
+
 .index-card:hover {
-  @apply shadow-light-900 shadow-md;
+  @apply shadow-blue-gray-400 shadow-lg;
   background-color: #f2f6fc;
 }
 </style>
