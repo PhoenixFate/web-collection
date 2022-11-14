@@ -13,6 +13,8 @@ const store = createStore({
       user: {},
       //是否折叠
       isCollapse: false,
+      //折叠伞的动画flag
+      umbrellaAnimate:false,
       //侧边菜单宽度
       asideWidth: "400px",
       //所有菜单列表
@@ -41,16 +43,12 @@ const store = createStore({
     SET_USERINFO(state, user) {
       state.user = user;
     },
-    //展开或者缩起侧边菜单
-    HANDLE_ASIDE_WIDTH(state) {
-      state.asideWidth = state.asideWidth == "400px" ? "152px" : "400px";
+    //开启或者关闭伞的折叠动画
+    SET_UMBRELLA_ANIMATE(state,flag){
+      state.umbrellaAnimate=flag;
     },
+    //展开或者收起侧边菜单
     COLLAPSE_MENU(state) {
-      // if (state.isCollapse) {
-      //   //展开的时候，card的middleOutIndex变为-1，否则会抖动一下，难受
-      //   state.middleLastIndex = state.middleOutIndex;
-      //   state.middleOutIndex = -1;
-      // }
       state.isCollapse = !state.isCollapse;
     },
     SET_MENUS(state, menus) {

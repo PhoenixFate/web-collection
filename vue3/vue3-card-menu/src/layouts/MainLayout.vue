@@ -1,8 +1,8 @@
 <template>
   <el-container class="app-main">
     <el-aside
-      :style="{ width: $store.state.asideWidth }"
-      class="flex pl-3 h-[100%] relative overflow-hidden"
+      class="app-main-aside"
+      :class="{'app-main-aside-collapsed': $store.state.isCollapse}"
     >
       <LayoutLeftMenu @chooseBigMenu="chooseBigMenu"></LayoutLeftMenu>
       <Transition name="middle-toggle">
@@ -33,6 +33,16 @@ const { chooseBigMenu } = useMenu();
 
 .el-aside {
   transition: all 1.2s;
+}
+
+.app-main-aside {
+  transition: all 1.2s;
+  width: 400px;
+  @apply flex pl-3 h-[100%] relative overflow-hidden;
+}
+
+.app-main-aside.app-main-aside-collapsed {
+  width: 152px;
 }
 
 .cards-toggle-enter-active {

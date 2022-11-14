@@ -5,7 +5,7 @@
         <div class="header-btn-body" @click="toggleMenu()">
           <div
             class="umbrella"
-            :class="{ 'umbrella-active': !$store.state.isCollapse }"
+            :class="[{ 'umbrella-active': !$store.state.isCollapse },{'umbrella-animate': $store.state.umbrellaAnimate} ]"
           >
             <div class="canopy"></div>
             <div class="shaft"></div>
@@ -16,7 +16,7 @@
     <div class="header-btn">
       <el-tooltip effect="dark" content="刷新页面" placement="bottom">
         <div class="header-btn-body" @click="handleRefresh()">
-          <el-icon class="icon-btn" :size="24">
+          <el-icon class="icon-btn">
             <Refresh color="#555" />
           </el-icon>
         </div>
@@ -28,7 +28,7 @@
         <div class="header-btn" v-if="!isFullscreen">
           <el-tooltip effect="dark" content="全屏" placement="bottom">
             <div class="header-btn-body" @click="toggle()">
-              <el-icon :size="24">
+              <el-icon>
                 <FullScreen color="#555" />
               </el-icon>
             </div>
@@ -37,7 +37,7 @@
         <div class="header-btn" v-if="isFullscreen">
           <el-tooltip effect="dark" content="退出全屏" placement="bottom">
             <div class="header-btn-body" @click="toggle()">
-              <el-icon :size="24">
+              <el-icon>
                 <Aim color="#555" />
               </el-icon>
             </div>
@@ -49,7 +49,6 @@
         <span class="flex items-center text-gray-800">
           <el-avatar
             class="mr-3 user-avatar"
-            :size="62"
             :src="$store.state.user.avatar"
           />
           <div class="user-info">
@@ -148,7 +147,12 @@ const handleRefresh = () => {
   window.location.reload();
 };
 const toggleMenu = () => {
-  store.commit("HANDLE_ASIDE_WIDTH");
+  //开启伞的折叠动画
+  store.commit("SET_UMBRELLA_ANIMATE",true);
+  setTimeout(()=>{
+    //关闭伞的折叠动画
+    store.commit("SET_UMBRELLA_ANIMATE",false);
+  },1200)
   store.commit("COLLAPSE_MENU");
 };
 
@@ -199,7 +203,30 @@ const handleCommand = (command) => {
   @apply bg-blue-100 rounded-lg;
 }
 
+.header-btn :deep(.el-icon) {
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+}
+.header-btn :deep(.el-icon svg) {
+  height: 24px;
+  width: 24px;
+}
+
+.dropdown :deep(.el-icon) {
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+}
+.dropdown :deep(.el-icon svg) {
+  height: 18px;
+  width: 18px;
+}
+
+
 .user-avatar {
+  width: 62px;
+  height: 62px;
   animation: breathe 16s linear infinite;
 }
 
@@ -209,7 +236,10 @@ const handleCommand = (command) => {
 }
 .user-info span:nth-child(1) {
   font-family: "jxht", sans-serif;
-  @apply mb-1 text-xl;
+  @apply mb-1 text-2xl;
+}
+.user-info span:nth-child(2) {
+  font-size: 0.8rem;
 }
 
 @-webkit-keyframes breathe {

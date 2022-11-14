@@ -28,7 +28,7 @@
               v-if="item.child && item.child.length > 0"
             >
               <template #title>
-                <el-icon :size="24">
+                <el-icon>
                   <component :is="item.icon" />
                 </el-icon>
                 <span> {{ item.name }}</span>
@@ -38,14 +38,14 @@
                 :key="index2"
                 :index="item2.frontpath"
               >
-                <el-icon :size="24">
+                <el-icon>
                   <component :is="item2.icon" />
                 </el-icon>
                 <span> {{ item2.name }}</span>
               </el-menu-item>
             </el-sub-menu>
             <el-menu-item v-else :index="item.frontpath">
-              <el-icon :size="24">
+              <el-icon>
                 <component :is="item.icon" />
               </el-icon>
               <span class="ml-2"> {{ item.name }}</span>
@@ -75,6 +75,18 @@ const defaultActive = computed(() => route.path);
   height: calc(100% - 100px - 1rem);
   @apply absolute bottom-2;
 }
+
+.card :deep(.el-icon) {
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+}
+.card :deep(.el-icon svg) {
+  height: 24px;
+  width: 24px;
+}
+
+
 .card > ul > li:hover {
   transition: all 0.4s;
   padding-left: 1.6rem !important;

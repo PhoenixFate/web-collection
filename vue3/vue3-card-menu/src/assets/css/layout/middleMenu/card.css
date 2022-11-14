@@ -12,6 +12,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  letter-spacing:3px;
+  font-family: "xsyt", sans-serif;
   @apply rounded-lg text-lg;
 }
 

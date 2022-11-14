@@ -9,12 +9,16 @@
         v-for="(item, index) in $store.state.menus"
         :class="[
           { 'left-menu-item-active': index == $store.state.bigMenuIndex },
-          { 'left-menu-item-temp': $store.state.leftMenuAnimationFlag && index == $store.state.bigMenuLastIndex },
+          {
+            'left-menu-item-temp':
+              $store.state.leftMenuAnimationFlag &&
+              index == $store.state.bigMenuLastIndex,
+          },
         ]"
         :key="index"
         @click="$emit('chooseBigMenu', index)"
       >
-        <el-icon :size="28">
+        <el-icon>
           <component :is="item.icon" />
         </el-icon>
         <span class="mt-1">{{ item.name }}</span>
@@ -28,7 +32,9 @@ defineEmits(["chooseBigMenu"]);
 </script>
 <style scoped>
 .left-main {
-  @apply w-[140px] h-[100%] bg-blue-gray-800  rounded-3xl relative;
+  width: 140px;
+  height: 100%;
+  @apply bg-blue-gray-800  rounded-3xl relative;
 }
 
 .left-logo {
@@ -44,7 +50,6 @@ defineEmits(["chooseBigMenu"]);
 .left-logo img:hover {
   animation: rocketRun 2.4s;
 }
-
 
 .left-menu {
   height: calc(100vh - 260px);
@@ -64,8 +69,17 @@ defineEmits(["chooseBigMenu"]);
 .left-menu-item {
   font-weight: 500;
   color: white;
-  @apply flex flex-col justify-center items-center p-y-2  text-lg mb-3 pr-4 rounded-l-xl relative;
+  @apply flex flex-col justify-center items-center p-y-2  text-xl mb-3 pr-4 rounded-l-xl relative;
   font-family: "jxht", sans-serif;
+}
+.left-menu-item :deep(.el-icon) {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+}
+.left-menu-item :deep(.el-icon svg) {
+  height: 30px;
+  width: 30px;
 }
 
 .left-menu-item > div {
