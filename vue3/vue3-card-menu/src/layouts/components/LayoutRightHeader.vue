@@ -5,7 +5,10 @@
         <div class="header-btn-body" @click="toggleMenu()">
           <div
             class="umbrella"
-            :class="[{ 'umbrella-active': !$store.state.isCollapse },{'umbrella-animate': $store.state.umbrellaAnimate} ]"
+            :class="[
+              { 'umbrella-active': !$store.state.isCollapse },
+              { 'umbrella-animate': $store.state.umbrellaAnimate },
+            ]"
           >
             <div class="canopy"></div>
             <div class="shaft"></div>
@@ -45,12 +48,26 @@
         </div>
       </div>
 
-      <el-dropdown class="dropdown" @command="handleCommand">
+      <div
+        class="user-info-dropdown"
+        @mouseenter="showPersonalMenu"
+        @mouseleave="hidePersonalMenu"
+      >
+        <img
+          :src="$store.state.user.avatar"
+          alt=""
+          v-if="$store.state.user.avatar"
+        />
+        <img
+          src="/image/header/avatar-default-man.png"
+          v-if="!$store.state.user.avatar"
+        />
+        <span>管理员</span>
+      </div>
+
+      <!-- <el-dropdown class="dropdown" @command="handleCommand">
         <span class="flex items-center text-gray-800">
-          <el-avatar
-            class="mr-3 user-avatar"
-            :src="$store.state.user.avatar"
-          />
+          <el-avatar class="mr-3 user-avatar" :src="$store.state.user.avatar" />
           <div class="user-info">
             <span>{{ $store.state.user.username }}</span>
             <span>信息中心</span>
@@ -70,61 +87,94 @@
             >
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
+      </el-dropdown> -->
+    </div>
+
+    <div
+      class="personal-menu"
+      :class="{ 'personal-menu-active': personalMenuFlag }"
+      @mouseenter="showPersonalMenu"
+      @mouseleave="hidePersonalMenu"
+    >
+      <div class="personal-menu-content">
+        <div class="personal-menu-item personal-menu-userinfo">
+          <div class="user-info-left">
+            <img
+              :src="$store.state.user.avatar"
+              alt=""
+              v-if="$store.state.user.avatar"
+            />
+            <img
+              src="/image/header/avatar-default-man.png"
+              v-if="!$store.state.user.avatar"
+            />
+          </div>
+          <div class="user-info-right">
+            <h2>管理员</h2>
+            <h4>{{ $store.state.user.username }}</h4>
+            <h5>信息公司/信息中心</h5>
+            <h6><span>女</span> <span>32岁</span></h6>
+          </div>
+        </div>
+        <div class="personal-menu-item">abc</div>
+        <div class="personal-menu-item">bcd</div>
+        <div class="personal-menu-item">ddd</div>
+      </div>
     </div>
 
     <FormDrawer
-    title="修改密码"
-    ref="formDrawerRef"
-    size="45%"
-    :closeOnClickModal="true"
-    :destoryOnClose="true"
-    confirmText="确认提交"
-    @submit="onSubmitChangePassword"
-  >
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      class="w-[80%]"
-      label-width="120px"
-      size="large"
+      title="修改密码"
+      ref="formDrawerRef"
+      size="45%"
+      :closeOnClickModal="true"
+      :destoryOnClose="true"
+      confirmText="确认提交"
+      @submit="onSubmitChangePassword"
     >
-      <el-form-item prop="oldPassword" label="旧密码">
-        <el-input
-          v-model="form.oldPassword"
-          type="password"
-          placeholder="请输入原密码"
-        >
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="newPassword" label="新密码">
-        <el-input
-          v-model="form.newPassword"
-          type="password"
-          show-password
-          placeholder="请输入新密码"
-        >
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="checkNewPassword" label="确认密码">
-        <el-input
-          v-model="form.checkNewPassword"
-          type="password"
-          show-password
-          placeholder="请确认新密码"
-        >
-        </el-input>
-      </el-form-item>
-    </el-form>
-  </FormDrawer>
+      <el-form
+        ref="formRef"
+        :model="form"
+        :rules="rules"
+        class="w-[80%]"
+        label-width="120px"
+        size="large"
+      >
+        <el-form-item prop="oldPassword" label="旧密码">
+          <el-input
+            v-model="form.oldPassword"
+            type="password"
+            placeholder="请输入原密码"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="newPassword" label="新密码">
+          <el-input
+            v-model="form.newPassword"
+            type="password"
+            show-password
+            placeholder="请输入新密码"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="checkNewPassword" label="确认密码">
+          <el-input
+            v-model="form.checkNewPassword"
+            type="password"
+            show-password
+            placeholder="请确认新密码"
+          >
+          </el-input>
+        </el-form-item>
+      </el-form>
+    </FormDrawer>
   </div>
 </template>
 <script setup>
 import { useFullscreen } from "@vueuse/core";
 import { useStore } from "vuex";
 import FormDrawer from "~/components/FormDrawer.vue";
-import { useChangePassword,useLogout } from "~/composables/useManager";
+import { useChangePassword, useLogout } from "~/composables/useManager";
+import { ref } from "vue";
 const {
   formDrawerRef,
   form,
@@ -148,19 +198,33 @@ const handleRefresh = () => {
 };
 const toggleMenu = () => {
   //开启伞的折叠动画
-  store.commit("SET_UMBRELLA_ANIMATE",true);
-  setTimeout(()=>{
+  store.commit("SET_UMBRELLA_ANIMATE", true);
+  setTimeout(() => {
     //关闭伞的折叠动画
-    store.commit("SET_UMBRELLA_ANIMATE",false);
-  },1200)
+    store.commit("SET_UMBRELLA_ANIMATE", false);
+  }, 1200);
   store.commit("COLLAPSE_MENU");
 };
 
 const { handlerLogout } = useLogout();
 
-const toPersonal=()=>{
-  console.log("to personal")
-}
+const toPersonal = () => {
+  console.log("to personal");
+};
+const personalMenuFlag = ref(false);
+const personalMenuTempFlag = ref(false);
+const showPersonalMenu = () => {
+  personalMenuTempFlag.value = true;
+  personalMenuFlag.value = true;
+};
+const hidePersonalMenu = () => {
+  personalMenuTempFlag.value = false;
+  setTimeout(() => {
+    if (!personalMenuTempFlag.value) {
+      personalMenuFlag.value = false;
+    }
+  }, 500);
+};
 
 const handleCommand = (command) => {
   console.log(command);
@@ -213,33 +277,20 @@ const handleCommand = (command) => {
   width: 24px;
 }
 
-.dropdown :deep(.el-icon) {
-  height: 18px;
-  width: 18px;
-  line-height: 18px;
+.user-info-dropdown {
+  width: 160px;
+  @apply flex justify-start items-center;
 }
-.dropdown :deep(.el-icon svg) {
-  height: 18px;
-  width: 18px;
-}
-
-
-.user-avatar {
-  width: 62px;
-  height: 62px;
+.user-info-dropdown img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
   animation: breathe 16s linear infinite;
+  @apply mr-4 ml-2;
 }
-
-.user-info {
-  width: 80px;
-  @apply flex justify-center items-center flex-col;
-}
-.user-info span:nth-child(1) {
+.user-info-dropdown span {
   font-family: "jxht", sans-serif;
-  @apply mb-1 text-2xl;
-}
-.user-info span:nth-child(2) {
-  font-size: 0.8rem;
+  @apply text-2xl;
 }
 
 @-webkit-keyframes breathe {
@@ -287,5 +338,167 @@ const handleCommand = (command) => {
   100% {
     box-shadow: 0 0 0px #fcd34d;
   }
+}
+
+.personal-menu {
+  position: fixed;
+  z-index: 100;
+}
+
+.personal-menu:before,
+.personal-menu:after {
+  content: "";
+  position: fixed;
+  right: 0.75rem;
+  top: calc(100px - 0.5rem);
+  width: 0;
+  height: 0;
+  background-color: rgba(80, 77, 84, 0.1);
+  border-bottom-left-radius: 200%;
+  z-index: -1;
+  transition: border-radius linear 0.8s,
+    width cubic-bezier(0.77, 0, 0.175, 1) 0.6s,
+    height cubic-bezier(0.77, 0, 0.175, 1) 0.6s;
+}
+
+.personal-menu:after {
+  background-color: white;
+  background-image: url("/image/header/personal-dropdown.svg");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  transition-delay: 0.2s;
+  box-shadow: -6px 7px 28px 0 rgba(40, 40, 40, 0.2);
+}
+
+.personal-menu:before {
+  transition-delay: 0.26s;
+}
+
+.personal-menu-active.personal-menu:before,
+.personal-menu-active.personal-menu:after {
+  width: 250px;
+  height: 350px;
+  border-radius: 18px;
+}
+
+.personal-menu-active.personal-menu:after {
+  -webkit-transition-delay: 0.26s;
+  transition-delay: 0.26s;
+}
+
+.personal-menu-active.personal-menu:before {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+.personal-menu-active.personal-menu {
+  visibility: visible;
+}
+.personal-menu-active .personal-menu-content {
+  visibility: visible;
+}
+.personal-menu-content {
+  position: fixed;
+  right: 0.75rem;
+  top: calc(100px - 0.5rem);
+  width: 250px;
+  height: 350px;
+  visibility: hidden;
+  border-radius: 18px;
+  transition: all 0.3s;
+}
+
+.personal-menu-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 40px;
+  transition-delay: 0.8s;
+  opacity: 0;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  transition: all 0.6s linear;
+  transform: translate(30px, 0%);
+  --webkit-transition: opacity 0.2s ease, --webkit-transform 0.3s ease;
+  transition: opacity 0.2s ease, --webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease,
+    -webkit-transform 0.2s ease;
+  z-index: 2;
+  padding-left: 40px;
+}
+
+.personal-menu-active .personal-menu-item {
+  opacity: 1;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  -webkit-transition: opacity 0.3s ease, color 0.3s ease,
+    -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, color 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease,
+    -webkit-transform 0.3s ease;
+}
+
+.personal-menu-active .personal-menu-item:nth-child(0) {
+  transition-delay: 0.7s;
+}
+
+.personal-menu-active .personal-menu-item:nth-child(1) {
+  transition-delay: 0.8s;
+}
+
+.personal-menu-active .personal-menu-item:nth-child(2) {
+  transition-delay: 0.9s;
+}
+
+.personal-menu-active .personal-menu-item:nth-child(3) {
+  transition-delay: 1s;
+}
+
+.personal-menu-active .personal-menu-item:nth-child(4) {
+  transition-delay: 1.1s;
+}
+
+.personal-menu-userinfo {
+  height: 80px;
+  width: calc(100% - 20px);
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  z-index: 2;
+  padding-left: 0;
+  @apply flex bg-gray-100 rounded-xl items-center;
+}
+.user-info-left {
+  width: 80px;
+  height: 80px;
+  @apply flex justify-center items-center;
+}
+.user-info-left img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.user-info-right {
+  padding-left: 10px;
+  padding-top: 6px;
+  @apply flex-1;
+}
+
+.user-info-right h2 {
+  font-size: 1.3rem;
+}
+.user-info-right h4 {
+  font-weight: normal;
+  font-size: 0.8rem;
+}
+.user-info-right h5 {
+  font-size: 0.8rem;
+}
+.user-info-right h6 {
+  font-weight: normal;
+  font-size: 0.6rem;
 }
 </style>

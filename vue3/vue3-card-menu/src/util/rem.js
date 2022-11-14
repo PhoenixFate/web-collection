@@ -5,7 +5,7 @@ const baseSize = 16
 function setRem () {
   // 当前页面屏幕分辨率相对于 1920宽的缩放比例，可根据自己需要修改
   // 最小不能小于1400
-  const scale = Math.max(document.documentElement.clientWidth,1400) / 1920
+  const scale = (Math.max(document.documentElement.clientWidth,1400) / 1920)*1.1
   // const scale = document.documentElement.clientWidth / 1920
 
   // 设置页面根节点字体大小（“Math.min(scale, 2)” 指最高放大比例为2，可根据实际业务需求调整）

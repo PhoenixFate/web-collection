@@ -15,7 +15,7 @@
 <script setup></script>
 <style scoped>
 .left-right {
-  width: calc(400px - 140px - 0.75rem);
+  width: calc(400px - 140px - 0.5rem);
   left: calc(140px + 0.75rem);
   bottom: 0;
   @apply h-[100%] relative absolute;

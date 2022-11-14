@@ -44,6 +44,9 @@ defineExpose({
 .login-form {
   width: 250px;
 }
+.login-form :deep(.el-input) {
+  font-size: 1rem;
+}
 .login-form :deep(.el-input__inner) {
   height: 40px;
 }

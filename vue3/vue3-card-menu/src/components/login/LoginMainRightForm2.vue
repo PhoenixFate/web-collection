@@ -13,7 +13,7 @@
     <div class="send-code-row">
       <div class="send-code-left">
         <el-form-item prop="mobileCode">
-          <el-input v-model="form.mobileCode" placeholder="请输入短信验证">
+          <el-input v-model="form.mobileCode" placeholder="请输入短信验证码">
             <template #prefix>
               <el-icon class="el-input__icon">
                 <Lock />
@@ -63,6 +63,9 @@ defineExpose({
 .login-form {
   width: 250px;
 }
+.login-form :deep(.el-input) {
+  font-size: 1rem;
+}
 .login-form :deep(.el-input__inner) {
   height: 40px;
 }
@@ -75,10 +78,10 @@ defineExpose({
   @apply flex;
 }
 .send-code-left {
-  width: 180px;
+  width: 190px;
 }
 .send-code-right {
-  width: 70px;
+  width: 60px;
   @apply flex justify-end;
 }
 
@@ -89,7 +92,7 @@ defineExpose({
   margin-top: 6px;
   border: 1px solid #38bdf8;
   cursor: pointer;
-  @apply text-light-blue-400 flex justify-center items-center text-sm;
+  @apply text-light-blue-400 flex justify-center items-center text-xs;
 }
 
 .send-code-right-number {
