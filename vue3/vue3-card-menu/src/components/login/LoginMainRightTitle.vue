@@ -24,7 +24,7 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  @apply mb-12;
+  @apply mb-8;
 }
 .login-title h2 {
   font-size: 2.4rem;

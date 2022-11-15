@@ -112,13 +112,46 @@
           <div class="user-info-right">
             <h2>管理员</h2>
             <h4>{{ $store.state.user.username }}</h4>
-            <h5>信息公司/信息中心</h5>
-            <h6><span>女</span> <span>32岁</span></h6>
+            <h5>信息公司</h5>
+            <h5>信息中心</h5>
           </div>
         </div>
-        <div class="personal-menu-item">abc</div>
-        <div class="personal-menu-item">bcd</div>
-        <div class="personal-menu-item">ddd</div>
+        <div class="personal-menu-item personal-menu-item-middle">
+          <div>
+            <svg-icon
+              name="personal-user"
+              size="1.2rem"
+              color="rgb(75, 85, 99)"
+            /><span>个人中心</span>
+          </div>
+        </div>
+        <div class="personal-menu-item personal-menu-item-middle">
+          <div>
+            <svg-icon
+              name="personal-password"
+              size="1.2rem"
+              color="rgb(75, 85, 99)"
+            /><span>修改密码</span>
+          </div>
+        </div>
+        <div class="personal-menu-item personal-menu-item-middle">
+          <div>
+            <svg-icon
+              name="personal-login-log"
+              size="1.2rem"
+              color="rgb(75, 85, 99)"
+            /><span>登录日志</span>
+          </div>
+        </div>
+        <div class="personal-menu-item personal-menu-item-middle">
+          <div>
+            <svg-icon
+              name="personal-settings"
+              size="1.2rem"
+              color="rgb(75, 85, 99)"
+            /><span>系统设置</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -211,19 +244,19 @@ const { handlerLogout } = useLogout();
 const toPersonal = () => {
   console.log("to personal");
 };
-const personalMenuFlag = ref(false);
+const personalMenuFlag = ref(true);
 const personalMenuTempFlag = ref(false);
 const showPersonalMenu = () => {
   personalMenuTempFlag.value = true;
   personalMenuFlag.value = true;
 };
 const hidePersonalMenu = () => {
-  personalMenuTempFlag.value = false;
-  setTimeout(() => {
-    if (!personalMenuTempFlag.value) {
-      personalMenuFlag.value = false;
-    }
-  }, 500);
+  // personalMenuTempFlag.value = false;
+  // setTimeout(() => {
+  //   if (!personalMenuTempFlag.value) {
+  //     personalMenuFlag.value = false;
+  //   }
+  // }, 500);
 };
 
 const handleCommand = (command) => {
@@ -415,7 +448,7 @@ const handleCommand = (command) => {
   height: 40px;
   transition-delay: 0.8s;
   opacity: 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
   letter-spacing: 2px;
   line-height: 1.2;
   transition: all 0.6s linear;
@@ -426,7 +459,21 @@ const handleCommand = (command) => {
   transition: opacity 0.2s ease, transform 0.2s ease,
     -webkit-transform 0.2s ease;
   z-index: 2;
+}
+.personal-menu-item-middle div {
+  height: 100%;
+  width: 100%;
   padding-left: 40px;
+  transition: all 0.3s;
+  @apply flex justify-start items-center;
+}
+
+.personal-menu-item-middle div:hover {
+  padding-left: 60px;
+  @apply bg-gray-100;
+}
+.personal-menu-item-middle div span {
+  @apply ml-3 text-gray-600;
 }
 
 .personal-menu-active .personal-menu-item {
@@ -462,14 +509,15 @@ const handleCommand = (command) => {
 }
 
 .personal-menu-userinfo {
-  height: 80px;
+  height: 120px;
   width: calc(100% - 20px);
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
   z-index: 2;
   padding-left: 0;
-  @apply flex bg-gray-100 rounded-xl items-center;
+  background-color: rgba(180, 180, 180, 0.2);
+  @apply flex rounded-xl items-center;
 }
 .user-info-left {
   width: 80px;
@@ -489,16 +537,17 @@ const handleCommand = (command) => {
 
 .user-info-right h2 {
   font-size: 1.3rem;
+  font-family: "jxht", sans-serif;
 }
 .user-info-right h4 {
   font-weight: normal;
   font-size: 0.8rem;
+  @apply text-gray-500;
 }
 .user-info-right h5 {
   font-size: 0.8rem;
 }
-.user-info-right h6 {
-  font-weight: normal;
-  font-size: 0.6rem;
+.user-info-right h5:nth-child(3) {
+  @apply mt-2;
 }
 </style>
