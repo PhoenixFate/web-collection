@@ -1,6 +1,6 @@
 <template>
       <div class="login-main-left">
-        <img src="/login/login-left-icon.gif" alt="" />
+        <img src="/image/login/login-left-icon.gif" alt="" />
       </div>
 </template>
 <script setup>

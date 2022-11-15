@@ -38,4 +38,13 @@ export default defineConfig({
       symbolId: "icon-[dir]-[name]",
     }),
   ],
+
+  //配置sass
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "~/assets/scss/global.scss";'
+      }
+    }
+  },
 });
