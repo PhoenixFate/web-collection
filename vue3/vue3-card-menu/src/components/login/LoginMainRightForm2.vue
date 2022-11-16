@@ -31,16 +31,25 @@
           发送
         </div>
         <div class="send-code-right-number" v-if="sendMobileCodeFlag">
-          {{ totalTimeout }}s
+          <span
+            :class="{ 'send-code-right-number-animate': numberTenAnimateFlag }"
+            >{{ parseInt(totalTimeout / 10) }}</span
+          ><span
+            :class="{ 'send-code-right-number-animate': numberAnimateFlag }"
+            >{{ totalTimeout % 10 }}</span
+          ><span>s</span>
         </div>
       </div>
     </div>
   </el-form>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 const formRef2 = ref();
-defineProps({
+const numberAnimateFlag = ref(false);
+const numberTenAnimateFlag = ref(false);
+
+const props = defineProps({
   form: {
     type: Object,
   },
@@ -54,6 +63,24 @@ defineProps({
     type: Number,
   },
 });
+watch(
+  () => props.totalTimeout,
+  (newValue, oldValue) => {
+    numberAnimateFlag.value = true;
+    setTimeout(() => {
+      numberAnimateFlag.value = false;
+    }, 500);
+  }
+);
+watch(
+  () => parseInt(props.totalTimeout / 10),
+  (newValue, oldValue) => {
+    numberTenAnimateFlag.value = true;
+    setTimeout(() => {
+      numberTenAnimateFlag.value = false;
+    }, 500);
+  }
+);
 defineEmits(["sendMobileCode"]);
 defineExpose({
   formRef2,
@@ -65,7 +92,7 @@ defineExpose({
   margin-bottom: 1.8rem;
 }
 .login-form :deep(.el-input) {
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 .login-form :deep(.el-input__inner) {
   height: 40px;
@@ -99,33 +126,30 @@ defineExpose({
 .send-code-right-number {
   width: 60px;
   height: 42px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   @apply text-blue-500 flex justify-center items-center;
-  animation: becomeBigger 2s linear infinite;
 }
 
-@-webkit-keyframes becomeBigger {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
+.send-code-right-number-animate {
+  animation: bounce2 0.5s ease-in infinite;
 }
 
-@keyframes becomeBigger {
-  0% {
-    transform: scale(1);
+@keyframes bounce2 {
+  from,
+  to {
+    animation-timing-function: ease-in;
+    transform: translate(0, 0);
   }
-  50% {
-    transform: scale(1);
+
+  33% {
+    animation-timing-function: ease-out;
+    transform: translate(0.1rem, 0.1rem);
   }
-  100% {
-    transform: scale(1.1);
+
+  67% {
+    animation-timing-function: ease-in;
+    transform: translate(-0.05rem, -0.05rem);
   }
 }
 </style>

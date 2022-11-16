@@ -212,7 +212,7 @@ defineEmits(["showPersonalMenu", "hidePersonalMenu", "toPersonalMenu"]);
   @apply flex justify-center items-center;
   &:hover {
     background: rgba(#d4dced, 0.64);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     @apply text-red-400;
   }
 }

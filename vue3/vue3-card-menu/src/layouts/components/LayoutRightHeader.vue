@@ -49,15 +49,17 @@
       </div>
 
       <div class="user-info-dropdown">
-        <img
-          :src="$store.state.user.avatar"
-          alt=""
-          v-if="$store.state.user.avatar"
-        />
-        <img
-          src="/image/header/avatar-default-man.png"
-          v-if="!$store.state.user.avatar"
-        />
+        <div @mouseenter="showPersonalImage" @mouseleave="hidePersonalImage">
+          <img
+            :src="$store.state.user.avatar"
+            alt=""
+            v-if="$store.state.user.avatar"
+          />
+          <img
+            src="/image/header/avatar-default-man.png"
+            v-if="!$store.state.user.avatar"
+          />
+        </div>
         <div @mouseenter="showPersonalMenu" @mouseleave="hidePersonalMenu">
           <span>管理员</span>
         </div>
@@ -71,6 +73,13 @@
       @toPersonalMenu="toPersonalMenu"
     >
     </LayoutRightHeaderPersonal>
+
+    <LayoutRightHeaderImageDropdown
+      :personalImageFlag="personalImageFlag"
+      @showPersonalImage="showPersonalImage"
+      @hidePersonalImage="hidePersonalImage"
+    >
+    </LayoutRightHeaderImageDropdown>
 
     <FormDrawer
       title="修改密码"
@@ -126,6 +135,7 @@ import { useStore } from "vuex";
 import FormDrawer from "~/components/FormDrawer.vue";
 import { useChangePassword } from "~/composables/useManager";
 import LayoutRightHeaderPersonal from "./LayoutRightHeaderPersonal.vue";
+import LayoutRightHeaderImageDropdown from "./LayoutRightHeaderImageDropdown.vue";
 
 const {
   formDrawerRef,
@@ -168,13 +178,19 @@ const toSystemSettings = () => {
   console.log("to system settings");
 };
 const personalMenuFlag = ref(false);
+const personalMenuHoverTimeout = ref("");
 const personalMenuTempFlag = ref(false);
 const showPersonalMenu = () => {
   personalMenuTempFlag.value = true;
-  personalMenuFlag.value = true;
+  personalMenuHoverTimeout.value = setTimeout(() => {
+    personalMenuFlag.value = true;
+  }, 400);
 };
 const hidePersonalMenu = () => {
   personalMenuTempFlag.value = false;
+  if (personalMenuHoverTimeout.value) {
+    clearTimeout(personalMenuHoverTimeout.value);
+  }
   setTimeout(() => {
     if (!personalMenuTempFlag.value) {
       personalMenuFlag.value = false;
@@ -184,6 +200,27 @@ const hidePersonalMenu = () => {
 
 const hidePersonalMenuNow = () => {
   personalMenuFlag.value = false;
+};
+
+const personalImageFlag = ref(false);
+const personalImageHoverTimeout = ref("");
+const personalImageTempFlag = ref(false);
+const showPersonalImage = () => {
+  personalImageTempFlag.value = true;
+  personalImageHoverTimeout.value = setTimeout(() => {
+    personalImageFlag.value = true;
+  }, 1000);
+};
+const hidePersonalImage = () => {
+  personalImageTempFlag.value = false;
+  if (personalImageHoverTimeout.value) {
+    clearTimeout(personalImageHoverTimeout.value);
+  }
+  setTimeout(() => {
+    if (!personalImageTempFlag.value) {
+      personalImageFlag.value = false;
+    }
+  }, 500);
 };
 
 const toPersonalMenu = (index) => {
@@ -212,7 +249,7 @@ const toPersonalMenu = (index) => {
 .right-header-top {
   width: 100%;
   height: 80px;
-  @apply flex items-center justify-start pr-6;
+  @apply flex items-center justify-start;
 }
 
 .header-btn {
@@ -244,23 +281,26 @@ const toPersonalMenu = (index) => {
 .user-info-dropdown {
   width: 180px;
   height: 80px;
-  cursor: pointer;
   @apply flex justify-start items-center;
-  img {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    animation: breathe 16s linear infinite;
-    @apply mr-2 ml-2;
-  }
   div {
+    width: 80px;
     height: 80px;
-    width: 100px;
     @apply flex justify-center items-center;
+    img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      cursor: pointer;
+      animation: breathe 16s linear infinite;
+    }
     span {
       font-family: "jxht", sans-serif;
+      cursor: pointer;
       @apply text-2xl;
     }
+  }
+  div:nth-child(2) {
+    height: 40px;
   }
 }
 
