@@ -17,6 +17,7 @@
     "element-plus": "^2.2.19",
     "gsap": "^3.11.3",
     "nprogress": "^0.2.0",
+    "solarlunar": "^2.0.7",
     "universal-cookie": "^4.0.4",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6",

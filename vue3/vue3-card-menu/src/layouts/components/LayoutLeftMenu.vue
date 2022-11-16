@@ -4,33 +4,37 @@
       <img src="/logo.png" alt="" />
     </div>
     <div class="left-menu">
-      <div
-        class="left-menu-item"
-        v-for="(item, index) in $store.state.menus"
-        :class="[
-          { 'left-menu-item-active': index == $store.state.bigMenuIndex },
-          {
-            'left-menu-item-temp':
-              $store.state.leftMenuAnimationFlag &&
-              index == $store.state.bigMenuLastIndex,
-          },
-        ]"
-        :key="index"
-        @click="$emit('chooseBigMenu', index)"
-      >
-        <el-icon>
-          <component :is="item.icon" />
-        </el-icon>
-        <span class="mt-1">{{ item.name }}</span>
-        <div></div>
+      <div class="left-menu-top-cover"></div>
+      <div class="left-menu-content">
+        <div
+          class="left-menu-item"
+          v-for="(item, index) in $store.state.menus"
+          :class="[
+            { 'left-menu-item-active': index == $store.state.bigMenuIndex },
+            {
+              'left-menu-item-temp':
+                $store.state.leftMenuAnimationFlag &&
+                index == $store.state.bigMenuLastIndex,
+            },
+          ]"
+          :key="index"
+          @click="$emit('chooseBigMenu', index)"
+        >
+          <el-icon>
+            <component :is="item.icon" />
+          </el-icon>
+          <span class="mt-1">{{ item.name }}</span>
+          <div></div>
+        </div>
       </div>
+      <div class="left-menu-bottom-cover"></div>
     </div>
   </div>
 </template>
 <script setup>
 defineEmits(["chooseBigMenu"]);
 </script>
-<style scoped>
+<style scoped lang="scss">
 .left-main {
   width: 140px;
   height: 100%;
@@ -54,18 +58,49 @@ defineEmits(["chooseBigMenu"]);
 .left-menu {
   height: calc(100vh - 260px);
   width: 124px;
-  z-index: 100;
+  z-index: 30;
   top: 170px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  @apply absolute right-0 overflow-y-auto;
+  @apply absolute right-0 overflow-hidden;
+
+  .left-menu-content {
+    width: 124px;
+    height: 100%;
+    @apply overflow-y-auto overflow-x-hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .left-menu-top-cover,
+  .left-menu-bottom-cover {
+    position: absolute;
+    left: 0;
+    width: 124px;
+    height: 40px;
+  }
+  .left-menu-top-cover {
+    top: 0;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(30, 41, 59, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+  .left-menu-bottom-cover {
+    bottom: 0;
+    background-image: linear-gradient(
+      to top,
+      rgba(30, 41, 59, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
 }
-.left-menu::-webkit-scrollbar {
-  display: none;
-}
+
 .left-menu-item {
   font-weight: 500;
   color: white;
@@ -89,7 +124,6 @@ defineEmits(["chooseBigMenu"]);
   height: 100%;
   width: 100%;
   position: absolute;
-  z-index: 0;
   @apply rounded-l-xl;
 }
 

@@ -41,12 +41,12 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   width: 250px;
   height: 0px;
   background-color: rgba(80, 77, 84, 0.1);
-  border-bottom-left-radius: 500%;
-  border-bottom-right-radius: 500%;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
   z-index: -1;
-  transition: border-radius linear 0.8s,
-    width cubic-bezier(0.77, 0, 0.175, 1) 0.6s,
-    height cubic-bezier(0.77, 0, 0.175, 1) 0.6s;  
+  transition: border-radius linear 0.4s,
+    width cubic-bezier(0.77, 0, 0.175, 1) 0.32s,
+    height cubic-bezier(0.77, 0, 0.175, 1) 0.32s;  
 }
 
 .personal-image:after {
@@ -55,12 +55,12 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: 200%;
-  transition-delay: 0.2s;
+  transition-delay: 0.1s;
   box-shadow: -6px 7px 28px 0 rgba(40, 40, 40, 0.4);
 }
 
 .personal-image:before {
-  transition-delay: 0.26s;
+  transition-delay: 0.24s;
 }
 
 .personal-image-active.personal-image:before,
@@ -71,13 +71,13 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
 }
 
 .personal-image-active.personal-image:after {
-  -webkit-transition-delay: 0.26s;
-  transition-delay: 0.26s;
+  -webkit-transition-delay: 0.24s;
+  transition-delay: 0.24s;
 }
 
 .personal-image-active.personal-image:before {
-  -webkit-transition-delay: 0.2s;
-  transition-delay: 0.2s;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
 }
 .personal-image-active.personal-image {
   visibility: visible;
@@ -99,12 +99,12 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   font-size: 1rem;
   line-height: 1.2;
   transform: translate(0%,0%);
-  transition: opacity 0.5s ease, transform 0.5s ease, color 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
   img {
     width: 230px;
     height: 30px;
     border-radius: 18px;
-    transition: all 0.5s linear;
+    transition: all 0.3s linear;
   }
 }
 .personal-image-active {
@@ -114,12 +114,11 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
       opacity: 1;
       height: 230px;
       transform: translateY(0%);
-      transition: opacity 0.5s ease 0.5s, transform 0.5s ease, color 0.5s ease;
-      transition-delay: 0.6s;
+      transition-delay: 0.4s;
       img {
         width: 230px;
         height: 230px;
-        transition-delay: 0.6s;
+        transition-delay: 0.4s;
       }
     }
   }
