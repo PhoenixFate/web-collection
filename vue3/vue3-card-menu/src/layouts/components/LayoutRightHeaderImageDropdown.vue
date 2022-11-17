@@ -37,7 +37,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   content: "";
   position: fixed;
   right: 30px;
-  top: calc(100px - 0.5rem);
+  top: calc(100px - 0rem);
   width: 250px;
   height: 0px;
   background-color: rgba(80, 77, 84, 0.1);
@@ -46,7 +46,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   z-index: -1;
   transition: border-radius linear 0.4s,
     width cubic-bezier(0.77, 0, 0.175, 1) 0.32s,
-    height cubic-bezier(0.77, 0, 0.175, 1) 0.32s;  
+    height cubic-bezier(0.77, 0, 0.175, 1) 0.32s;
 }
 
 .personal-image:after {
@@ -85,7 +85,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
 .personal-image-content {
   position: fixed;
   right: 30px;
-  top: calc(100px - 0.5rem);
+  top: calc(100px - 0rem);
   width: 250px;
   height: 250px;
   visibility: hidden;
@@ -98,13 +98,18 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   opacity: 0;
   font-size: 1rem;
   line-height: 1.2;
-  transform: translate(0%,0%);
+  transform: translate(0%, 0%);
   transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
   img {
     width: 230px;
     height: 30px;
     border-radius: 18px;
     transition: all 0.3s linear;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    transition: border-radius linear 0.3s 0,
+      width cubic-bezier(0.77, 0, 0.175, 1) 0.3s 0,
+      height cubic-bezier(0.77, 0, 0.175, 1) 0.3s 0;
   }
 }
 .personal-image-active {
@@ -118,6 +123,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
       img {
         width: 230px;
         height: 230px;
+        border-radius: 18px;
         transition-delay: 0.4s;
       }
     }

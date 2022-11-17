@@ -88,7 +88,7 @@ defineEmits(["showPersonalMenu", "hidePersonalMenu", "toPersonalMenu"]);
   content: "";
   position: fixed;
   right: 0.75rem;
-  top: calc(100px - 0.5rem);
+  top: calc(100px - 0rem);
   width: 0;
   height: 0;
   background-color: rgba(80, 77, 84, 0.1);
@@ -138,7 +138,7 @@ defineEmits(["showPersonalMenu", "hidePersonalMenu", "toPersonalMenu"]);
 .personal-menu-content {
   position: fixed;
   right: 0.75rem;
-  top: calc(100px - 0.5rem);
+  top: calc(100px - 0rem);
   width: 250px;
   height: 360px;
   visibility: hidden;
