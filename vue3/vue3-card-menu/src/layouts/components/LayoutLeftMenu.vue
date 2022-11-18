@@ -4,7 +4,6 @@
       <img src="/logo.png" alt="" />
     </div>
     <div class="left-menu">
-      <div class="left-menu-top-cover"></div>
       <div class="left-menu-content">
         <div
           class="left-menu-item"
@@ -27,7 +26,6 @@
           <div></div>
         </div>
       </div>
-      <div class="left-menu-bottom-cover"></div>
     </div>
   </div>
 </template>
@@ -76,29 +74,6 @@ defineEmits(["chooseBigMenu"]);
     }
   }
 
-  .left-menu-top-cover,
-  .left-menu-bottom-cover {
-    position: absolute;
-    left: 0;
-    width: 124px;
-    height: 40px;
-  }
-  .left-menu-top-cover {
-    top: 0;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(30, 41, 59, 1),
-      rgba(255, 255, 255, 0)
-    );
-  }
-  .left-menu-bottom-cover {
-    bottom: 0;
-    background-image: linear-gradient(
-      to top,
-      rgba(30, 41, 59, 1),
-      rgba(255, 255, 255, 0)
-    );
-  }
 }
 
 .left-menu-item {

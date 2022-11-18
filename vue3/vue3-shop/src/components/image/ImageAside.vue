@@ -7,6 +7,7 @@
         :key="index"
         @edit="handleEdit(item)"
         @delete="handleDelete(item.id)"
+        @click="handleChangeActiveId(item.id)"
       >
         {{ item.name }}
       </AsideList>
@@ -133,7 +134,8 @@ function getImageClassData(p = null) {
       if (list.value && list.value.length > 0) {
         let item = list.value[0];
         if (item) {
-          activeId.value = item.id;
+          //默认选中第一个
+          handleChangeActiveId(item.id);
         }
       }
     })
@@ -157,12 +159,20 @@ const handleDelete = (id) => {
   loading.value = true;
   deleteImageClass(id)
     .then((response) => {
-        showMessage("删除成功")
-        getImageClassData()
+      showMessage("删除成功");
+      getImageClassData();
     })
     .finally(() => {
       loading.value = false;
     });
+};
+
+const emits = defineEmits(["change"]);
+
+// 切换分类(选中图库分类id)
+const handleChangeActiveId = (id) => {
+  activeId.value = id;
+  emits("change", id);
 };
 
 defineExpose({
