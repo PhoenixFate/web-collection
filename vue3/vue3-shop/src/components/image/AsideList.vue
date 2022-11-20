@@ -7,23 +7,25 @@
       text
       type="primary"
       size="small"
-      @click="$emit('edit')"
+      @click.stop="$emit('edit')"
     >
       <el-icon :size="12"><Edit /></el-icon>
     </el-button>
-
-    <el-popconfirm
-      title="你确定要删除图库分类吗"
-      confirmButtonText="确认"
-      cancelButtonText="取消"
-      @confirm="$emit('delete')"
-    >
-      <template #reference>
-        <el-button class="px-1" text type="primary" size="small">
-          <el-icon :size="12"><Close /></el-icon>
-        </el-button>
-      </template>
-    </el-popconfirm>
+    <!-- 阻止点击事件冒泡 -->
+    <span @click.stop="() => {}">
+      <el-popconfirm
+        title="你确定要删除图库分类吗"
+        confirmButtonText="确认"
+        cancelButtonText="取消"
+        @confirm="$emit('delete')"
+      >
+        <template #reference>
+          <el-button class="px-1" text type="primary" size="small">
+            <el-icon :size="12"><Close /></el-icon>
+          </el-button>
+        </template>
+      </el-popconfirm>
+    </span>
   </div>
 </template>
 <script setup>
