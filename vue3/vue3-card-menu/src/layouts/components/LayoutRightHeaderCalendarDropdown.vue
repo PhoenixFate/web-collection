@@ -3,7 +3,7 @@
     class="personal-calendar"
     :class="{ 'personal-calendar-active': personalCalendarFlag }"
   >
-    <div class="personal-calendar-content">
+    <div class="personal-calendar-content" @click="tempClick">
       <div class="personal-calendar-item" v-if="solar2lunarData">
         <h1>
           <span>农历</span>
@@ -69,7 +69,9 @@ const huangli = reactive({
   xiongshen: "月建 小时 土府 月刑 厌对 招摇 五离",
   ji: "诸事不忌",
 });
-
+const tempClick=()=>{
+  console.log('-content')
+}
 defineProps({
   personalCalendarFlag: {
     type: Boolean,
@@ -138,7 +140,7 @@ defineProps({
   top: calc(100px - 0rem);
   width: 180px;
   height: 280px;
-  visibility: visible;
+  visibility: hidden;
   padding: 10px;
 }
 
@@ -168,18 +170,19 @@ defineProps({
   }
   .animal {
     width: 64px;
-    height: 0px;
+    height: 10px;
     border-radius: 50%;
     background-color: white;
     margin-left: 50px;
     margin-top: 6px;
     margin-bottom: 6px;
-    @apply flex items-center justify-center;
-    transition: all 0.3s linear;
+    @apply flex items-center justify-center relative;
+    transition: all 0.4s linear;
     img {
       width: 60px;
-      height: 0px;
-      transition: all 0.3s linear;
+      height: 10px;
+      transition: all 0.4s linear;
+      position: relative;
     }
   }
   .yi-ji {
@@ -220,12 +223,12 @@ defineProps({
       transition-delay: 0.4s;
       .animal {
         height: 64px;
-        transition: all 0.3s linear;
-        transition-delay: 0.6s;
+        transition: all 0.4s linear;
+        transition-delay: 0.4s;
         img {
           height: 60px;
-          transition: all 0.3s linear;
-          transition-delay: 0.6s;
+          transition: all 0.6s linear;
+          transition-delay: 0.4s;
         }
       }
     }

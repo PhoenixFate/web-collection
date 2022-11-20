@@ -3,7 +3,7 @@
     class="personal-image"
     :class="{ 'personal-image-active': personalImageFlag }"
   >
-    <div class="personal-image-content">
+    <div class="personal-image-content" @click="tempClick">
       <div class="personal-image-item">
         <img
           :src="$store.state.user.avatar"
@@ -19,6 +19,9 @@
   </div>
 </template>
 <script setup>
+const tempClick=()=>{
+  console.log('image-content')
+}
 defineProps({
   personalImageFlag: {
     type: Boolean,

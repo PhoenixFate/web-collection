@@ -64,6 +64,7 @@ body,
 }
 .layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item {
   border-bottom: none;
+  font-weight: normal;
 }
 .layout-tag-list .el-tabs__header .el-tabs__item {
   padding: 0 32px!important;
@@ -107,6 +108,7 @@ body,
 
 .layout-tag-list .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
   border-bottom: none;
+  font-weight: bold;
 }
 
 .layout-tag-list .el-tabs__header .el-tabs__nav-scroll .el-tabs__nav.is-top{

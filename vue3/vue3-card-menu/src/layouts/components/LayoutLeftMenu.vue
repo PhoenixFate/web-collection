@@ -1,7 +1,12 @@
 <template>
   <div class="left-main">
     <div class="left-logo">
-      <img src="/logo.png" alt="" />
+      <img
+        src="/logo.png"
+        :class="{ 'img-rocket-run': rocketAnimateFlag }"
+        alt=""
+        @mouseenter="rocketRun"
+      />
     </div>
     <div class="left-menu">
       <div class="left-menu-content">
@@ -30,6 +35,16 @@
   </div>
 </template>
 <script setup>
+import { ref } from "vue";
+const rocketAnimateFlag = ref(false);
+const rocketRun = () => {
+  if (!rocketAnimateFlag.value) {
+    rocketAnimateFlag.value = true;
+    setTimeout(() => {
+      rocketAnimateFlag.value = false;
+    }, 2400);
+  }
+};
 defineEmits(["chooseBigMenu"]);
 </script>
 <style scoped lang="scss">
@@ -49,7 +64,7 @@ defineEmits(["chooseBigMenu"]);
   height: 60px;
 }
 
-.left-logo img:hover {
+.left-logo img.img-rocket-run {
   animation: rocketRun 2.4s;
 }
 
@@ -73,7 +88,6 @@ defineEmits(["chooseBigMenu"]);
       display: none;
     }
   }
-
 }
 
 .left-menu-item {

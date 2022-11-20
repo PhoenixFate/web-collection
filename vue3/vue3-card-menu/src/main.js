@@ -66,4 +66,8 @@ app.config.globalProperties.$filters = {
   },
 };
 
+//animate.css
+import animated from 'animate.css'
+app.use(animated)
+
 app.mount("#app");

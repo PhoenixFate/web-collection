@@ -46,7 +46,7 @@
 </template>
 <script setup>
 import { computed, ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useStore } from "vuex";
 const router = useRouter();
 const store = useStore();
@@ -54,6 +54,12 @@ const route = useRoute();
 
 //默认选中当前路由
 const defaultActive = ref(route.path);
+
+//监听路由变化
+onBeforeRouteUpdate((to,from)=>{
+  defaultActive.value=to.path
+})
+
 
 //计算菜单是否折叠
 const isCollapse = computed(() => {

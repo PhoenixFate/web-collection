@@ -16,36 +16,48 @@
         </div>
       </el-tooltip>
     </div>
-    <div class="header-btn">
-      <el-tooltip effect="dark" content="刷新页面" placement="bottom">
-        <div class="header-btn-body" @click="handleRefresh()">
-          <el-icon class="icon-btn">
-            <Refresh color="#555" />
-          </el-icon>
-        </div>
-      </el-tooltip>
-    </div>
+
+    <el-breadcrumb class="ml-4">
+      <TransitionGroup
+        appear
+        enter-active-class="animate__animated animate__fadeInRight"
+      >
+        <el-breadcrumb-item
+          v-for="(item, index) in breadcrumbList"
+          :key="item"
+        >
+          <span>{{ item }} </span>
+        </el-breadcrumb-item>
+      </TransitionGroup>
+    </el-breadcrumb>
 
     <div class="ml-auto flex justify-center items-center h-[100%]">
-      <div class="mr-4 h-[100%]">
-        <div class="header-btn" v-if="!isFullscreen">
-          <el-tooltip effect="dark" content="全屏" placement="bottom">
-            <div class="header-btn-body" @click="toggle()">
-              <el-icon>
-                <FullScreen color="#555" />
-              </el-icon>
-            </div>
-          </el-tooltip>
-        </div>
-        <div class="header-btn" v-if="isFullscreen">
-          <el-tooltip effect="dark" content="退出全屏" placement="bottom">
-            <div class="header-btn-body" @click="toggle()">
-              <el-icon>
-                <Aim color="#555" />
-              </el-icon>
-            </div>
-          </el-tooltip>
-        </div>
+      <div class="header-btn" v-if="!isFullscreen">
+        <el-tooltip effect="dark" content="全屏" placement="bottom">
+          <div class="header-btn-body" @click="toggle()">
+            <el-icon>
+              <FullScreen color="#555" />
+            </el-icon>
+          </div>
+        </el-tooltip>
+      </div>
+      <div class="header-btn" v-if="isFullscreen">
+        <el-tooltip effect="dark" content="退出全屏" placement="bottom">
+          <div class="header-btn-body" @click="toggle()">
+            <el-icon>
+              <Aim color="#555" />
+            </el-icon>
+          </div>
+        </el-tooltip>
+      </div>
+      <div class="header-btn mr-4">
+        <el-tooltip effect="dark" content="刷新页面" placement="bottom">
+          <div class="header-btn-body" @click="handleRefresh()">
+            <el-icon class="icon-btn">
+              <Refresh color="#555" />
+            </el-icon>
+          </div>
+        </el-tooltip>
       </div>
       <LayoutRightHeaderClock
         @showPersonalCalendar="showPersonalCalendar"
@@ -143,6 +155,27 @@ import {
   usePersonalImageDropdown,
   usePersonalCalendarDropdown,
 } from "~/composables/header/useDropdown";
+
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
+let breadcrumbList = computed(() => {
+  let temp = [];
+  if (
+    router.currentRoute.value.meta &&
+    router.currentRoute.value.meta.bigMenuIndex
+  ) {
+    temp.push(
+      store.state.menus[router.currentRoute.value.meta.bigMenuIndex[0]].name
+    );
+    temp.push(router.currentRoute.value.meta.title);
+  }
+  console.log(temp);
+  return temp;
+});
+
 const {
   formDrawerRef,
   form,
@@ -165,7 +198,6 @@ const { personalImageFlag, showPersonalImage, hidePersonalImage } =
 const { personalCalendarFlag, showPersonalCalendar, hidePersonalCalendar } =
   usePersonalCalendarDropdown();
 
-const store = useStore();
 const {
   // 是否是全屏
   isFullscreen,
@@ -224,6 +256,19 @@ const toPersonalMenu = (index) => {
   width: 100%;
   height: 80px;
   @apply flex items-center justify-start;
+  :deep(.el-breadcrumb) {
+    font-size: .9rem;
+    height: 30px;
+    line-height: 30px;
+  }
+  :deep(.el-breadcrumb__item:nth-child(1)){
+    font-size: 1.1rem;
+  }
+  :deep(.el-breadcrumb__item:last-child .el-breadcrumb__inner){
+    font-size: 1rem;
+    font-weight: bold!important;
+    color:black!important;
+  }
 }
 
 .header-btn {

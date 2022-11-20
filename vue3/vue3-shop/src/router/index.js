@@ -17,6 +17,8 @@ import ImageList from "~/pages/image/list.vue";
 import NoticeList from "~/pages/notice/list.vue";
 import SettingBase from "~/pages/setting/base.vue";
 import CouponList from "~/pages/coupon/list.vue";
+import ManagerList from "~/pages/manager/list.vue";
+import AccessList from "~/pages/access/list.vue";
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -187,6 +189,22 @@ const asyncRoutes = [
     component: CouponList,
     meta: {
       title: "优惠券列表",
+    },
+  },
+  {
+    path: "/manager/list",
+    name: "/manager/list",
+    component: ManagerList,
+    meta: {
+      title: "管理员管理",
+    },
+  },
+  {
+    path: "/access/list",
+    name: "/access/list",
+    component: AccessList,
+    meta: {
+      title: "菜单权限管理",
     },
   },
 ];
