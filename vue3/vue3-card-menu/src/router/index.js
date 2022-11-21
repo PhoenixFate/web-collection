@@ -22,7 +22,7 @@ const routes = [
     component: Login,
     meta: {
       title: "登录页",
-    },
+    }
   },
   {
     path: "/loading",

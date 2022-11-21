@@ -68,7 +68,6 @@ export function useChangePassword() {
 export function useLogin() {
   const loginType = ref("username");
   const sendMobileCodeFlag = ref(false);
-
   const router = useRouter();
   const store = useStore();
   const form = reactive({
@@ -118,11 +117,13 @@ export function useLogin() {
   };
 
   const chooseLoginType = (type) => {
+    formRef1.value.formRef1.clearValidate();
+    formRef2.value.formRef2.clearValidate();
     loginType.value = type;
   };
 
   const onSubmit = () => {
-    console.log(form)
+    console.log(form);
     if (loginType.value == "username") {
       formRef1.value.formRef1.validate((valid) => {
         if (!valid) {
@@ -178,8 +179,8 @@ export function useLogin() {
     loading,
     sendMobileCode,
     chooseLoginType,
-    onSubmit
-  }
+    onSubmit,
+  };
 }
 
 export function useLogout() {
@@ -191,7 +192,7 @@ export function useLogout() {
       console.log("用户退出登录");
       store.dispatch("logoutAction").then(() => {
         //返回首页
-        router.push("/login");
+        router.push("/login/username");
         //提示退出登录成功
         showMessage("退出登录成功", "success");
         //当前router中有上个用户的信息，需要清除router中的路由

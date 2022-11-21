@@ -5,23 +5,28 @@
       :loginType="loginType"
       @chooseLoginType="chooseLoginType"
     ></LoginMainRightType>
-    <LoginMainRightFrom1
-      :form="form"
-      ref="formRef1"
-      class="mb-2"
-      :rules="rules1"
-      v-if="loginType == 'username'"
-    ></LoginMainRightFrom1>
-    <LoginMainRightFrom2
-      :form="form"
-      class="mb-2"
-      ref="formRef2"
-      :rules="rules2"
-      :sendMobileCodeFlag="sendMobileCodeFlag"
-      :totalTimeout="totalTimeout"
-      @sendMobileCode="sendMobileCode"
-      v-if="loginType == 'mobile'"
-    ></LoginMainRightFrom2>
+
+    <div class="login-form">
+      <div class="login-form-content">
+        <LoginMainRightFrom1
+          :form="form"
+          ref="formRef1"
+          class="mb-2 float-left"
+          :class="{'login-form-username':loginType == 'username'}"
+          :rules="rules1"
+        ></LoginMainRightFrom1>
+        <LoginMainRightFrom2
+          :form="form"
+          class="mb-2 float-right"
+          ref="formRef2"
+          :class="{'login-form-mobile':loginType == 'mobile'}"
+          :rules="rules2"
+          :sendMobileCodeFlag="sendMobileCodeFlag"
+          :totalTimeout="totalTimeout"
+          @sendMobileCode="sendMobileCode"
+        ></LoginMainRightFrom2>
+      </div>
+    </div>
     <LoginSubmit :loading="loading" @onSubmit="onSubmit"></LoginSubmit>
     <LoginNotChrome v-if="!isChrome"></LoginNotChrome>
   </div>
@@ -74,12 +79,28 @@ onBeforeUnmount(() => {
   document.removeEventListener("keyup", onKeyUp);
 });
 </script>
-<style scoped>
+<style scoped lang="scss">
 .login-main-right {
   width: 50%;
   height: 100%;
   position: relative;
   @apply flex flex-col items-center justify-center pb-6;
+}
+.login-form {
+  width: 250px;
+  height: 126px;
+  overflow: hidden;
+  .login-form-content {
+    width: 540px;
+    height: 126px;
+    transition: all .3s ease-in-out;
+  }
+  .login-form-content:has(.login-form-username){
+    transform: translateX(0)
+  }
+  .login-form-content:has(.login-form-mobile){
+    transform: translateX(-290px)
+  }
 }
 
 </style>
