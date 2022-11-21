@@ -22,9 +22,16 @@
               :modelValue="data.status"
               :active-value="1"
               :inactive-value="0"
+              @change="handleStatusChange($event, data)"
             >
             </el-switch>
-            <el-button text type="primary" size="small">新增</el-button>
+            <el-button
+              text
+              type="primary"
+              size="small"
+              @click.stop="addChild(data.id)"
+              >新增</el-button
+            >
             <el-button
               text
               type="warning"
@@ -32,13 +39,17 @@
               @click.stop="handleEdit(data)"
               >修改</el-button
             >
-            <el-button
-              text
-              type="danger"
-              size="small"
-              @click="handleDelete(data.id)"
-              >删除</el-button
+
+            <el-popconfirm
+              title="你确定要删除该管理员吗"
+              confirmButtonText="确认"
+              cancelButtonText="取消"
+              @confirm="handleDelete(data.id)"
             >
+              <template #reference>
+                <el-button text type="danger" size="small">删除</el-button>
+              </template>
+            </el-popconfirm>
           </div>
         </div>
       </template>
@@ -122,7 +133,13 @@
 <script setup>
 import { ref } from "vue";
 import ListHeader from "~/components/ListHeader.vue";
-import { getRuleList, createRule, updateRule, deleteRule } from "~/api/rule.js";
+import {
+  getRuleList,
+  createRule,
+  updateRule,
+  deleteRule,
+  updateRuleStatus,
+} from "~/api/rule.js";
 import {
   useInitializeTable,
   useInitializeCreateOrUpdateForm,
@@ -134,17 +151,19 @@ const defaultExpandedKeys = ref([]);
 
 const dropdownRules = ref([]);
 
-const { tableData, loading, getData, handleDelete } = useInitializeTable({
-  getList: getRuleList,
-  onGetListSuccess: (response) => {
-    console.log(response)
-    dropdownRules.value = response.rules;
-    tableData.value = response.list;
-    defaultExpandedKeys.value = response.list.map((o) => o.id);
-  },
-  delete: deleteRule,
-  title: "菜单权限",
-});
+const { tableData, loading, getData, handleDelete, handleStatusChange } =
+  useInitializeTable({
+    getList: getRuleList,
+    onGetListSuccess: (response) => {
+      console.log(response);
+      dropdownRules.value = response.rules;
+      tableData.value = response.list;
+      defaultExpandedKeys.value = response.list.map((o) => o.id);
+    },
+    delete: deleteRule,
+    updateStatus: updateRuleStatus,
+    title: "菜单权限",
+  });
 
 const {
   form,
@@ -173,6 +192,14 @@ const {
   create: createRule,
   update: updateRule,
 });
+
+// 增加子分类
+const addChild = (id) => {
+  //先触发表单，handleCreate中会先重置表单
+  handleCreate();
+  form.rule_id = id;
+  form.status = 1;
+};
 </script>
 <style scoped>
 :deep(.el-tree-node__label) {
