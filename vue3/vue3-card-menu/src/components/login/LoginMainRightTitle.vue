@@ -41,8 +41,8 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-decoration: underline;
-  -webkit-animation: slideShine 12s linear infinite;
-  animation: slideShine 12s linear infinite;
+  -webkit-animation: slideShine 10s linear infinite;
+  animation: slideShine 10s linear infinite;
 }
 .login-title h3 {
   font-size: 1rem;

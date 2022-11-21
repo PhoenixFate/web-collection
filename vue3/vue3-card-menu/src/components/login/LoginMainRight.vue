@@ -8,11 +8,13 @@
     <LoginMainRightFrom1
       :form="form"
       ref="formRef1"
+      class="mb-2"
       :rules="rules1"
       v-if="loginType == 'username'"
     ></LoginMainRightFrom1>
     <LoginMainRightFrom2
       :form="form"
+      class="mb-2"
       ref="formRef2"
       :rules="rules2"
       :sendMobileCodeFlag="sendMobileCodeFlag"

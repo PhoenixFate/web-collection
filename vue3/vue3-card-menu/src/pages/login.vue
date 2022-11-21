@@ -20,8 +20,8 @@ import LoginMainRight from "~/components/login/LoginMainRight.vue";
   @apply flex justify-center items-center;
 }
 .login-main {
-  width: 60%;
-  height: 60%;
+  width: 1150px;
+  height: 640px;
   background: url("/image/login/login-main-background.png") no-repeat;
   background-size: 101% 101%;
   box-shadow: 0 16px 50px -16px #649bd6;

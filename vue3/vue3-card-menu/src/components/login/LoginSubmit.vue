@@ -20,11 +20,11 @@ defineEmits(["onSubmit"]);
 <style scoped>
 .login-button {
   width: 250px;
-  height: 40px;
-  border-radius: 20px;
+  height: 42px;
+  border-radius: 21px;
   letter-spacing: 4px;
   user-select: none;
-  @apply mt-4 text-white relative flex justify-center items-center shadow-md shadow-blue-gray-400;
+  @apply mt-2 text-white relative flex justify-center items-center shadow-md shadow-blue-gray-400;
   background: linear-gradient(to right, #62a8ff, #0361fe);
 }
 .login-button.login-button-loading {
