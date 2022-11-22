@@ -2,11 +2,9 @@
   <el-card shadow="always" class="border-0">
     <!-- 新增 刷新 -->
     <ListHeader @create="handleCreate" @refresh="getData"></ListHeader>
-
     <el-table :data="tableData" stripe style="width: 100%" v-loading="loading">
       <el-table-column prop="name" label="角色名称" width="200" />
       <el-table-column prop="desc" label="角色描述" />
-
       <el-table-column label="状态" width="120">
         <template #default="{ row }">
           <div>
@@ -24,8 +22,15 @@
       </el-table-column>
 
       <el-table-column prop="create_time" label="发布时间" width="180" />
-      <el-table-column label="操作" width="180" aign="center">
+      <el-table-column label="操作" width="280" aign="center">
         <template #default="scope">
+          <el-button
+            type="primary"
+            size="small"
+            text
+            @click="openSetRule(scope.row)"
+            >配置权限</el-button
+          >
           <el-button
             type="primary"
             size="small"
@@ -87,6 +92,42 @@
         </el-form-item>
       </el-form>
     </FormDrawer>
+
+    <!-- 权限配置 -->
+    <FormDrawer
+      ref="setRuleFormDrawerRef"
+      title="权限配置"
+      @submit="handleSetRuleSubmit"
+    >
+      <el-form
+        :model="form"
+        ref="formRef"
+        :rules="rules"
+        label-width="80px"
+        :inline="false"
+      >
+        <el-tree-v2
+          ref="elTreeRef"
+          node-key="id"
+          :default-expanded-keys="defaultExpandedKeys"
+          :check-strictly="checkStrictly"
+          :data="ruleList"
+          :props="{ label: 'name', children: 'child' }"
+          show-checkbox
+          :height="treeHeight"
+          @check="handleTreeCheck"
+        >
+          <template #default="{ node, data }">
+            <div class="flex items-center">
+              <el-tag :type="data.menu ? '' : 'info'" size="small">
+                {{ data.menu ? "菜单" : "权限" }}
+              </el-tag>
+              <span class="ml-2 text-sm">{{ data.name }}</span>
+            </div>
+          </template>
+        </el-tree-v2>
+      </el-form>
+    </FormDrawer>
   </el-card>
 </template>
 <script setup>
@@ -96,6 +137,7 @@ import {
   updateRole,
   deleteRole,
   updateRoleStatus,
+  setRoleRules,
 } from "~/api/role";
 import FormDrawer from "~/components/FormDrawer.vue";
 import {
@@ -103,6 +145,9 @@ import {
   useInitializeCreateOrUpdateForm,
 } from "~/composables/useCommon";
 import ListHeader from "~/components/ListHeader.vue";
+import { ref } from "vue";
+import { getRuleList } from "~/api/rule";
+import { showMessage } from "~/composables/util.js";
 
 const { tableData, loading, page, getData, handleDelete, handleStatusChange } =
   useInitializeTable({
@@ -141,4 +186,55 @@ const {
   create: createRole,
   update: updateRole,
 });
+
+const setRuleFormDrawerRef = ref();
+const ruleList = ref([]);
+const treeHeight = ref(0);
+const roleId = ref(0);
+
+const checkStrictly = ref(false);
+
+const defaultExpandedKeys = ref([]);
+// 当前角色拥有的权限id
+const ruleIds = ref([]);
+const elTreeRef = ref();
+const openSetRule = (row) => {
+  roleId.value = row.id;
+  treeHeight.value = window.innerHeight - 180;
+  //请求数据之前，默认不关联
+  checkStrictly.value = true;
+  getRuleList(1).then((response) => {
+    ruleList.value = response.list;
+    defaultExpandedKeys.value = response.list.map((o) => o.id);
+    setRuleFormDrawerRef.value.open();
+    //获取当前角色拥有的权限id
+    ruleIds.value = row.rules.map((o) => o.id);
+    setTimeout(() => {
+      elTreeRef.value.setCheckedKeys(ruleIds.value);
+      //获得数据之后，默认为关联
+      checkStrictly.value = false;
+    }, 150);
+  });
+};
+
+const handleTreeCheck = (...e) => {
+  console.log(e);
+  const { checkedKeys, halfCheckedKeys } = e[1];
+  ruleIds.value = [...checkedKeys, ...halfCheckedKeys];
+};
+
+//提交按钮
+const handleSetRuleSubmit = () => {
+  setRuleFormDrawerRef.value.showLoading();
+  setRoleRules(roleId.value, ruleIds.value)
+    .then((response) => {
+      showMessage("配置权限成功！");
+      getData();
+      setRuleFormDrawerRef.value.close();
+    })
+    .finally(() => {
+      setRuleFormDrawerRef.value.hideLoading();
+    });
+};
 </script>
+<style lang="scss" scoped></style>
