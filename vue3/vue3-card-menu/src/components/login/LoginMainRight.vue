@@ -6,20 +6,20 @@
       @chooseLoginType="chooseLoginType"
     ></LoginMainRightType>
 
-    <div class="login-form">
+    <div class="login-form-main">
       <div class="login-form-content">
         <LoginMainRightFrom1
           :form="form"
           ref="formRef1"
           class="mb-2 float-left"
-          :class="{'login-form-username':loginType == 'username'}"
+          :class="{ 'login-form-username': loginType == 'username' }"
           :rules="rules1"
         ></LoginMainRightFrom1>
         <LoginMainRightFrom2
           :form="form"
           class="mb-2 float-right"
           ref="formRef2"
-          :class="{'login-form-mobile':loginType == 'mobile'}"
+          :class="{ 'login-form-mobile': loginType == 'mobile' }"
           :rules="rules2"
           :sendMobileCodeFlag="sendMobileCodeFlag"
           :totalTimeout="totalTimeout"
@@ -86,21 +86,22 @@ onBeforeUnmount(() => {
   position: relative;
   @apply flex flex-col items-center justify-center pb-6;
 }
-.login-form {
-  width: 250px;
+.login-form-main {
+  width: 340px;
   height: 126px;
   overflow: hidden;
   .login-form-content {
-    width: 540px;
+    width: 630px;
     height: 126px;
-    transition: all .3s ease-in-out;
+    // transition: all 0.3s ease-in-out;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
-  .login-form-content:has(.login-form-username){
-    transform: translateX(0)
+  .login-form-content:has(.login-form-username) {
+    transform: translateX(5px);
   }
-  .login-form-content:has(.login-form-mobile){
-    transform: translateX(-290px)
+  .login-form-content:has(.login-form-mobile) {
+    transform: translateX(-295px);
   }
 }
-
 </style>

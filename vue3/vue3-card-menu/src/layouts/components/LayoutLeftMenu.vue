@@ -9,7 +9,9 @@
       />
     </div>
     <div class="left-menu">
-      <div class="left-menu-content">
+      <div class="left-menu-top-cover"></div>
+      <div class="left-menu-content" ref="leftMenuContent">
+        <div class="h-[30px]"></div>
         <div
           class="left-menu-item"
           v-for="(item, index) in $store.state.menus"
@@ -30,12 +32,17 @@
           <span class="mt-1">{{ item.name }}</span>
           <div></div>
         </div>
+        <div class="h-[30px]"></div>
       </div>
+      <div class="left-menu-bottom-cover"></div>
     </div>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { nextTick } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 const rocketAnimateFlag = ref(false);
 const rocketRun = () => {
   if (!rocketAnimateFlag.value) {
@@ -45,6 +52,15 @@ const rocketRun = () => {
     }, 2400);
   }
 };
+const leftMenuContent = ref();
+onMounted(() => {
+  nextTick(() => {
+    console.log(leftMenuContent.scrollTop);
+    leftMenuContent.value.scrollTop =
+      (store.state.bigMenuIndex - 2 < 0 ? 0 : store.state.bigMenuIndex - 2) *
+      60;
+  });
+});
 defineEmits(["chooseBigMenu"]);
 </script>
 <style scoped lang="scss">
@@ -69,10 +85,10 @@ defineEmits(["chooseBigMenu"]);
 }
 
 .left-menu {
-  height: calc(100vh - 260px);
+  height: calc(100vh - 240px);
   width: 124px;
   z-index: 30;
-  top: 170px;
+  top: 144px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -80,6 +96,26 @@ defineEmits(["chooseBigMenu"]);
   user-select: none;
   @apply absolute right-0 overflow-hidden;
 
+  .left-menu-top-cover {
+    width: 115px;
+    height: 36px;
+    top: -4px;
+    left: 0;
+    z-index: 10;
+    background-image: linear-gradient(rgb(30, 41, 59), transparent);
+    @apply absolute;
+  }
+  .left-menu-bottom-cover {
+    width: 103px;
+    height: 40px;
+    bottom: -6px;
+    left: 0;
+    z-index: 10;
+    background-image: linear-gradient(transparent, rgb(30, 41, 59));
+    transform: perspective(90px) rotateX(-4deg);
+    transform-origin: left;
+    @apply absolute;
+  }
   .left-menu-content {
     width: 124px;
     height: 100%;

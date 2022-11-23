@@ -51,7 +51,7 @@ export const router = createRouter({
 export function addRoutes(menus) {
   //是否有新的路由
   let hasNewRoutes = false;
-  const findAndAddRoutesByMenus = (array, parentMenuIndex = -1) => {
+  const findAndAddRoutesByMenus = (array, parentMenuIndex = []) => {
     array.forEach((element, index) => {
       let item;
       if (element.frontpath) {
@@ -76,14 +76,14 @@ export function addRoutes(menus) {
         if (!item.meta.bigMenuIndex) {
           item.meta.bigMenuIndex = [];
         }
-        item.meta.bigMenuIndex.push(parentMenuIndex);
+        item.meta.bigMenuIndex.push(...parentMenuIndex);
         router.addRoute("layout", item);
         hasNewRoutes = true;
       }
       //挂载路由的child
       if (element.child && element.child.length > 0) {
         //递归
-        findAndAddRoutesByMenus(element.child, index);
+        findAndAddRoutesByMenus(element.child, [...parentMenuIndex,index]);
       }
     });
   };

@@ -1,6 +1,8 @@
 import { useStore } from "vuex";
 import { getBigMenuIndex, setBigMenuIndex } from "~/composables/storage.js";
 export function useMenu() {
+  console.log("-----------use menu---------");
+
   const store = useStore();
   let cookieBigMenuIndex = getBigMenuIndex();
   if (cookieBigMenuIndex) {
@@ -30,7 +32,7 @@ export function useMenu() {
     store.commit("SET_MIDDLE_THIRD_INDEX", indexArray[1]);
   } else {
     //当menus大于等于4个的时候只显示card-current card-next card-third card-last-temp
-    store.commit("SET_MIDDLE_LAST_INDEX", store.state.menus.length - 1);
+   
 
     let indexArray = [];
     store.state.menus.forEach((menu, i) => {
@@ -38,8 +40,10 @@ export function useMenu() {
         indexArray.push(i);
       }
     });
+    console.log(indexArray);
     store.commit("SET_MIDDLE_NEXT_INDEX", indexArray[0]);
     store.commit("SET_MIDDLE_THIRD_INDEX", indexArray[1]);
+    store.commit("SET_MIDDLE_LAST_INDEX", indexArray[indexArray.length-1]);
   }
 
   const chooseBigMenu = (index) => {

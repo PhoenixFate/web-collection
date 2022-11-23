@@ -192,7 +192,7 @@ export function useLogout() {
       console.log("用户退出登录");
       store.dispatch("logoutAction").then(() => {
         //返回首页
-        router.push("/login/username");
+        router.push("/login");
         //提示退出登录成功
         showMessage("退出登录成功", "success");
         //当前router中有上个用户的信息，需要清除router中的路由

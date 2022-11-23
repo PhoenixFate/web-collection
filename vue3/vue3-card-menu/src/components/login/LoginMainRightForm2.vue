@@ -89,6 +89,7 @@ defineExpose({
 <style scoped>
 .login-form {
   width: 250px;
+  margin-right: 40px;
 }
 .login-form :deep(.el-input) {
   font-size: 0.9rem;
@@ -119,6 +120,7 @@ defineExpose({
   margin-top: 6px;
   border: 1px solid #38bdf8;
   cursor: pointer;
+  margin-right: 1px;
   @apply text-light-blue-400 flex justify-center items-center text-xs;
 }
 

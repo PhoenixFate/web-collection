@@ -6,17 +6,6 @@
   list-style-type: none;
   height: calc(100% - 20px);
 }
-.card > ul > li {
-  margin: 20px auto;
-  height: 60px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  letter-spacing:3px;
-  font-family: "xsyt", sans-serif;
-  @apply rounded-lg text-lg;
-}
-
 .card {
   position: absolute;
   top: 0;

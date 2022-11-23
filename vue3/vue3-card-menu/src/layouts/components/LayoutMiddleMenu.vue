@@ -48,7 +48,7 @@
               <el-icon>
                 <component :is="item.icon" />
               </el-icon>
-              <span class="ml-2"> {{ item.name }}</span>
+              <span> {{ item.name }}</span>
             </el-menu-item>
           </template>
         </el-menu>
@@ -86,18 +86,58 @@ const defaultActive = computed(() => route.path);
   width: 24px;
 }
 
-
-.card > ul > li:hover {
+.card :deep(.el-sub-menu__title) {
+  height: 60px;
+  padding: 0 0 0 20px;
   transition: all 0.4s;
+  @apply text-lg rounded-lg;
+}
+.card :deep(.el-sub-menu__title:hover) {
   padding-left: 1.6rem !important;
   @apply bg-gray-200 text-blue-gray-500;
 }
-.card > ul > li.is-active {
+.card :deep(.el-sub-menu .el-sub-menu__icon-arrow) {
+  margin-top: -12px;
+  margin-left: .8rem;
+  font-size: 0.8rem;
+  right: 5px;
+}
+.card :deep(.el-sub-menu .el-sub-menu__title .el-icon:nth-child(3)) {
+  margin-right: 0;
+}
+.card :deep(.el-sub-menu .el-icon) {
+  margin-right: 0.6rem;
+}
+
+.card :deep(.el-menu-item .el-icon) {
+  margin-right: 0.6rem;
+}
+
+.el-menu-item,
+.el-sub-menu {
+  letter-spacing: 3px;
+  font-family: "xsyt", sans-serif;
+  margin: 14px auto;
+  height: 60px;
+  @apply rounded-lg text-lg;
+}
+
+.el-menu-item {
+  transition: all 0.4s;
+  padding: 0 20px;
+}
+
+.el-menu-item:hover {
+  padding-left: 2.2rem !important;
+  @apply bg-gray-200 text-blue-gray-500;
+}
+
+.middle-menu .el-menu-item.is-active:hover {
+  @apply bg-blue-200 text-light-blue-800;
+}
+.middle-menu .el-menu-item.is-active {
   animation: pulse 0.4s;
   @apply bg-blue-100 text-light-blue-600;
-}
-.card > ul > li.is-active:hover {
-  @apply bg-blue-200 text-light-blue-800 ;
 }
 
 @-webkit-keyframes pulse {

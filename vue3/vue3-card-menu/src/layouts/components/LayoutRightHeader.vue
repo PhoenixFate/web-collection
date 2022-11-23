@@ -22,10 +22,7 @@
         appear
         enter-active-class="animate__animated animate__fadeInRight"
       >
-        <el-breadcrumb-item
-          v-for="(item, index) in breadcrumbList"
-          :key="item"
-        >
+        <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="item+index">
           <span>{{ item }} </span>
         </el-breadcrumb-item>
       </TransitionGroup>
@@ -170,6 +167,13 @@ let breadcrumbList = computed(() => {
     temp.push(
       store.state.menus[router.currentRoute.value.meta.bigMenuIndex[0]].name
     );
+    if (router.currentRoute.value.meta.bigMenuIndex.length > 1) {
+      temp.push(
+        store.state.menus[router.currentRoute.value.meta.bigMenuIndex[0]].child[
+          router.currentRoute.value.meta.bigMenuIndex[1]
+        ].name
+      );
+    }
     temp.push(router.currentRoute.value.meta.title);
   }
   console.log(temp);
@@ -257,17 +261,17 @@ const toPersonalMenu = (index) => {
   height: 80px;
   @apply flex items-center justify-start;
   :deep(.el-breadcrumb) {
-    font-size: .9rem;
+    font-size: 0.9rem;
     height: 30px;
     line-height: 30px;
   }
-  :deep(.el-breadcrumb__item:nth-child(1)){
+  :deep(.el-breadcrumb__item:nth-child(1)) {
     font-size: 1.1rem;
   }
-  :deep(.el-breadcrumb__item:last-child .el-breadcrumb__inner){
-    font-size: 1rem;
-    font-weight: bold!important;
-    color:black!important;
+  :deep(.el-breadcrumb__item:last-child .el-breadcrumb__inner) {
+    font-size: .9rem;
+    font-weight: bold !important;
+    color: black !important;
   }
 }
 
