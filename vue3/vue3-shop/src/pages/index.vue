@@ -96,6 +96,17 @@ getStatistics2().then((response) => {
   goods.value = response.goods;
   order.value = response.order;
 });
+
+const promiseArray=ref([])
+for(let i=0;i<10;i++){
+  promiseArray.value.push(getStatistics1())
+}
+console.log("----------  promise all start -------------- ")
+Promise.all(promiseArray.value).then((response)=>{
+  console.log(response)
+  console.log("----------  promise all end -------------- ")
+})
+
 </script>
 <style scoped>
 .index-card:hover {
