@@ -41,14 +41,14 @@ defineEmits(["chooseLoginType"]);
 .login-type-active2 {
   color: #1356d1;
   @apply text-light-blue-700;
+  animation: pulse 0.4s;
 }
 
 .login-type div {
   height: 30px;
   width: 50%;
-  line-height: 30px;
-  text-align: center;
   z-index: 2;
+  @apply flex justify-center items-center;
 }
 
 .glider {
@@ -68,5 +68,22 @@ defineEmits(["chooseLoginType"]);
 }
 .login-type-active2 ~ .glider {
   transform: translateX(100%);
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
 </style>
