@@ -7,7 +7,7 @@
       <div class="left-menu">
         <div class="left-logo">
           <img
-            src="/images/logo.png"
+            src="/image/logo.png"
             :class="{ 'img-rocket-run': rocketAnimateFlag }"
             alt=""
             @mouseenter="rocketRun"
@@ -42,15 +42,12 @@ const activeIndex = ref(0);
 
 const selectBigMenu = (i) => {
   activeIndex.value = i - 1;
-  nextTick(() => {
-    selector.value.style.top = activeIndex.value * 80 + 20 + "px";
-  });
+
+  selector.value.style.top = activeIndex.value * 80 + 20 + "px";
 };
 
 onMounted(() => {
-  nextTick(() => {
-    selector.value.style.top = activeIndex.value * 80 + 20 + "px";
-  });
+  selector.value.style.top = activeIndex.value * 80 + 20 + "px";
 });
 </script>
 <style lang="scss">
@@ -95,15 +92,15 @@ onMounted(() => {
       position: relative;
     }
     .left-content-top-cover {
-        position: absolute;
-        top:-20px;
-        left: 0;
-        height: 40px;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        background-color: #fff;
-        width: 160px;
-        z-index: 10;
+      position: absolute;
+      top: -20px;
+      left: 0;
+      height: 40px;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+      background-color: #fff;
+      width: 160px;
+      z-index: 10;
     }
     .left-content-scroll {
       width: 160px;

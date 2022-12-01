@@ -1,5 +1,5 @@
-const TabListKey = "tabList";
-const BigMenuIndexKey = "bigMenuIndex";
+const TabListKey = "systemTabList";
+const BigMenuIndexKey = "systemBigMenuIndex";
 
 //获取打开的菜单tab
 export function getTabList() {

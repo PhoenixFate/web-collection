@@ -1,110 +1,17 @@
 <template>
   <div class="loading-main">
     <div class="criterion">
-      <div class="text text0">欢</div>
-      <div class="text text1">迎</div>
-      <div class="text text2">使</div>
-      <div class="text text3">用</div>
-      <div class="text text4">办</div>
-      <div class="text text5">公</div>
-      <div class="text text6">系</div>
-      <div class="text text7">统</div>
-      <div class="particle particle00"></div>
-      <div class="particle particle01"></div>
-      <div class="particle particle02"></div>
-      <div class="particle particle03"></div>
-      <div class="particle particle04"></div>
-      <div class="particle particle05"></div>
-      <div class="particle particle06"></div>
-      <div class="particle particle07"></div>
-      <div class="particle particle08"></div>
-      <div class="particle particle09"></div>
-      <div class="particle particle010"></div>
-      <div class="particle particle011"></div>
-      <div class="particle particle10"></div>
-      <div class="particle particle11"></div>
-      <div class="particle particle12"></div>
-      <div class="particle particle13"></div>
-      <div class="particle particle14"></div>
-      <div class="particle particle15"></div>
-      <div class="particle particle16"></div>
-      <div class="particle particle17"></div>
-      <div class="particle particle18"></div>
-      <div class="particle particle19"></div>
-      <div class="particle particle110"></div>
-      <div class="particle particle111"></div>
-      <div class="particle particle20"></div>
-      <div class="particle particle21"></div>
-      <div class="particle particle22"></div>
-      <div class="particle particle23"></div>
-      <div class="particle particle24"></div>
-      <div class="particle particle25"></div>
-      <div class="particle particle26"></div>
-      <div class="particle particle27"></div>
-      <div class="particle particle28"></div>
-      <div class="particle particle29"></div>
-      <div class="particle particle210"></div>
-      <div class="particle particle211"></div>
-      <div class="particle particle30"></div>
-      <div class="particle particle31"></div>
-      <div class="particle particle32"></div>
-      <div class="particle particle33"></div>
-      <div class="particle particle34"></div>
-      <div class="particle particle35"></div>
-      <div class="particle particle36"></div>
-      <div class="particle particle37"></div>
-      <div class="particle particle38"></div>
-      <div class="particle particle39"></div>
-      <div class="particle particle310"></div>
-      <div class="particle particle311"></div>
-      <div class="particle particle40"></div>
-      <div class="particle particle41"></div>
-      <div class="particle particle42"></div>
-      <div class="particle particle43"></div>
-      <div class="particle particle44"></div>
-      <div class="particle particle45"></div>
-      <div class="particle particle46"></div>
-      <div class="particle particle47"></div>
-      <div class="particle particle48"></div>
-      <div class="particle particle49"></div>
-      <div class="particle particle410"></div>
-      <div class="particle particle411"></div>
-      <div class="particle particle50"></div>
-      <div class="particle particle51"></div>
-      <div class="particle particle52"></div>
-      <div class="particle particle53"></div>
-      <div class="particle particle54"></div>
-      <div class="particle particle55"></div>
-      <div class="particle particle56"></div>
-      <div class="particle particle57"></div>
-      <div class="particle particle58"></div>
-      <div class="particle particle59"></div>
-      <div class="particle particle510"></div>
-      <div class="particle particle511"></div>
-      <div class="particle particle60"></div>
-      <div class="particle particle61"></div>
-      <div class="particle particle62"></div>
-      <div class="particle particle63"></div>
-      <div class="particle particle64"></div>
-      <div class="particle particle65"></div>
-      <div class="particle particle66"></div>
-      <div class="particle particle67"></div>
-      <div class="particle particle68"></div>
-      <div class="particle particle69"></div>
-      <div class="particle particle610"></div>
-      <div class="particle particle611"></div>
-      <div class="particle particle70"></div>
-      <div class="particle particle71"></div>
-      <div class="particle particle72"></div>
-      <div class="particle particle73"></div>
-      <div class="particle particle74"></div>
-      <div class="particle particle75"></div>
-      <div class="particle particle76"></div>
-      <div class="particle particle77"></div>
-      <div class="particle particle78"></div>
-      <div class="particle particle79"></div>
-      <div class="particle particle710"></div>
-      <div class="particle particle711"></div>
+      <template v-for="(item, index) in textArray" :key="index">
+        <div :class="`text text${index}`">
+          {{ item }}
+        </div>
+        <template v-for="i in 12" :key="i">
+          <div :class="`particle particle-${index}-base particle0${i-1}`"></div>
+        </template>
+      </template>
+    </div>
+    <div class="version2">
+      <img src="/image/loading/version2.png" alt="" />
     </div>
     <div class="wave">
       <span style="--i: 1">L</span>
@@ -121,19 +28,47 @@
   </div>
 </template>
 <script setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
+const textArray = ref([
+  "欢",
+  "迎",
+  "使",
+  "用",
+  "O",
+  "A",
+  "办",
+  "公",
+  "系",
+  "统",
+]);
+
 const router = useRouter();
 //可以在此处加载用户配置，系统配置，数据库字典等内容
 setTimeout(() => {
-    router.push("/");
+  router.push("/");
 }, 6000);
 </script>
 <style scoped src="../assets/css/loading/welcome.css" />
 <style scoped src="../assets/css/loading/wave.css" />
-<style scoped>
+<style scoped lang="scss">
 .loading-main {
   height: 100vh;
   width: 100vw;
   position: relative;
+}
+.version2 {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -200px;
+  margin-top: -200px;
+  z-index: -1;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

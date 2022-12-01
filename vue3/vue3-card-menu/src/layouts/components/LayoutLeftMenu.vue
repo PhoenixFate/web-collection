@@ -106,7 +106,7 @@ defineEmits(["chooseBigMenu"]);
     @apply absolute;
   }
   .left-menu-bottom-cover {
-    width: 103px;
+    width: 90px;
     height: 40px;
     bottom: -6px;
     left: 0;

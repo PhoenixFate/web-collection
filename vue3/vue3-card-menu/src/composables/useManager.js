@@ -117,6 +117,7 @@ export function useLogin() {
   };
 
   const chooseLoginType = (type) => {
+    console.log("--------choose login type :" + type);
     formRef1.value.formRef1.clearValidate();
     formRef2.value.formRef2.clearValidate();
     loginType.value = type;

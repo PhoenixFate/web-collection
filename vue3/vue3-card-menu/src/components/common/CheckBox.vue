@@ -16,7 +16,7 @@
 </template>
 <script setup>
 import { computed } from "@vue/reactivity";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, nextTick } from "vue";
 import gsap from "gsap";
 
 const props = defineProps({
@@ -27,7 +27,7 @@ const props = defineProps({
   },
   scale: {
     type: Number,
-    default: 1,
+    default: 0.8,
     required: false,
   },
 });
@@ -66,7 +66,7 @@ const defaultCheckBoxChange = () => {
           delay: 0.2,
         },
         {
-          "--border-radius-corner": "5px",
+          "--border-radius-corner": "6px",
           duration: 0.3,
           // clearProps: true,
         },
@@ -109,7 +109,7 @@ const sonCheckBoxChecked = computed({
 });
 
 onMounted(() => {
-  lableRef.value.style.scale = props.scale;
+  lableRef.value.style.setProperty("transform", `scale(${props.scale})`);
 });
 </script>
 <style lang="scss">

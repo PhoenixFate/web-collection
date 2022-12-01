@@ -19,6 +19,7 @@ export default defineConfig({
   },
 
   server: {
+    port: 5000, //指定端口号
     proxy: {
       "/api": {
         target: "http://localhost:8000",
@@ -43,8 +44,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "~/assets/scss/global.scss";'
-      }
-    }
+        additionalData: '@import "~/assets/scss/global.scss";',
+      },
+    },
   },
 });
