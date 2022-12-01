@@ -6,10 +6,14 @@
 <script setup>
 
 </script>
-<style scoped>
+<style scoped lang="scss">
 .login-main-left {
   width: 50%;
   height: 100%;
-  @apply flex justify-center items-center;
+  @apply flex justify-end items-center;
+  img {
+    width: 90%;
+    height: auto;
+  }
 }
 </style>

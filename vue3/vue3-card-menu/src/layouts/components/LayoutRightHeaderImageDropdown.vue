@@ -40,7 +40,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
   content: "";
   position: fixed;
   right: 30px;
-  top: calc(100px - 0rem);
+  top: calc(120px - 0rem);
   width: 250px;
   height: 0px;
   background-color: rgba(80, 77, 84, 0.1);
@@ -88,7 +88,7 @@ defineEmits(["showPersonalImage", "hidePersonalImage"]);
 .personal-image-content {
   position: fixed;
   right: 30px;
-  top: calc(100px - 0rem);
+  top: calc(120px - 0rem);
   width: 250px;
   height: 250px;
   visibility: hidden;

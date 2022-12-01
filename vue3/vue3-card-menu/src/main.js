@@ -45,7 +45,7 @@ import "nprogress/nprogress.css";
 // 滑动验证码
 
 // 自定义权限标识
-import permission from "~/directives/permission.js";
+import permission from "@/directives/permission.js";
 app.use(permission);
 
 // pc 自适应
@@ -53,7 +53,7 @@ import "./util/rem.js";
 
 // vite项目使用全局svg
 import "virtual:svg-icons-register";
-import svgIcon from "~/components/SvgIcon/index.vue";
+import svgIcon from "@/components/svgIcon/index.vue";
 app.component("svg-icon", svgIcon);
 
 //全局过滤器

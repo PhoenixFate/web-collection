@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 // 1. 从其他文件导入路由组件.
-import MainLayout from "~/layouts/MainLayout.vue";
-import Login from "~/pages/login.vue";
-import NotFound from "~/pages/404.vue";
-import Loading from "~/pages/loading.vue";
-const modules = import.meta.glob("~/pages/**/*.vue");
+import MainLayout from "@/layouts/MainLayout.vue";
+import Login from "@/pages/Login.vue";
+import NotFound from "@/pages/404.vue";
+import Loading from "@/pages/Loading.vue";
+const modules = import.meta.glob("@/pages/**/*.vue");
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。

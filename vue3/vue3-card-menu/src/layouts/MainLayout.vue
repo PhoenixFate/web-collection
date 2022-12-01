@@ -20,7 +20,7 @@ import LayoutLeftMenu from "./components/LayoutLeftMenu.vue";
 import LayoutRightMain from "./components/LayoutRightMain.vue";
 import LayoutMiddleMenu from "./components/LayoutMiddleMenu.vue";
 import LayoutMiddleTop from "./components/LayoutMiddleTop.vue";
-import { useMenu } from "~/composables/useMenu.js";
+import { useMenu } from "@/composables/useMenu.js";
 const { chooseBigMenu } = useMenu();
 </script>
 <style>
@@ -31,13 +31,9 @@ const { chooseBigMenu } = useMenu();
   position: relative;
 }
 
-.el-aside {
-  transition: all 1.2s;
-}
-
 .app-main-aside {
   transition: all 1.2s;
-  width: 400px;
+  width: 460px;
   @apply flex pl-3 h-[100%] relative overflow-hidden;
 }
 

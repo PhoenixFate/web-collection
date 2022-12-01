@@ -1,4 +1,4 @@
-import store from "~/store";
+import store from "@/store";
 
 function hasPermission(value, el = false) {
   if (!Array.isArray(value)) {

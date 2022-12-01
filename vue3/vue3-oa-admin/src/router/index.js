@@ -4,6 +4,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import MainLayout from "@/layouts/MainLayout.vue";
 import Login from "@/pages/Login.vue";
 import NotFound from "@/pages/404.vue";
+import Loading from "@/pages/loading.vue";
+const modules = import.meta.glob("@/pages/**/*.vue");
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -20,6 +22,13 @@ const routes = [
     component: Login,
     meta: {
       title: "登录页",
+    }
+  },
+  {
+    path: "/loading",
+    component: Loading,
+    meta: {
+      title: "系统初始化",
     },
   },
   {
@@ -37,3 +46,48 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes, // `routes: routes` 的缩写
 });
+
+// 动态添加路由的方法
+export function addRoutes(menus) {
+  //是否有新的路由
+  let hasNewRoutes = false;
+  const findAndAddRoutesByMenus = (array, parentMenuIndex = []) => {
+    array.forEach((element, index) => {
+      let item;
+      if (element.frontpath) {
+        let componentName = element.frontpath;
+        if (componentName.endsWith("/")) {
+          componentName += "index";
+        }
+        item = {
+          path: element.frontpath,
+          name: element.frontpath,
+          component: modules[`/src/pages${componentName}.vue`],
+          meta: {
+            title: element.name,
+            icon: element.icon,
+            bigMenuIndex: [],
+          },
+        };
+      }
+
+      if (item && !router.hasRoute(item.path)) {
+        //嵌套子路由，将路由嵌套在name为layout的child下面
+        if (!item.meta.bigMenuIndex) {
+          item.meta.bigMenuIndex = [];
+        }
+        item.meta.bigMenuIndex.push(...parentMenuIndex);
+        router.addRoute("layout", item);
+        hasNewRoutes = true;
+      }
+      //挂载路由的child
+      if (element.child && element.child.length > 0) {
+        //递归
+        findAndAddRoutesByMenus(element.child, [...parentMenuIndex,index]);
+      }
+    });
+  };
+  findAndAddRoutesByMenus(menus);
+  console.log(router.getRoutes());
+  return hasNewRoutes;
+}

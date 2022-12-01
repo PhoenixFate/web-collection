@@ -70,10 +70,10 @@ const defaultActive = computed(() => route.path);
 <style scoped src="../../assets/css/layout/middleMenu/card.css" />
 <style scoped>
 .middle-menu {
-  width: 240px;
-  left: 154px;
-  height: calc(100% - 100px - 1rem);
-  @apply absolute bottom-2;
+  width: 280px;
+  left: 180px;
+  height: calc(100% - 120px - 1rem);
+  @apply absolute bottom-4;
 }
 
 .card :deep(.el-icon) {

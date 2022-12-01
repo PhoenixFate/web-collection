@@ -22,7 +22,10 @@
         appear
         enter-active-class="animate__animated animate__fadeInRight"
       >
-        <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="item+index">
+        <el-breadcrumb-item
+          v-for="(item, index) in breadcrumbList"
+          :key="item + index"
+        >
           <span>{{ item }} </span>
         </el-breadcrumb-item>
       </TransitionGroup>
@@ -74,13 +77,13 @@
     >
     </LayoutRightHeaderCalendarDropdown>
 
-    <LayoutRightHeaderPersonal
+    <LayoutRightHeaderPersonalDropdown
       :personalMenuFlag="personalMenuFlag"
       @showPersonalMenu="showPersonalMenu"
       @hidePersonalMenu="hidePersonalMenu"
       @toPersonalMenu="toPersonalMenu"
     >
-    </LayoutRightHeaderPersonal>
+    </LayoutRightHeaderPersonalDropdown>
 
     <LayoutRightHeaderImageDropdown
       :personalImageFlag="personalImageFlag"
@@ -140,9 +143,9 @@
 import { ref } from "vue";
 import { useFullscreen } from "@vueuse/core";
 import { useStore } from "vuex";
-import FormDrawer from "~/components/FormDrawer.vue";
-import { useChangePassword } from "~/composables/useManager";
-import LayoutRightHeaderPersonal from "./LayoutRightHeaderPersonal.vue";
+import FormDrawer from "@/components/FormDrawer.vue";
+import { useChangePassword } from "@/composables/useManager";
+import LayoutRightHeaderPersonalDropdown from "./LayoutRightHeaderPersonalDropdown.vue";
 import LayoutRightHeaderImageDropdown from "./LayoutRightHeaderImageDropdown.vue";
 import LayoutRightHeaderCalendarDropdown from "./LayoutRightHeaderCalendarDropdown.vue";
 import LayoutRightHeaderClock from "./LayoutRightHeaderClock.vue";
@@ -151,7 +154,7 @@ import {
   usePersonalMenuDropdown,
   usePersonalImageDropdown,
   usePersonalCalendarDropdown,
-} from "~/composables/header/useDropdown";
+} from "@/composables/header/useDropdown";
 
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -161,6 +164,7 @@ const router = useRouter();
 let breadcrumbList = computed(() => {
   let temp = [];
   if (
+    store.state.menus &&
     router.currentRoute.value.meta &&
     router.currentRoute.value.meta.bigMenuIndex
   ) {
@@ -258,18 +262,18 @@ const toPersonalMenu = (index) => {
 <style scoped lang="scss">
 .right-header-top {
   width: 100%;
-  height: 80px;
+  height: 100px;
   @apply flex items-center justify-start;
   :deep(.el-breadcrumb) {
-    font-size: 0.9rem;
+    font-size: 1rem;
     height: 30px;
     line-height: 30px;
   }
   :deep(.el-breadcrumb__item:nth-child(1)) {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   :deep(.el-breadcrumb__item:last-child .el-breadcrumb__inner) {
-    font-size: .9rem;
+    font-size: 1.2rem;
     font-weight: bold !important;
     color: black !important;
   }

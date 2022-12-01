@@ -2,9 +2,9 @@
 // 2.Vuex解决了多个组件共享状态时，传参方式繁琐，代码维护困难的问题。
 // 1.Vuex的入口是store，store是Vuex核心概念，像一个容器仓库集中管理了所有组件的state。
 import { createStore } from "vuex";
-import { getUserInfo, login, logout } from "~/api/manager";
-import { setToken, removeToken } from "~/composables/auth";
-import { removeTabList, removeBigMenuIndex } from "~/composables/storage.js";
+import { getUserInfo, login, logout } from "@/api/manager";
+import { setToken, removeToken } from "@/composables/auth";
+import { removeTabList, removeBigMenuIndex } from "@/composables/storage.js";
 
 const store = createStore({
   state() {
@@ -16,7 +16,7 @@ const store = createStore({
       //折叠伞的动画flag
       umbrellaAnimate:false,
       //侧边菜单宽度
-      asideWidth: "400px",
+      asideWidth: "460px",
       //所有菜单列表
       menus: [],
       //权限列表
@@ -81,7 +81,7 @@ const store = createStore({
     CLEAR_ALL(state) {
       state.user = {};
       state.isCollapse = false;
-      state.asideWidth = "400px";
+      state.asideWidth = "460px";
       state.menus = [];
       state.ruleNames = [];
       state.leftMenuAnimationFlag = false;

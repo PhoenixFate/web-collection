@@ -1,5 +1,5 @@
 import { useStore } from "vuex";
-import { getBigMenuIndex, setBigMenuIndex } from "~/composables/storage.js";
+import { getBigMenuIndex, setBigMenuIndex } from "@/composables/storage.js";
 export function useMenu() {
   console.log("-----------use menu---------");
 

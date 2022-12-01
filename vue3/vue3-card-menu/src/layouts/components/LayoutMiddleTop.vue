@@ -6,8 +6,8 @@
         <span class="letter mr-2 text-golden">A</span>
         <span class="letter text-gray">办</span>
         <span class="letter text-gray">公</span>
-        <span class="letter text-gray">系</span>
-        <span class="letter text-gray">统</span>
+        <span class="letter text-gray">中</span>
+        <span class="letter text-gray">心</span>
       </div>
     </div>
   </div>
@@ -15,14 +15,14 @@
 <script setup></script>
 <style scoped>
 .left-right {
-  width: calc(400px - 140px - 0.5rem);
-  left: calc(140px + 0.75rem);
+  width: calc(460px - 160px - 0.75rem);
+  left: calc(160px + 0.75rem);
   bottom: 0;
   @apply h-[100%] relative absolute;
 }
 .middle-logo {
   width: 100%;
-  height: 120px;
+  height: 140px;
   box-shadow: 3px 3px 3px rgb(209, 213, 209);
   @apply absolute left-0 right-0 top-3 bg-white pb-12 shadow-cool-gray-300;
 }
@@ -34,7 +34,7 @@
   height: 100%;
   font: normal bold 6rem "Product Sans", sans-serif;
   white-space: nowrap;
-  padding-left: 0.5rem;
+  padding-left: 2.4rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */

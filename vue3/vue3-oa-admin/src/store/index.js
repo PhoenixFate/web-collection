@@ -2,7 +2,7 @@
 // 2.Vuex解决了多个组件共享状态时，传参方式繁琐，代码维护困难的问题。
 // 1.Vuex的入口是store，store是Vuex核心概念，像一个容器仓库集中管理了所有组件的state。
 import { createStore } from "vuex";
-import { getUserInfo, login, logout } from "@/api/user";
+import { getUserInfo, login, logout } from "@/api/manager";
 import { setToken, removeToken } from "@/composables/auth";
 import { removeTabList, removeBigMenuIndex } from "@/composables/storage.js";
 
@@ -13,6 +13,28 @@ const store = createStore({
       user: {},
       //是否折叠
       isCollapse: false,
+      //折叠伞的动画flag
+      umbrellaAnimate:false,
+      //侧边菜单宽度
+      asideWidth: "460px",
+      //所有菜单列表
+      menus: [],
+      //权限列表
+      ruleNames: [],
+      //菜单动画相关index，本来是不需要放在vuex中的，但切换路由重新加载动画，需要放在vuex中更新
+      leftMenuAnimationFlag: false,
+      //最左侧菜单当前选中的index
+      bigMenuIndex: 0,
+      //最左侧菜单上一次选中的index，用于切换动画
+      bigMenuLastIndex: -1,
+      //中间菜单的nextCard对应的index
+      middleNextIndex: -1,
+      //中间菜单的第三card对应的index
+      middleThirdIndex: -1,
+      //中间菜单的最后一个card对应的index，只有初始化的不加载动画用的，其他没用
+      middleLastIndex: -1,
+      //中间菜单滑出去的动画对应的card的index
+      middleOutIndex: -1,
     };
   },
   mutations: {
@@ -20,6 +42,55 @@ const store = createStore({
     //记录用户信息
     SET_USERINFO(state, user) {
       state.user = user;
+    },
+    //开启或者关闭伞的折叠动画
+    SET_UMBRELLA_ANIMATE(state,flag){
+      state.umbrellaAnimate=flag;
+    },
+    //展开或者收起侧边菜单
+    COLLAPSE_MENU(state) {
+      state.isCollapse = !state.isCollapse;
+    },
+    SET_MENUS(state, menus) {
+      state.menus = menus;
+    },
+    SET_RULENAMES(state, ruleNames) {
+      state.ruleNames = ruleNames;
+    },
+    SET_LEFT_MENU_ANIMATION_FLAG(state, flag) {
+      state.leftMenuAnimationFlag = flag;
+    },
+    SET_BIG_MENU_INDEX(state, index) {
+      state.bigMenuIndex = index;
+    },
+    SET_BIG_MENU_LAST_INDEX(state, index) {
+      state.bigMenuLastIndex = index;
+    },
+    SET_MIDDLE_NEXT_INDEX(state, index) {
+      state.middleNextIndex = index;
+    },
+    SET_MIDDLE_THIRD_INDEX(state, index) {
+      state.middleThirdIndex = index;
+    },
+    SET_MIDDLE_LAST_INDEX(state, index) {
+      state.middleLastIndex = index;
+    },
+    SET_MIDDLE_OUT_INDEX(state, index) {
+      state.middleOutIndex = index;
+    },
+    CLEAR_ALL(state) {
+      state.user = {};
+      state.isCollapse = false;
+      state.asideWidth = "460px";
+      state.menus = [];
+      state.ruleNames = [];
+      state.leftMenuAnimationFlag = false;
+      state.bigMenuIndex = 0;
+      state.bigMenuLastIndex = -1;
+      state.middleNextIndex = -1;
+      state.middleThirdIndex = -1;
+      state.middleLastIndex = -1;
+      state.middleOutIndex = -1;
     },
   },
   actions: {
@@ -86,4 +157,5 @@ const store = createStore({
     },
   },
 });
+
 export default store;

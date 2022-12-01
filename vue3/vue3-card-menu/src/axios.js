@@ -1,6 +1,6 @@
 import axios from "axios";
-import { getToken, removeToken } from "~/composables/auth";
-import { showMessage } from "~/composables/util";
+import { getToken, removeToken } from "@/composables/auth";
+import { showMessage } from "@/composables/utils";
 import store from "./store";
 const service = axios.create({
   baseURL: "/api",

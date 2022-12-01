@@ -1,6 +1,6 @@
 import { ref, reactive } from "vue";
-import { updatePassword } from "~/api/manager";
-import { showMessage, showMessageBox } from "~/composables/util";
+import { updatePassword } from "@/api/manager";
+import { showMessage, showMessageBox } from "@/composables/utils";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 

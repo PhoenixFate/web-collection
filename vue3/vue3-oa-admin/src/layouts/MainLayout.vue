@@ -17,20 +17,36 @@
         <div class="left-content">
           <div class="left-content-top-cover"></div>
           <div class="left-content-scroll">
-            <ul>
-              <div class="mine-selector" ref="selector">
-                <div class="left"></div>
-                <div class="right"></div>
-                <div class="left1"></div>
-                <div class="right1"></div>
-              </div>
-              <li v-for="i in 20" @click="selectBigMenu(i)">
-                <span>abc</span>
-              </li>
-            </ul>
+            <div class="mine-selector" ref="selector">
+              <div class="left"></div>
+              <div class="right"></div>
+              <div class="left1"></div>
+              <div class="right1"></div>
+            </div>
+
+            <div
+              class="left-menu-item"
+              v-for="(item, index) in $store.state.menus"
+              :class="[
+                { 'left-menu-item-active': index == $store.state.bigMenuIndex },
+                {
+                  'left-menu-item-temp':
+                    $store.state.leftMenuAnimationFlag &&
+                    index == $store.state.bigMenuLastIndex,
+                },
+              ]"
+              :key="index"
+              @click="selectBigMenu(index)"
+            >
+              <el-icon>
+                <component :is="item.icon" />
+              </el-icon>
+              <span class="mt-1">{{ item.name }}</span>
+            </div>
           </div>
         </div>
       </div>
+      <div class="middle-menu"></div>
     </el-aside>
   </el-container>
 </template>
@@ -57,13 +73,15 @@ onMounted(() => {
   position: relative;
   --background-main-color: #ededfb;
   background-color: var(--background-main-color);
+  .el-aside {
+    width: 500px;
+  }
 }
 
 .app-main-aside {
   transition: all 1.2s;
-  width: 400px;
   padding-left: 1rem;
-  @apply flex h-[100%] relative overflow-hidden;
+  @apply flex h-[100%] relative overflow-hidden bg-red-200;
 
   .left-menu {
     width: 160px;
@@ -71,12 +89,12 @@ onMounted(() => {
 
     .left-logo {
       width: 160px;
-      height: 160px;
+      height: 120px;
       @apply flex justify-center items-center;
     }
     .left-logo img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
     }
 
     .left-logo img.img-rocket-run {
@@ -115,27 +133,37 @@ onMounted(() => {
       &::-webkit-scrollbar {
         width: 0;
       }
-      ul li {
-        height: 80px;
-        width: 160px;
-        list-style-type: none;
-        text-align: center;
-        line-height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.4s;
+
+      .left-menu-item {
+        font-weight: 500;
+        @apply flex flex-col justify-center items-center p-y-2  text-xl mb-3 pr-4 rounded-l-xl relative text-gray-500;
+        font-family: "jxht", sans-serif;
       }
-      ul li span {
-        position: relative;
+      .left-menu-item :deep(.el-icon) {
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+      }
+      .left-menu-item :deep(.el-icon svg) {
+        height: 30px;
+        width: 30px;
       }
 
-      .active {
-        height: 80px;
+      .left-menu-item > span,
+      .left-menu-item > i {
+        z-index: 5;
       }
 
-      li.active {
-        padding-left: 30px;
+      .left-menu-item-active {
+        @apply text-yellow-500;
+        span {
+          background: linear-gradient(to right, #fd5c81, #ffaf79);
+          /*背景被裁剪到文字*/
+          -webkit-background-clip: text;
+          background-clip: text;
+          /*设置文字的填充颜色*/
+          -webkit-text-fill-color: transparent;
+        }
       }
 
       .mine-selector {
@@ -222,6 +250,12 @@ onMounted(() => {
         bottom: -25px;
       }
     }
+  }
+  .middle-menu {
+    width: 300px;
+    margin-left: 20px;
+    height: 100%;
+    @apply bg-purple-500;
   }
 }
 </style>

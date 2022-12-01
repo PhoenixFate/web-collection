@@ -11,8 +11,8 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import ImageAside from "~/components/image/ImageAside.vue";
-import ImageMain from "~/components/image/ImageMain.vue";
+import ImageAside from "@/components/image/ImageAside.vue";
+import ImageMain from "@/components/image/ImageMain.vue";
 
 const imageAsideRef = ref(null);
 

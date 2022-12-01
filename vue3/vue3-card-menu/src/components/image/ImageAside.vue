@@ -27,9 +27,9 @@
 </template>
 <script setup>
 import { ref, reactive } from "vue";
-import AsideList from "~/components/image/AsideList.vue";
-import { getImageClassList } from "~/api/imageClass.js";
-import FormDrawer from "~/components/FormDrawer.vue";
+import AsideList from "@/components/image/AsideList.vue";
+import { getImageClassList } from "@/api/imageClass.js";
+import FormDrawer from "@/components/FormDrawer.vue";
 // 加载动画
 const loading = ref(false);
 const list = ref([]);

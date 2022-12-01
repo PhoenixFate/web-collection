@@ -1,4 +1,4 @@
-import axios from "~/axios";
+import axios from "@/axios";
 
 // 用户相关接口
 

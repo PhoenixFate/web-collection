@@ -14,6 +14,8 @@ export default defineConfig({
   },
 
   server: {
+    port: 5100, //指定端口号
+    host: '0.0.0.0', //不加只能用本机ip访问Network: use --host to expose
     proxy: {
       "/api": {
         target: "http://localhost:8000",

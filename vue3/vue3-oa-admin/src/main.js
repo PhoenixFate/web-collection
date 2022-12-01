@@ -35,4 +35,6 @@ import "nprogress/nprogress.css";
 import "virtual:windi.css";
 //集成windicss  -end
 
+import "./permission";
+
 app.mount("#app");

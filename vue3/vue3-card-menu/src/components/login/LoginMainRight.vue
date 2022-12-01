@@ -43,7 +43,7 @@
           v-model:checkBoxChecked="loginSuperAdmin"
           :scale="0.74"
         ></CheckBox>
-        <span :class="{ 'text-selected': loginSuperAdmin }">超级管理员</span>
+        <span :class="{ 'text-selected': loginSuperAdmin }">系统管理员</span>
       </div>
     </div>
     <LoginSubmit :loading="loading" @onSubmit="onSubmit"></LoginSubmit>
@@ -51,15 +51,15 @@
   </div>
 </template>
 <script setup>
-import LoginMainRightTitle from "~/components/login/LoginMainRightTitle.vue";
-import LoginMainRightType from "~/components/login/LoginMainRightType.vue";
-import LoginNotChrome from "~/components/login/LoginNotChrome.vue";
+import LoginMainRightTitle from "@/components/login/LoginMainRightTitle.vue";
+import LoginMainRightType from "@/components/login/LoginMainRightType.vue";
+import LoginNotChrome from "@/components/login/LoginNotChrome.vue";
 import LoginSubmit from "./LoginSubmit.vue";
-import LoginMainRightFrom1 from "~/components/login/LoginMainRightForm1.vue";
-import LoginMainRightFrom2 from "~/components/login/LoginMainRightForm2.vue";
+import LoginMainRightFrom1 from "@/components/login/LoginMainRightForm1.vue";
+import LoginMainRightFrom2 from "@/components/login/LoginMainRightForm2.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useLogin } from "~/composables/useManager";
-import CheckBox from "~/components/common/CheckBox.vue";
+import { useLogin } from "@/composables/useManager";
+import CheckBox from "@/components/common/CheckBox.vue";
 
 const {
   loginType,
@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
     height: 30px;
     width: 250px;
     margin-left: 45px;
-    font-size: 0.6rem;
+    font-size: 12px;
     @apply flex justify-start items-center  pl-4 text-gray-300;
     .text-selected {
       @apply text-blue-300;

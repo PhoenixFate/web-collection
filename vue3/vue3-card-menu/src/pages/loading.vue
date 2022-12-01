@@ -58,13 +58,13 @@ setTimeout(() => {
   position: relative;
 }
 .version2 {
-  width: 400px;
-  height: 400px;
+  width: 520px;
+  height: 520px;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -200px;
-  margin-top: -200px;
+  margin-left: -260px;
+  margin-top: -260px;
   z-index: -1;
   img {
     width: 100%;

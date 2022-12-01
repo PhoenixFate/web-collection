@@ -1,10 +1,10 @@
-import { router, addRoutes } from "~/router";
-import { getToken } from "~/composables/auth";
+import { router, addRoutes } from "@/router";
+import { getToken } from "@/composables/auth";
 import {
   showMessage,
   showFullScreenLoading,
   hideFullScreenLoading,
-} from "~/composables/util";
+} from "@/composables/utils";
 import store from "./store";
 
 // 你可以使用 router.beforeEach 注册一个全局前置守卫：

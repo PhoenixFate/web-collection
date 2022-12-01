@@ -89,7 +89,7 @@ defineProps({
   content: "";
   position: fixed;
   right: 190px;
-  top: calc(100px - 0rem);
+  top: calc(120px - 0rem);
   width: 180px;
   height: 0px;
   background-color: rgba(80, 77, 84, 0.1);
@@ -137,7 +137,7 @@ defineProps({
 .personal-calendar-content {
   position: fixed;
   right: 190px;
-  top: calc(100px - 0rem);
+  top: calc(120px - 0rem);
   width: 180px;
   height: 280px;
   visibility: hidden;

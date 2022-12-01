@@ -13,13 +13,14 @@ export default defineConfig({
     // 为文件系统路径取别名
     alias: {
       // __dirname当前文件所在的目录的绝对路径，
-      // 把当前工程的绝对路径/src 指定为别名～
-      "~": path.resolve(__dirname, "src"),
+      // 把当前工程的绝对路径/src 指定为别名@
+      "@": path.resolve(__dirname, "src"),
     },
   },
 
   server: {
     port: 5000, //指定端口号
+    host: '0.0.0.0', //不加只能用本机ip访问Network: use --host to expose
     proxy: {
       "/api": {
         target: "http://localhost:8000",
@@ -44,7 +45,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "~/assets/scss/global.scss";',
+        additionalData: '@import "@/assets/scss/global.scss";',
       },
     },
   },

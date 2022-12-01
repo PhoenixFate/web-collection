@@ -65,19 +65,19 @@ defineEmits(["chooseBigMenu"]);
 </script>
 <style scoped lang="scss">
 .left-main {
-  width: 140px;
+  width: 160px;
   height: 100%;
   @apply bg-blue-gray-800  rounded-3xl relative;
 }
 
 .left-logo {
-  width: 124px;
-  height: 120px;
+  width: 144px;
+  height: 140px;
   @apply bg-white rounded-l-3xl absolute right-0 top-3 flex justify-center items-center;
 }
 .left-logo img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .left-logo img.img-rocket-run {
@@ -86,9 +86,9 @@ defineEmits(["chooseBigMenu"]);
 
 .left-menu {
   height: calc(100vh - 240px);
-  width: 124px;
+  width: 144px;
   z-index: 30;
-  top: 144px;
+  top: 180px;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -97,7 +97,7 @@ defineEmits(["chooseBigMenu"]);
   @apply absolute right-0 overflow-hidden;
 
   .left-menu-top-cover {
-    width: 115px;
+    width: 140px;
     height: 36px;
     top: -4px;
     left: 0;
@@ -106,7 +106,7 @@ defineEmits(["chooseBigMenu"]);
     @apply absolute;
   }
   .left-menu-bottom-cover {
-    width: 90px;
+    width: 120px;
     height: 40px;
     bottom: -6px;
     left: 0;
@@ -117,7 +117,7 @@ defineEmits(["chooseBigMenu"]);
     @apply absolute;
   }
   .left-menu-content {
-    width: 124px;
+    width: 144px;
     height: 100%;
     @apply overflow-y-auto overflow-x-hidden;
     &::-webkit-scrollbar {
@@ -145,9 +145,9 @@ defineEmits(["chooseBigMenu"]);
 .left-menu-item > div {
   transition: all 0.3s;
   background-color: white;
-  left: 124px;
+  left: 154px;
   height: 100%;
-  width: 100%;
+  width: calc(100% + 4px);
   position: absolute;
   @apply rounded-l-xl;
 }

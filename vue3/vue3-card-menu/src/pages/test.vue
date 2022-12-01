@@ -8,7 +8,7 @@
   </template>
   <script setup>
   // 引入组件即可使用，无需声明
-  import HelloWorld from "~/components/HelloWorld.vue";
+  import HelloWorld from "@/components/HelloWorld.vue";
   // vue3提供了两个响应式api：ref和reactive
   import { ref, reactive } from "vue";
   

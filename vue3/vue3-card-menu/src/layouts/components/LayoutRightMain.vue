@@ -1,38 +1,44 @@
 <template>
-    <el-main class="p-0 relative">
-      <div class="right-header">
-        <LayoutRightHeader></LayoutRightHeader>
-        <LayoutTagList></LayoutTagList>
-      </div>
-      <div class="right-body">
-        <router-view v-slot="{ Component }">
-          <transition name="fade">
-            <keep-alive :max="20">
-              <component :is="Component"></component>
-            </keep-alive>
-          </transition>
-        </router-view>
-      </div>
-    </el-main>
+  <el-main class="p-0 relative">
+    <div class="right-header">
+      <LayoutRightHeader></LayoutRightHeader>
+      <LayoutTagList></LayoutTagList>
+    </div>
+    <div class="right-body">
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <keep-alive :max="20">
+            <component :is="Component"></component>
+          </keep-alive>
+        </transition>
+      </router-view>
+    </div>
+  </el-main>
 </template>
 <script setup>
-import LayoutRightHeader from "~/layouts/components/LayoutRightHeader.vue";
-import LayoutTagList from "~/layouts/components/LayoutTagList.vue";
+import LayoutRightHeader from "@/layouts/components/LayoutRightHeader.vue";
+import LayoutTagList from "@/layouts/components/LayoutTagList.vue";
 </script>
-<style scoped>
+<style scoped lang="scss">
 .right-header {
-  height: 120px;
+  height: 140px;
   width: calc(100% - 0.75rem);
   @apply absolute right-3 top-3 bg-white rounded-r-3xl shadow-md shadow-cool-gray-300;
 }
 
 .right-body {
-  height: calc(calc(100% - 120px) - 0.75rem);
+  height: calc(calc(100% - 140px) - 0.75rem);
   width: 100%;
-  top: calc(120px + 0.75rem);
+  top: calc(140px + 0.75rem);
   @apply absolute left-0 p-3 pt-5;
   overflow-y: auto;
   overflow-x: hidden;
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 /* 进入之前的动画效果 开始 */
@@ -60,5 +66,4 @@ import LayoutTagList from "~/layouts/components/LayoutTagList.vue";
 .fade-enter-active {
   transition-delay: 0.3s;
 }
-
 </style>

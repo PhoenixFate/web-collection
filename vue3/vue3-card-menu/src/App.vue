@@ -4,7 +4,7 @@
 </template>
 <script setup>
 import { onMounted } from "vue";
-import { createWatemark } from "~/util/warterMark.js";
+import { createWatemark } from "@/util/warterMark.js";
 onMounted(() => {
   //  水印
   createWatemark({

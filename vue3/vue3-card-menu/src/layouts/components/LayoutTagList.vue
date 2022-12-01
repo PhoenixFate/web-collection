@@ -47,7 +47,7 @@
   </div>
 </template>
 <script setup>
-import { useTabList } from "~/composables/useTabList.js";
+import { useTabList } from "@/composables/useTabList.js";
 const {
   dropdownVisible,
   activeTab,
