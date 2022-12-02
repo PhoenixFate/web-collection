@@ -12,8 +12,13 @@
             alt=""
             @mouseenter="rocketRun"
           />
+          <img src="/image/cloud/cloud01.png" alt="" />
+          <img src="/image/cloud/cloud02.png" alt="" />
+          <img src="/image/cloud/cloud03.png" alt="" />
+          <img src="/image/cloud/cloud-back-01.png" alt="">
+          <img src="/image/cloud/cloud-back-03.png" alt="">
+          <img src="/image/cloud/cloud-back-02.png" alt="">
         </div>
-        <div class="left-empty"></div>
         <div class="left-content">
           <div class="left-content-top-cover"></div>
           <div class="left-content-scroll">
@@ -29,11 +34,6 @@
               v-for="(item, index) in $store.state.menus"
               :class="[
                 { 'left-menu-item-active': index == $store.state.bigMenuIndex },
-                {
-                  'left-menu-item-temp':
-                    $store.state.leftMenuAnimationFlag &&
-                    index == $store.state.bigMenuLastIndex,
-                },
               ]"
               :key="index"
               @click="selectBigMenu(index)"
@@ -44,6 +44,7 @@
               <span class="mt-1">{{ item.name }}</span>
             </div>
           </div>
+          <div class="left-content-bottom-cover"></div>
         </div>
       </div>
       <div class="middle-menu"></div>
@@ -52,21 +53,24 @@
 </template>
 <script setup>
 import { onMounted, ref, nextTick, computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
 const rocketAnimateFlag = ref(false);
 const selector = ref();
 const activeIndex = ref(0);
 
 const selectBigMenu = (i) => {
-  activeIndex.value = i - 1;
-
-  selector.value.style.top = activeIndex.value * 80 + 20 + "px";
+  store.commit("SET_BIG_MENU_INDEX", i);
+  selector.value.style.top = i * 100 + 20 + "px";
 };
 
 onMounted(() => {
-  selector.value.style.top = activeIndex.value * 80 + 20 + "px";
+  selector.value.style.top = store.state.bigMenuIndex * 100 + 20 + "px";
 });
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .app-main {
   height: 100%;
   width: 100%;
@@ -81,7 +85,7 @@ onMounted(() => {
 .app-main-aside {
   transition: all 1.2s;
   padding-left: 1rem;
-  @apply flex h-[100%] relative overflow-hidden bg-red-200;
+  @apply flex h-[100%] relative overflow-hidden;
 
   .left-menu {
     width: 160px;
@@ -89,20 +93,66 @@ onMounted(() => {
 
     .left-logo {
       width: 160px;
-      height: 120px;
-      @apply flex justify-center items-center;
-    }
-    .left-logo img {
-      width: 80px;
-      height: 80px;
+      height: 160px;
+      padding-top: 20px;
+      overflow: hidden;
+      @apply flex justify-center items-start relative;
+      img:nth-child(1) {
+        width: 80px;
+        height: 80px;
+        z-index: 10;
+      }
+      img:nth-child(2) {
+        position: absolute;
+        width: 32px;
+        height: 13px;
+        right: -2px;
+        top: 10px;
+  
+      }
+      img:nth-child(3) {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        width: 40px;
+        height: 20px;
+        z-index: 1;
+      }
+      img:nth-child(4){
+        position: absolute;
+        bottom:1px;
+        right: -2px;
+        width: 76px;
+        height: 22px;
+        z-index: 1;
+      }
+      img:nth-child(5){
+        position: absolute;
+        top:76px;
+        left:26px;
+        width: 160px;
+        height: 20px;
+      }
+      img:nth-child(6){
+        position: absolute;
+        top:14px;
+        left: -30px;
+        width: 120px;
+        height: 20px;
+      }
+      img:nth-child(7){
+        position: absolute;
+        bottom: 20px;
+        width: 160px;
+        height: 30px;
+        left: -44px;
+      }
+
+      img.img-rocket-run {
+        animation: rocketRun 2.4s;
+      }
     }
 
-    .left-logo img.img-rocket-run {
-      animation: rocketRun 2.4s;
-    }
-    .left-empty {
-      height: 40px;
-    }
     .left-content {
       height: calc(100% - 160px - 40px);
       width: 160px;
@@ -120,6 +170,17 @@ onMounted(() => {
       width: 160px;
       z-index: 10;
     }
+    .left-content-bottom-cover {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      height: 40px;
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      background-color: #fff;
+      width: 160px;
+      z-index: 10;
+    }
     .left-content-scroll {
       width: 160px;
       height: 100%;
@@ -127,6 +188,7 @@ onMounted(() => {
       overflow-y: auto;
       position: relative;
       padding-top: 20px;
+      padding-bottom: 20px;
       &::-webkit-scrollbar-thumb {
         display: none;
       }
@@ -136,7 +198,8 @@ onMounted(() => {
 
       .left-menu-item {
         font-weight: 500;
-        @apply flex flex-col justify-center items-center p-y-2  text-xl mb-3 pr-4 rounded-l-xl relative text-gray-500;
+        height: 100px;
+        @apply flex flex-col justify-center items-center  text-lg relative text-warm-gray-500;
         font-family: "jxht", sans-serif;
       }
       .left-menu-item :deep(.el-icon) {
@@ -147,11 +210,6 @@ onMounted(() => {
       .left-menu-item :deep(.el-icon svg) {
         height: 30px;
         width: 30px;
-      }
-
-      .left-menu-item > span,
-      .left-menu-item > i {
-        z-index: 5;
       }
 
       .left-menu-item-active {
@@ -172,7 +230,7 @@ onMounted(() => {
         transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         background-color: var(--background-main-color);
         left: 0;
-        height: 80px;
+        height: 100px;
         width: 160px;
       }
 

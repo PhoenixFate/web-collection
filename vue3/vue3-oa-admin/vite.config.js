@@ -1,4 +1,6 @@
-import { fileURLToPath, URL } from "node:url";
+// import { fileURLToPath, URL } from "node:url"; //这个需要node16+
+// node.js内置模块path
+import path from "path"; //这个不需要node16+
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -9,7 +11,8 @@ export default defineConfig({
   plugins: [vue(), WindiCSS()],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@": path.resolve(__dirname, "src"),
     },
   },
 
