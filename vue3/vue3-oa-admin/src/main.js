@@ -37,4 +37,22 @@ import "virtual:windi.css";
 
 import "./permission";
 
+//animate.css
+import animated from 'animate.css'
+app.use(animated)
+
+// vite项目使用全局svg
+import "virtual:svg-icons-register";
+import svgIcon from "@/components/svgIcon/index.vue";
+app.component("svg-icon", svgIcon);
+
+//全局过滤器
+//vue3配置全局过滤器
+app.config.globalProperties.$filters = {
+  //字符串不足两位，在前面添加0
+  padTwoZero(time) {
+    time = time + ""; //转成字符串
+    return ("00" + time).slice(time.length);
+  },
+};
 app.mount("#app");

@@ -2,16 +2,16 @@
   <el-container class="app-main">
     <el-aside
       class="app-main-aside"
-      :class="{'app-main-aside-collapsed': $store.state.isCollapse}"
+      :class="{ 'app-main-aside-collapsed': $store.state.isCollapse }"
     >
-      <LayoutLeftMenu @chooseBigMenu="chooseBigMenu"></LayoutLeftMenu>
+      <LayoutLeftMenu></LayoutLeftMenu>
       <Transition name="middle-toggle">
         <LayoutMiddleTop></LayoutMiddleTop>
       </Transition>
     </el-aside>
     <LayoutRightMain></LayoutRightMain>
     <Transition name="cards-toggle">
-      <LayoutMiddleMenu></LayoutMiddleMenu>
+      <LayoutMiddleMenu v-if="!$store.state.isCollapse"></LayoutMiddleMenu>
     </Transition>
   </el-container>
 </template>
@@ -20,8 +20,6 @@ import LayoutLeftMenu from "./components/LayoutLeftMenu.vue";
 import LayoutRightMain from "./components/LayoutRightMain.vue";
 import LayoutMiddleMenu from "./components/LayoutMiddleMenu.vue";
 import LayoutMiddleTop from "./components/LayoutMiddleTop.vue";
-import { useMenu } from "@/composables/useMenu.js";
-const { chooseBigMenu } = useMenu();
 </script>
 <style>
 .app-main {
@@ -38,7 +36,7 @@ const { chooseBigMenu } = useMenu();
 }
 
 .app-main-aside.app-main-aside-collapsed {
-  width: 152px;
+  width: 172px;
 }
 
 .cards-toggle-enter-active {
@@ -54,7 +52,6 @@ const { chooseBigMenu } = useMenu();
 .middle-toggle-leave-active {
   animation: lightSpeedOutLeft 1s;
 }
-
 
 @-webkit-keyframes lightSpeedOutLeft {
   from {

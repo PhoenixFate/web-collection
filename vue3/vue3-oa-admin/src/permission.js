@@ -47,7 +47,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   //设置页面的标题（title）
-  let title = (to.meta.title ? to.meta.title : "") + "  OA办公";
+  let title = (to.meta.title ? to.meta.title : "") + "  OA后台";
   document.title = title;
   hasNewRoutes ? next(to.fullPath) : next();
 });

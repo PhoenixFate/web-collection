@@ -40,7 +40,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-decoration: underline;
   -webkit-animation: slideShine 10s linear infinite;
   animation: slideShine 10s linear infinite;
 }

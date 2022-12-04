@@ -14,7 +14,7 @@ const store = createStore({
       //是否折叠
       isCollapse: false,
       //折叠伞的动画flag
-      umbrellaAnimate:false,
+      umbrellaAnimate: false,
       //侧边菜单宽度
       asideWidth: "460px",
       //所有菜单列表
@@ -25,16 +25,6 @@ const store = createStore({
       leftMenuAnimationFlag: false,
       //最左侧菜单当前选中的index
       bigMenuIndex: 0,
-      //最左侧菜单上一次选中的index，用于切换动画
-      bigMenuLastIndex: -1,
-      //中间菜单的nextCard对应的index
-      middleNextIndex: -1,
-      //中间菜单的第三card对应的index
-      middleThirdIndex: -1,
-      //中间菜单的最后一个card对应的index，只有初始化的不加载动画用的，其他没用
-      middleLastIndex: -1,
-      //中间菜单滑出去的动画对应的card的index
-      middleOutIndex: -1,
     };
   },
   mutations: {
@@ -44,15 +34,18 @@ const store = createStore({
       state.user = user;
     },
     //开启或者关闭伞的折叠动画
-    SET_UMBRELLA_ANIMATE(state,flag){
-      state.umbrellaAnimate=flag;
+    SET_UMBRELLA_ANIMATE(state, flag) {
+      state.umbrellaAnimate = flag;
     },
     //展开或者收起侧边菜单
     COLLAPSE_MENU(state) {
       state.isCollapse = !state.isCollapse;
     },
     SET_MENUS(state, menus) {
+      console.log("--------state--------");
+      console.log(menus);
       state.menus = menus;
+      console.log(state.menus);
     },
     SET_RULENAMES(state, ruleNames) {
       state.ruleNames = ruleNames;
@@ -63,21 +56,6 @@ const store = createStore({
     SET_BIG_MENU_INDEX(state, index) {
       state.bigMenuIndex = index;
     },
-    SET_BIG_MENU_LAST_INDEX(state, index) {
-      state.bigMenuLastIndex = index;
-    },
-    SET_MIDDLE_NEXT_INDEX(state, index) {
-      state.middleNextIndex = index;
-    },
-    SET_MIDDLE_THIRD_INDEX(state, index) {
-      state.middleThirdIndex = index;
-    },
-    SET_MIDDLE_LAST_INDEX(state, index) {
-      state.middleLastIndex = index;
-    },
-    SET_MIDDLE_OUT_INDEX(state, index) {
-      state.middleOutIndex = index;
-    },
     CLEAR_ALL(state) {
       state.user = {};
       state.isCollapse = false;
@@ -86,11 +64,6 @@ const store = createStore({
       state.ruleNames = [];
       state.leftMenuAnimationFlag = false;
       state.bigMenuIndex = 0;
-      state.bigMenuLastIndex = -1;
-      state.middleNextIndex = -1;
-      state.middleThirdIndex = -1;
-      state.middleLastIndex = -1;
-      state.middleOutIndex = -1;
     },
   },
   actions: {

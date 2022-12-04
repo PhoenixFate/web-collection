@@ -1,13 +1,6 @@
 <template>
   <div class="left-main">
-    <div class="left-logo">
-      <img
-        src="/logo.png"
-        :class="{ 'img-rocket-run': rocketAnimateFlag }"
-        alt=""
-        @mouseenter="rocketRun"
-      />
-    </div>
+    <LayoutLeftLogo></LayoutLeftLogo>
     <div class="left-menu">
       <div class="left-menu-top-cover"></div>
       <div class="left-menu-content" ref="leftMenuContent">
@@ -24,7 +17,7 @@
             },
           ]"
           :key="index"
-          @click="$emit('chooseBigMenu', index)"
+          @click="chooseBigMenu(index)"
         >
           <el-icon>
             <component :is="item.icon" />
@@ -42,46 +35,26 @@
 import { ref, onMounted } from "vue";
 import { nextTick } from "vue";
 import { useStore } from "vuex";
+import LayoutLeftLogo from "./LayoutLeftLogo.vue";
+import { useMenu } from "@/composables/useMenu.js";
+const { chooseBigMenu } = useMenu();
+
 const store = useStore();
-const rocketAnimateFlag = ref(false);
-const rocketRun = () => {
-  if (!rocketAnimateFlag.value) {
-    rocketAnimateFlag.value = true;
-    setTimeout(() => {
-      rocketAnimateFlag.value = false;
-    }, 2400);
-  }
-};
+
 const leftMenuContent = ref();
 onMounted(() => {
   nextTick(() => {
-    console.log(leftMenuContent.scrollTop);
     leftMenuContent.value.scrollTop =
       (store.state.bigMenuIndex - 2 < 0 ? 0 : store.state.bigMenuIndex - 2) *
       60;
   });
 });
-defineEmits(["chooseBigMenu"]);
 </script>
 <style scoped lang="scss">
 .left-main {
   width: 160px;
   height: 100%;
   @apply bg-blue-gray-800  rounded-3xl relative;
-}
-
-.left-logo {
-  width: 144px;
-  height: 140px;
-  @apply bg-white rounded-l-3xl absolute right-0 top-3 flex justify-center items-center;
-}
-.left-logo img {
-  width: 80px;
-  height: 80px;
-}
-
-.left-logo img.img-rocket-run {
-  animation: rocketRun 2.4s;
 }
 
 .left-menu {
@@ -106,14 +79,14 @@ defineEmits(["chooseBigMenu"]);
     @apply absolute;
   }
   .left-menu-bottom-cover {
-    width: 120px;
+    width: 148px;
     height: 40px;
     bottom: -6px;
     left: 0;
     z-index: 10;
     background-image: linear-gradient(transparent, rgb(30, 41, 59));
-    transform: perspective(90px) rotateX(-4deg);
-    transform-origin: left;
+    transform: rotate(3deg) scale(1);
+    transform-origin: 0 0;
     @apply absolute;
   }
   .left-menu-content {
@@ -147,7 +120,7 @@ defineEmits(["chooseBigMenu"]);
   background-color: white;
   left: 154px;
   height: 100%;
-  width: calc(100% + 4px);
+  width: calc(100% + 10px);
   position: absolute;
   @apply rounded-l-xl;
 }
@@ -237,52 +210,4 @@ defineEmits(["chooseBigMenu"]);
   }
 }
 
-@-webkit-keyframes rocketRun {
-  from,
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    -webkit-transform: translate3d(0, -16px, 0) rotate(-45deg);
-    transform: translate3d(0, -16px, 0) rotate(-45deg);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    -webkit-transform: translate3d(0, 10px, 0) rotate(-45deg);
-    transform: translate3d(0, 10px, 0) rotate(-45deg);
-  }
-}
-@keyframes rocketRun {
-  from,
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    -webkit-transform: translate3d(0, -16px, 0) rotate(-45deg);
-    transform: translate3d(0, -16px, 0) rotate(-45deg);
-  }
-
-  20%,
-  40%,
-  60%,
-  80% {
-    -webkit-transform: translate3d(0, 10px, 0) rotate(-45deg);
-    transform: translate3d(0, 10px, 0) rotate(-45deg);
-  }
-}
 </style>

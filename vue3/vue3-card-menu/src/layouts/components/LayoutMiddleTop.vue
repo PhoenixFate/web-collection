@@ -2,6 +2,8 @@
   <div class="left-right" v-show="!$store.state.isCollapse">
     <div class="middle-logo">
       <div class="bounce">
+        <span class="letter text-gray1">极</span>
+        <span class="letter text-gray1 mr-2">客</span>
         <span class="letter text-golden">O</span>
         <span class="letter mr-2 text-golden">A</span>
         <span class="letter text-gray">办</span>
@@ -32,9 +34,9 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  font: normal bold 6rem "Product Sans", sans-serif;
+  letter-spacing: 1px;
   white-space: nowrap;
-  padding-left: 2.4rem;
+  padding-left: 8px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10+ and Edge */
   user-select: none; /* Standard syntax */
@@ -44,10 +46,8 @@
   animation: bounce 20s cubic-bezier(0.05, 0, 0.2, 1) infinite alternate;
   display: inline-block;
   transform: translate3d(0, 0, 0);
-  text-shadow: rgba(255, 255, 255, 0.4) 0 0 0.1em;
   font: normal 600 2rem "Varela Round", sans-serif;
   font-family: "hlb", sans-serif;
-  /* @apply text-warm-gray-800; */
 }
 
 .letter:nth-child(1) {
@@ -74,6 +74,14 @@
   animation-delay: 1s;
 }
 
+.letter:nth-child(7) {
+  animation-delay: 1.2s;
+}
+
+.letter:nth-child(8) {
+  animation-delay: 1.4s;
+}
+
 .text-golden {
   /* background: linear-gradient(to right, #edc69e, #f9ad0b); */
   background: linear-gradient(to right, #eccc6d, #e89906);
@@ -92,10 +100,18 @@
   /*设置文字的填充颜色*/
   -webkit-text-fill-color: transparent;
 }
+.text-gray1 {
+  background: linear-gradient(45deg, #f6a46d 0%, #e62d6b 100%);
+  /*背景被裁剪到文字*/
+  -webkit-background-clip: text;
+  background-clip: text;
+  /*设置文字的填充颜色*/
+  -webkit-text-fill-color: transparent;
+}
 
-.text-gray:hover {
+.text-gray1:hover {
   /* background: linear-gradient(to right, #edc69e, #f9ad0b); */
-  background: linear-gradient(to right, #eccc6d, #e89906);
+  background: linear-gradient(to right, #bb9010, #f1ed04);
   /*背景被裁剪到文字*/
   -webkit-background-clip: text;
   background-clip: text;
@@ -107,6 +123,16 @@
   @apply text-gray-800;
 }
 
+.text-gray:hover {
+  /* background: linear-gradient(to right, #edc69e, #f9ad0b); */
+  background: linear-gradient(to right, #eccc6d, #e89906);
+  /*背景被裁剪到文字*/
+  -webkit-background-clip: text;
+  background-clip: text;
+  /*设置文字的填充颜色*/
+  -webkit-text-fill-color: transparent;
+}
+
 @-webkit-keyframes bounce {
   0% {
     transform: translate3d(0, 0, 0);
@@ -114,12 +140,10 @@
 
   98% {
     transform: translate3d(0, 0, 0);
-    text-shadow: rgba(255, 255, 255, 0.4) 0 0 0.05em;
   }
 
   100% {
     transform: translate3d(0, -1em, 0);
-    text-shadow: rgba(255, 255, 255, 0.4) 0 1em 0.35em;
   }
 }
 @keyframes bounce {
@@ -129,12 +153,10 @@
 
   98% {
     transform: translate3d(0, 0, 0);
-    text-shadow: rgba(255, 255, 255, 0.4) 0 0 0.05em;
   }
 
   100% {
     transform: translate3d(0, -1em, 0);
-    text-shadow: rgba(255, 255, 255, 0.4) 0 1em 0.35em;
   }
 }
 </style>

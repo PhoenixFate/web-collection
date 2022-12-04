@@ -1,0 +1,26 @@
+.header-btn {
+  height: 100%;
+  width: 40px;
+  cursor: pointer;
+  @apply py-3;
+}
+
+.header-btn-body {
+  width: 100%;
+  height: 100%;
+  @apply flex justify-center items-center;
+}
+
+.header-btn-body:hover {
+  @apply bg-blue-100 rounded-lg;
+}
+
+.header-btn :deep(.el-icon) {
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+}
+.header-btn :deep(.el-icon svg) {
+  height: 24px;
+  width: 24px;
+}

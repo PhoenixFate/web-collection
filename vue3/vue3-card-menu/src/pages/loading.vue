@@ -39,8 +39,8 @@ const textArray = ref([
   "A",
   "办",
   "公",
-  "系",
-  "统",
+  "中",
+  "心",
 ]);
 
 const router = useRouter();

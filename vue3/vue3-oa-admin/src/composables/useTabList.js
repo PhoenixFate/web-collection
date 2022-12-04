@@ -1,14 +1,11 @@
 import { ref } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { router } from "@/router";
 import { useMenu } from "@/composables/useMenu.js";
 import { getTabList, setTabList } from "@/composables/storage.js";
 
 export function useTabList() {
   const route = useRoute();
-  const cookie = useCookies();
-
   const activeTab = ref(route.path);
   const tabList = ref([
     {

@@ -14,7 +14,7 @@ const store = createStore({
       //是否折叠
       isCollapse: false,
       //折叠伞的动画flag
-      umbrellaAnimate:false,
+      umbrellaAnimate: false,
       //侧边菜单宽度
       asideWidth: "460px",
       //所有菜单列表
@@ -44,8 +44,8 @@ const store = createStore({
       state.user = user;
     },
     //开启或者关闭伞的折叠动画
-    SET_UMBRELLA_ANIMATE(state,flag){
-      state.umbrellaAnimate=flag;
+    SET_UMBRELLA_ANIMATE(state, flag) {
+      state.umbrellaAnimate = flag;
     },
     //展开或者收起侧边菜单
     COLLAPSE_MENU(state) {
@@ -53,6 +53,8 @@ const store = createStore({
     },
     SET_MENUS(state, menus) {
       state.menus = menus;
+      console.log("-----------------")
+      console.log(state.menus);
     },
     SET_RULENAMES(state, ruleNames) {
       state.ruleNames = ruleNames;

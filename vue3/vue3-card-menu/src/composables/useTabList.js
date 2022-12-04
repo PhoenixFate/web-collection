@@ -1,13 +1,11 @@
 import { ref } from "vue";
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { router } from "@/router";
 import { useMenu } from "@/composables/useMenu.js";
 import { getTabList, setTabList } from "@/composables/storage.js";
 
 export function useTabList() {
   const route = useRoute();
-  const cookie = useCookies();
 
   const activeTab = ref(route.path);
   const tabList = ref([
@@ -90,11 +88,8 @@ export function useTabList() {
   });
 
   const removeTab = (tag) => {
-    console.log(tag);
     let tabs = tabList.value;
-    console.log(tabs);
     let activeValue = activeTab.value;
-    console.log(activeValue);
     if (activeValue == tag) {
       tabs.forEach((item, index) => {
         if (item.path == tag) {

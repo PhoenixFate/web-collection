@@ -1,64 +1,11 @@
 <template>
   <div class="right-header-top">
-    <div class="header-btn">
-      <el-tooltip effect="dark" content="折叠与展开菜单" placement="bottom">
-        <div class="header-btn-body" @click="toggleMenu()">
-          <div
-            class="umbrella"
-            :class="[
-              { 'umbrella-active': !$store.state.isCollapse },
-              { 'umbrella-animate': $store.state.umbrellaAnimate },
-            ]"
-          >
-            <div class="canopy"></div>
-            <div class="shaft"></div>
-          </div>
-        </div>
-      </el-tooltip>
-    </div>
-
-    <el-breadcrumb class="ml-4">
-      <TransitionGroup
-        appear
-        enter-active-class="animate__animated animate__fadeInRight"
-      >
-        <el-breadcrumb-item
-          v-for="(item, index) in breadcrumbList"
-          :key="item + index"
-        >
-          <span>{{ item }} </span>
-        </el-breadcrumb-item>
-      </TransitionGroup>
-    </el-breadcrumb>
+    <LayoutRightTopUmbrella></LayoutRightTopUmbrella>
+    <LayoutRightTopBreadCrumb class="ml-4"></LayoutRightTopBreadCrumb>
 
     <div class="ml-auto flex justify-center items-center h-[100%]">
-      <div class="header-btn" v-if="!isFullscreen">
-        <el-tooltip effect="dark" content="全屏" placement="bottom">
-          <div class="header-btn-body" @click="toggle()">
-            <el-icon>
-              <FullScreen color="#555" />
-            </el-icon>
-          </div>
-        </el-tooltip>
-      </div>
-      <div class="header-btn" v-if="isFullscreen">
-        <el-tooltip effect="dark" content="退出全屏" placement="bottom">
-          <div class="header-btn-body" @click="toggle()">
-            <el-icon>
-              <Aim color="#555" />
-            </el-icon>
-          </div>
-        </el-tooltip>
-      </div>
-      <div class="header-btn mr-4">
-        <el-tooltip effect="dark" content="刷新页面" placement="bottom">
-          <div class="header-btn-body" @click="handleRefresh()">
-            <el-icon class="icon-btn">
-              <Refresh color="#555" />
-            </el-icon>
-          </div>
-        </el-tooltip>
-      </div>
+      <LayoutRightTopFullScreen></LayoutRightTopFullScreen>
+      <LayoutRightTopRefresh class="mr-4"></LayoutRightTopRefresh>
       <LayoutRightHeaderClock
         @showPersonalCalendar="showPersonalCalendar"
         @hidePersonalCalendar="hidePersonalCalendar"
@@ -76,7 +23,12 @@
       :personalCalendarFlag="personalCalendarFlag"
     >
     </LayoutRightHeaderCalendarDropdown>
-
+    <LayoutRightHeaderImageDropdown
+      :personalImageFlag="personalImageFlag"
+      @showPersonalImage="showPersonalImage"
+      @hidePersonalImage="hidePersonalImage"
+    >
+    </LayoutRightHeaderImageDropdown>
     <LayoutRightHeaderPersonalDropdown
       :personalMenuFlag="personalMenuFlag"
       @showPersonalMenu="showPersonalMenu"
@@ -84,13 +36,6 @@
       @toPersonalMenu="toPersonalMenu"
     >
     </LayoutRightHeaderPersonalDropdown>
-
-    <LayoutRightHeaderImageDropdown
-      :personalImageFlag="personalImageFlag"
-      @showPersonalImage="showPersonalImage"
-      @hidePersonalImage="hidePersonalImage"
-    >
-    </LayoutRightHeaderImageDropdown>
 
     <FormDrawer
       title="修改密码"
@@ -140,50 +85,23 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useFullscreen } from "@vueuse/core";
-import { useStore } from "vuex";
 import FormDrawer from "@/components/FormDrawer.vue";
 import { useChangePassword } from "@/composables/useManager";
-import LayoutRightHeaderPersonalDropdown from "./LayoutRightHeaderPersonalDropdown.vue";
-import LayoutRightHeaderImageDropdown from "./LayoutRightHeaderImageDropdown.vue";
-import LayoutRightHeaderCalendarDropdown from "./LayoutRightHeaderCalendarDropdown.vue";
-import LayoutRightHeaderClock from "./LayoutRightHeaderClock.vue";
-import LayoutRightHeaderUserinfo from "./LayoutRightHeaderUserinfo.vue";
+import LayoutRightHeaderPersonalDropdown from "./header/LayoutRightHeaderPersonalDropdown.vue";
+import LayoutRightHeaderImageDropdown from "./header/LayoutRightHeaderImageDropdown.vue";
+import LayoutRightHeaderCalendarDropdown from "./header/LayoutRightHeaderCalendarDropdown.vue";
+import LayoutRightHeaderClock from "./header/LayoutRightHeaderClock.vue";
+import LayoutRightHeaderUserinfo from "./header/LayoutRightHeaderUserinfo.vue";
+import LayoutRightTopBreadCrumb from "./header/LayoutRightTopBreadCrumb.vue";
+import LayoutRightTopUmbrella from "./header/LayoutRightTopUmbrella.vue";
+import LayoutRightTopFullScreen from "./header/LayoutRightTopFullScreen.vue";
+import LayoutRightTopRefresh from "./header/LayoutRightTopRefresh.vue";
+
 import {
   usePersonalMenuDropdown,
   usePersonalImageDropdown,
   usePersonalCalendarDropdown,
 } from "@/composables/header/useDropdown";
-
-import { computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
-const store = useStore();
-const route = useRoute();
-const router = useRouter();
-let breadcrumbList = computed(() => {
-  let temp = [];
-  if (
-    store.state.menus &&
-    router.currentRoute.value.meta &&
-    router.currentRoute.value.meta.bigMenuIndex
-  ) {
-    temp.push(
-      store.state.menus[router.currentRoute.value.meta.bigMenuIndex[0]].name
-    );
-    if (router.currentRoute.value.meta.bigMenuIndex.length > 1) {
-      temp.push(
-        store.state.menus[router.currentRoute.value.meta.bigMenuIndex[0]].child[
-          router.currentRoute.value.meta.bigMenuIndex[1]
-        ].name
-      );
-    }
-    temp.push(router.currentRoute.value.meta.title);
-  }
-  console.log(temp);
-  return temp;
-});
-
 const {
   formDrawerRef,
   form,
@@ -205,27 +123,6 @@ const { personalImageFlag, showPersonalImage, hidePersonalImage } =
 
 const { personalCalendarFlag, showPersonalCalendar, hidePersonalCalendar } =
   usePersonalCalendarDropdown();
-
-const {
-  // 是否是全屏
-  isFullscreen,
-  // 切换全屏
-  toggle,
-} = useFullscreen();
-
-const handleRefresh = () => {
-  //原生js
-  window.location.reload();
-};
-const toggleMenu = () => {
-  //开启伞的折叠动画
-  store.commit("SET_UMBRELLA_ANIMATE", true);
-  setTimeout(() => {
-    //关闭伞的折叠动画
-    store.commit("SET_UMBRELLA_ANIMATE", false);
-  }, 1200);
-  store.commit("COLLAPSE_MENU");
-};
 
 const toPersonal = () => {
   console.log("to personal");
@@ -258,25 +155,12 @@ const toPersonalMenu = (index) => {
   }
 };
 </script>
-<style scoped src="../../assets/css/layout/header/umbrella.css" />
 <style scoped lang="scss">
 .right-header-top {
   width: 100%;
   height: 100px;
+  padding-left: 20px;
   @apply flex items-center justify-start;
-  :deep(.el-breadcrumb) {
-    font-size: 1rem;
-    height: 30px;
-    line-height: 30px;
-  }
-  :deep(.el-breadcrumb__item:nth-child(1)) {
-    font-size: 1rem;
-  }
-  :deep(.el-breadcrumb__item:last-child .el-breadcrumb__inner) {
-    font-size: 1.2rem;
-    font-weight: bold !important;
-    color: black !important;
-  }
 }
 
 .header-btn {

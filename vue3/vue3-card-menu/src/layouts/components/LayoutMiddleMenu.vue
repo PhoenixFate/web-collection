@@ -1,5 +1,5 @@
 <template>
-  <div class="middle-menu" v-if="!$store.state.isCollapse">
+  <div class="middle-menu">
     <ul class="cards">
       <li
         class="card"
@@ -22,7 +22,7 @@
           v-if="menu.child"
           @select="handleSelect"
         >
-          <template v-for="(item, menu) in menu.child" :key="index">
+          <template v-for="item in menu.child" :key="index">
             <el-sub-menu
               :index="item.name"
               v-if="item.child && item.child.length > 0"
@@ -72,7 +72,7 @@ const defaultActive = computed(() => route.path);
 .middle-menu {
   width: 280px;
   left: 180px;
-  height: calc(100% - 120px - 1rem);
+  height: calc(100% - 140px - 1rem);
   @apply absolute bottom-4;
 }
 
