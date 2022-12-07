@@ -2,11 +2,53 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+const test=()=>{
+  console.log("ttest")
+  axios.get("http://localhost:10601/system/open/user/username/oaAdmin").then((res)=>{
+    console.log(res)
+  })
+}
+const test2=()=>{
+  console.log("ttest222222")
+  axios.post("http://localhost:10602/auth/oauth/token",
+  {
+    "grant_type":"password",
+    "username":"oaAdmin",
+    "password":"123456"
+  },
+  {
+    headers:{
+      "Authorization":"Basic b2EtYWR2YW5jZWQtYWRtaW46MTIzNDU2",
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }).then((res)=>{
+    console.log(res)
+  })
+}
+const test3=()=>{
+  console.log("ttest")
+  axios.post("http://localhost:10602/auth/login",{
+    "grant_type":"password",
+    "username":"oaAdmin",
+    "password":"123456"
+  },{
+    headers:{
+      "Authorization":"Basic b2EtYWR2YW5jZWQtYWRtaW46MTIzNDU2",
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+  }).then((res)=>{
+    console.log(res)
+  })
+}
 </script>
 
 <template>
   <div>
-    <button class="btn">按钮</button>
+    <button class="btn" @click="test()">按钮</button> <br>
+    <button class="btn" @click="test2()">按钮2</button> <br>
+    <button class="btn" @click="test3()">按钮3</button>
+
     <div style="height: 50px"></div>
     <el-row class="mb-4">
       <el-button>Default</el-button>
