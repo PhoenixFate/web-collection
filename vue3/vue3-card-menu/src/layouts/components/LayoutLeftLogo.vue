@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref,onMounted } from "vue";
 const rocketAnimateFlag = ref(false);
 const rocketRun = () => {
   if (!rocketAnimateFlag.value) {
@@ -19,6 +19,12 @@ const rocketRun = () => {
     }, 2400);
   }
 };
+onMounted(()=>{
+  rocketAnimateFlag.value=true;
+  setTimeout(() => {
+      rocketAnimateFlag.value = false;
+    }, 4000);
+})
 </script>
 <style scoped lang="scss">
 .left-logo {

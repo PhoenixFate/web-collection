@@ -5,7 +5,7 @@
       :class="{ 'app-main-aside-collapsed': $store.state.isCollapse }"
     >
       <LayoutLeftMenu></LayoutLeftMenu>
-      <Transition name="middle-toggle">
+      <Transition name="middle-top-toggle">
         <LayoutMiddleTop></LayoutMiddleTop>
       </Transition>
     </el-aside>
@@ -46,10 +46,10 @@ import LayoutMiddleTop from "./components/LayoutMiddleTop.vue";
   animation: cards-out 0.6s cubic-bezier(0.8, 0.2, 0.1, 0.8);
 }
 
-.middle-toggle-enter-active {
+.middle-top-toggle-enter-active {
   animation: lightSpeedOutLeft 1s reverse;
 }
-.middle-toggle-leave-active {
+.middle-top-toggle-leave-active {
   animation: lightSpeedOutLeft 1s;
 }
 
