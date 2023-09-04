@@ -1,0 +1,23 @@
+<h2>
+  news component
+</h2>
+
+<button (click)='requestData()'>请求数据</button>
+<br>
+<button (click)='requestJsonpData()'>jsonp请求数据</button>
+<br>
+<button (click)='postData()'>post提交数据</button>
+<br>
+
+<button (click)='requestDataRxjs()'>请求数据rxjs</button>
+<br>
+<button (click)='requestJsonpDataRxjs()'>jsonp请求数据rxjs</button>
+<br>
+
+
+<ul>
+  <li *ngFor="let item of list.result">
+    {{item.title}}
+  </li>
+
+</ul>

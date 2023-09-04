@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<header class="header">
+  <ul>
+    <li><a [routerLink]="[ '/home']">首页</a></li>
+    <li><a [routerLink]="[ '/user']">用户</a></li>
+    <li><a [routerLink]="[ '/news']">新闻</a></li>
+  </ul>
+  <ul>
+    <li><a routerLink="home">首页</a></li>
+    <li><a routerLink="user">用户</a></li>
+    <li><a routerLink="news">新闻</a></li>
+  </ul>
+</header>
+<hr>
+<br>
+
+
+<!-- 动态加载的组件显示的地方 -->
+<router-outlet></router-outlet>

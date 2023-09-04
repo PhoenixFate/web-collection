@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+      <ion-searchbar
+      [(ngModel)]="myInput"
+      (tap)='goSearch()'>
+    </ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slides pager loop='true' autoplay='2000' class='my-slides' *ngIf='focusList.length>0'>
+    <ion-slide *ngFor='let item of focusList'>
+      <img [src]="configProvider.urlHead+item.pic" alt="" />
+    </ion-slide>
+  </ion-slides>
+  <div class='my-title'>
+    精品推荐
+  </div>
+
+  <div class='slide-product rec_shop'>
+    <ion-scroll scrollX="true">
+      <ul class='clearfix' [ngStyle]="{'width':bestListWidth}">
+        <li *ngFor='let item of bestList'  [navPush]='ProductContentPage' [navParams]="{'id':item['_id']}">
+          <img [src]="configProvider.urlHead+item.s_pic" alt="">
+          <div class="rec_shop_detial">{{item.title}}</div>
+          <span class="price">¥{{item.price}}</span>
+        </li>
+      </ul>
+    </ion-scroll>
+  </div>
+
+  <div class='my-title'>
+    猜你喜欢
+  </div>
+
+  <div class='index-product'> 
+    <ion-row class="hot-shop">
+      <ion-col col-6 *ngFor='let item of hotList' [navPush]='ProductContentPage'  [navParams]="{'id':item['_id']}">
+        <img [src]="configProvider.urlHead+item.s_pic" alt="">
+        <div class="hot_shop_detail">{{item.title}}</div>
+        <p><span class="price">¥{{item.price}}</span> <span class="old_price">¥{{item.old_price}}</span></p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

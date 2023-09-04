@@ -1,0 +1,10 @@
+<!-- <app-footer [msg]='msg'></app-footer> -->
+<app-footer [msg]='msg' [run]='run' [getDataFromChild]='getDataFromChild' (outer1)="runParent($event)"></app-footer>
+<br>
+<h2>home 组件</h2>
+
+<ul>
+  <li *ngFor="let item of list">
+    {{item}}
+  </li>
+</ul>
