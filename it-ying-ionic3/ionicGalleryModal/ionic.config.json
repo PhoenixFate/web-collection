@@ -1,0 +1,7 @@
+{
+  "name": "ionicGalleryModal",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

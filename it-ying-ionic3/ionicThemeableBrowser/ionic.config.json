@@ -1,0 +1,7 @@
+{
+  "name": "ionicThemeableBrowser",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "ionicFileTransfer",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+
+}

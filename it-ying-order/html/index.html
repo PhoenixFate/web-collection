@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>无人点餐系统</title>
+		<link rel="stylesheet" type="text/css" href="css/basic.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript">
+			window.onload = function() {
+				var navCate = document.getElementById("nav_cate")
+				var leftCate = document.getElementById("left_cate")
+				var bg = document.getElementById("bg")
+				var flag = true;
+				navCate.onclick = function() {
+					if (flag) {
+						flag = false;
+						leftCate.style.transform = 'translate(0,0)'
+						bg.style.display = "block"
+					} else {
+						flag = true;
+						leftCate.style.transform = 'translate(-100%,0)'
+						bg.style.display = "none"
+					}
+				}
+				bg.onclick = navCate.onclick
+				var footerNav = document.getElementById("footer_nav")
+				var footerNavShow = document.getElementById("footer_nav_show")
+				var navBack=document.getElementById("nav_back")
+				footerNav.onclick = function() {
+					footerNavShow.style.display="block";					
+				}
+				navBack.onclick=function(){
+					footerNavShow.style.display="none";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<header class="index-header">
+			<div class="hlist">
+				<img src="images/index/hot.png" />
+				<p>热销榜</p>
+			</div>
+
+			<div class="hlist">
+				<img src="images/index/ever.png" />
+				<p>点过的菜</p>
+			</div>
+			<div class="hlist">
+				<img src="images/index/search.png" />
+				<p>搜你喜欢</p>
+			</div>
+		</header>
+		<aside class="left-cate" id="left_cate">
+			<ul>
+				<li>精品美食</li>
+				<li>精品小面</li>
+				<li>饮料酒水</li>
+				<li>新品推荐</li>
+				<li>舌尖美食</li>
+				<li>厨师长推荐</li>
+			</ul>
+			<div id="nav_cate" class="nav-cate">
+				<img src="images/index/nav.png" />
+				<p>菜单</p>
+			</div>
+		</aside>
+
+
+		<div class="content">
+			<div class="item">
+				<h3 class="item-cate">皮蛋瘦肉粥</h3>
+				<ul class="item-list">
+					<li>
+						<div class="inner">
+							<img src="images/food/1.jpeg" />
+							<p class="title">大蒜腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">家乡扣肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">酸辣土豆丝</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">家乡腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">长沙臭豆腐</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="item">
+				<h3 class="item-cate">皮蛋瘦肉粥</h3>
+				<ul class="item-list">
+					<li>
+						<div class="inner">
+							<img src="images/food/1.jpeg" />
+							<p class="title">大蒜腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">家乡扣肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">酸辣土豆丝</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">家乡腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">长沙臭豆腐</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="item">
+				<h3 class="item-cate">皮蛋瘦肉粥</h3>
+				<ul class="item-list">
+					<li>
+						<div class="inner">
+							<img src="images/food/1.jpeg" />
+							<p class="title">大蒜腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+
+							<p class="title">家乡扣肉</p>
+
+							<p class="price">¥26</p>
+						</div>
+
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">酸辣土豆丝</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">家乡腊肉</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/2.jpeg" />
+							<p class="title">长沙臭豆腐</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+					<li>
+						<div class="inner">
+							<img class="item-img" src="images/food/3.jpeg" />
+							<p class="title">主打鸡</p>
+							<p class="price">¥26</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 背景也可以通过body的after伪类来实现 -->
+		<div class="bg" id="bg">
+			<!-- 点击菜单之后出现的透明背景 -->
+		</div>
+		<div id="footer_nav" class="footer-nav">
+			<img src="images/nav/navigation.png" />
+			<p>导航</p>
+		</div>
+		<div class="footer-nav-show" id="footer_nav_show">
+			<ul class="list">
+				<li>
+					<img src="images/nav/menu.png" />
+					<p>菜单</p>
+				</li>
+				<li>
+					<img src="images/nav/cart.png" />
+					<p>购物车</p>
+				</li>
+				<li>
+					<img src="images/nav/order.png" />
+					<p>订单</p>
+				</li>
+				<li>
+					<img src="images/nav/wallet.png" />
+					<p>结账</p>
+				</li>
+				<li id="nav_back">
+					<img src="images/nav/close.png" />
+					<p>返回</p>
+				</li>
+			</ul>
+		</div>
+		<div id="footer_cart" class="footer-cart">
+			<img src="images/nav/cart.png" />
+			<p>购物车</p>
+		</div>
+	</body>
+</html>

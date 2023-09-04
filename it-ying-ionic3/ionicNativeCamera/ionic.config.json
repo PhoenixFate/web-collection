@@ -1,0 +1,7 @@
+{
+  "name": "ionicNativeCarema",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

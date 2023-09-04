@@ -1,0 +1,7 @@
+{
+  "name": "RYRFBTest",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

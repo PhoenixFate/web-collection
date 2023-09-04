@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn {
+            position: fixed;
+            top:10px;
+            left:5px;
+        }
+    </style>
+</head>
+<body>  
+    <button class="btn" id="btn">点击按钮-滚动条滚都到具体位置</button>
+    <div class="content" id="content">
+        <ul>
+            <li id="index1" class="header">
+                ----------- 精品美食 -------------
+            </li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+        </ul>
+        <ul>
+            <li id="index2" class="header">
+                ----------- 精品小面 -------------
+            </li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+        </ul>
+        <ul>
+            <li id="index3" class="header">
+                ----------- 饮料酒水 -------------
+            </li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+        </ul>
+        <ul>
+            <li id="index4" class="header">
+                ----------- 独享美味 -------------
+            </li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+            <li>这是一个list</li>
+        </ul>
+    </div>
+
+    <script>
+        var button=document.getElementById("btn")
+        btn.onclick=function(){
+            document.documentElement.scrollTop="300"
+            var headerDom=document.querySelectorAll(".header");
+            var offset=headerDom[2].offsetTop //获取第三个距离顶部的高度
+            document.documentElement.scrollTop=offset
+        }
+    </script>
+</body>
+</html>

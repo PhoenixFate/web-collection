@@ -1,0 +1,117 @@
+.order_content {
+  padding: 1rem;
+}
+
+.order_content .order_info {
+  background-color: #fff;
+  border-radius: .5rem;
+}
+
+.order_content .order_info .order_top {
+  display: flex;
+}
+
+.order_content .order_info .order_top img {
+  width: 6rem;
+  height: 6rem;
+}
+
+.order_content .order_info .order_top .order_info_right {
+  flex: 1;
+  padding-top: .5rem;
+}
+
+.order_content .order_info h3 {
+  line-height: 2;
+  padding: .5rem;
+}
+
+.order_content .order_info h3 .price {
+  font-size: 2rem;
+  color: red;
+}
+
+.order_content .order_list {
+  background-color: #fff;
+  border-radius: .5rem;
+  margin-top: 1rem;
+  padding: .5rem;
+}
+
+.order_content .order_list h3 {
+  line-height: 2;
+}
+
+.order_content .order_list .list {
+  border-top: 1px solid #eee;
+}
+
+.order_content .order_list .list li {
+  display: flex;
+  line-height: 2;
+  padding: .5rem 0;
+}
+
+.order_content .order_list .list li .title {
+  flex: 2;
+}
+
+.order_content .order_list .list li .num {
+  flex: 1;
+  text-align: center;
+}
+
+.order_content .order_list .list li .price {
+  flex: 1;
+  text-align: center;
+}
+
+.order_content .order_pay {
+  background-color: #fff;
+  border-radius: .5rem;
+}
+
+.order_content .order_pay h3 {
+  padding: 2rem 0 .5rem 0;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.order_content .order_pay .order_pay_detail {
+  display: flex;
+  line-height: 2;
+  border-bottom: 1px solid #eee;
+  padding: .5rem;
+}
+
+.order_content .order_pay .order_pay_detail .d_num, .order_content .order_pay .order_pay_detail .p_num, .order_content .order_pay .order_pay_detail .order_time {
+  flex: 1;
+}
+
+.order_content .order_pay .order_pay_info {
+  line-height: 2;
+  display: flex;
+  margin: 1rem 0rem;
+  padding: .5rem .5rem 1rem .5rem;
+}
+
+.order_content .order_pay .order_pay_info .price_list {
+  flex: 1;
+}
+
+.order_content .order_pay .order_pay_info .price_list .price {
+  font-size: 2rem;
+  color: red;
+}
+
+.order_content .order_pay .order_pay_info .pay_button {
+  width: 10rem;
+  border-radius: .5rem;
+  background: red;
+  color: #fff;
+  text-align: center;
+  height: 2.6rem;
+  line-height: 2.6rem;
+  position: relative;
+  top: .5rem;
+}

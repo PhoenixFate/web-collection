@@ -1,0 +1,7 @@
+{
+  "name": "ionicActionSheets",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

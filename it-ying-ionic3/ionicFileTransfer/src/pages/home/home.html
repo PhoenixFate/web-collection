@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to Ionic!</h2>
+  <p>
+    This starter project comes with simple tabs-based layout for apps
+    that are going to primarily use a Tabbed UI.
+  </p>
+  <p>
+    Take a look at the <code>src/pages/</code> directory to add or change tabs,
+    update any existing page or create new pages.
+  </p>
+  <p>{{src3}}</p>
+  <p>{{src4}}</p>
+  <p>{{src}}</p>
+  <p>{{src2}}</p>
+  <p>{{a}}</p>
+  <p>{{b}}</p>
+  <img src='{{src}}' style='height: 100px;width: 100px'/>
+  <img src='{{src2}}' style='height: 100px;width: 100px'/>
+  <img src='{{src3}}' style='height: 100px;width: 100px'/>
+  <img src='{{src4}}' style='height: 100px;width: 100px'/>
+  <button ion-button full (click)='doCameraUpload()'>拍照上传</button>
+  <button ion-button full (click)='doCameraLibrary()'>拍照相册上传</button>
+  <button ion-button full (click)='doImageUpload()'>相册上传</button>
+  <button ion-button full (click)='doPost()'>Post</button>
+  <button ion-button full  (click)='doPost2()'>post2</button>
+  <button ion-button full  (click)='doPost3()'>post3</button>
+  <button ion-button full  (click)='doPost4()'>post4</button>
+  <button ion-button full  (click)='doGet()'>Get</button>
+</ion-content>

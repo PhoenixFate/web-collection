@@ -1,0 +1,7 @@
+{
+  "name": "ionicPostTest02",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

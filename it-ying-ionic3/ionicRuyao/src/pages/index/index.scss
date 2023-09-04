@@ -1,0 +1,198 @@
+page-index {
+
+    .my-content {
+        zoom: 38%;
+        width: 90%;
+        margin: 26% auto 0;
+    }
+
+    button {
+        font:bold 38px "微软雅黑";
+        color:#fff;
+        border-radius: 25px;
+    }
+
+    .top,
+    .banner,
+    .row1 {
+        margin-bottom: 20px;
+    }
+
+    /*----------------------------------top模块----------begin---------------------------------------------------*/
+    .top {
+        height: 350px;
+        width: 100%;
+        background-image: url("../../assets/imgs/user_bg.png");
+        background-size: 100% 100%;
+        position: relative;
+    }
+
+    .top img {
+        position: absolute;
+        left: 80px;
+        top: 80px;
+        height: 180px;
+        width: 180px;
+        border-radius: 50%;
+    }
+
+    .user-properties{
+        height: 100px;
+        width: 250px;
+        position: absolute;
+        top: 130px;
+        left: 300px;
+        font:bold 36px "微软雅黑";
+        line-height: 50px;
+        color:#fff;
+    }
+    /*----------------------------------top模块----------end-----------------------------------------------------*/
+
+
+    /*----------------------------------banner模块--------begin---------------------------------------------------*/
+    .banner{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .banner button {
+        height: 100px;
+        width: 100%;
+        background-image: url("../../assets/imgs/shuoming_bg.png");
+        background-size: 100% 100%;
+        display: inline-block;
+    }
+
+    .banner button:active{
+        height: 80px;
+        width: 90%;
+    }
+    /*----------------------------------banner模块--------end---------------------------------------------------*/
+
+
+    /*----------------------------------main模块----------begin---------------------------------------------------*/
+    .main button{
+        background-size: 100% 100%;
+        position: relative;
+    }
+
+    .main b{
+        position: absolute;
+        left: 40px;
+        top: 60px;
+    }
+
+    .main{
+        margin-bottom: 50px;
+    }
+
+    /*----------------------------------row1-----begin--------------------------*/
+    .row1{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .row1 button {
+        height: 180px;
+        width: 48%;
+    }
+
+    .row1 button:active {
+        height: 160px;
+        width: 45%;
+    }
+
+    .btn1 {
+        background-image: url("../../assets/imgs/sai1.png");
+    }
+
+    .btn2 {
+        background-image: url("../../assets/imgs/sai2.png");
+    }
+
+    .btn3 {
+        background-image: url("../../assets/imgs/sai3.png");
+    }
+
+    .btn4 {
+        background-image: url("../../assets/imgs/sai4.png");
+    }
+
+    .btn5 {
+        background-image: url("../../assets/imgs/sai5.png");
+    }
+
+    .btn6 {
+        background-image: url("../../assets/imgs/sai6.png");
+    }
+
+    /*----------------------------------row1-----end----------------------------*/
+
+
+    /*----------------------------------row2-----begin--------------------------*/
+    .row2 {
+        height: 380px;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .line1,
+    .line2{
+        width: 48%;
+    }
+
+    .line1 div{
+        height: 180px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .row2 .line1 button {
+        height: 180px;
+        width: 100%;
+    }
+
+    .row2 .line1 button:active {
+        height: 160px;
+        width: 94%;
+    }
+
+    .row2 .line2 button {
+        height: 380px;
+        width: 100%;
+    }
+
+    .row2 .line2 button:active {
+        height: 360px;
+        width: 94%;
+    }
+
+    .btn7 {
+        background-image: url("../../assets/imgs/sai7.png");
+    }
+
+    .btn8 {
+        background-image: url("../../assets/imgs/sai8.png");
+    }
+
+    .btn9 {
+        background-image: url("../../assets/imgs/sai9.png");
+    }
+
+    .btn9 b {
+        top:40px;
+    }
+    /*----------------------------------row2-----end----------------------------*/
+
+    /*----------------------------------main模块----------end-----------------------------------------------------*/
+
+}

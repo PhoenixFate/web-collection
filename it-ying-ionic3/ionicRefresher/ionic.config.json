@@ -1,0 +1,7 @@
+{
+  "name": "ionicRefresher",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

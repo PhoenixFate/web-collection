@@ -1,0 +1,7 @@
+{
+  "name": "NewsProject",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
