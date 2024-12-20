@@ -83,6 +83,7 @@ console.log(tuple2);
 
 enum Flag { success, error };
 let status1: Flag = Flag.success;
+console.log("status1");
 console.log(status1);
 enum Sex { male = 1, female = 2 }
 let sex: Sex = Sex.male

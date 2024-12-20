@@ -77,7 +77,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import { getStatistics1, getStatistics2 } from "~/api/index.js";
+import { getStatistics1, getStatistics2 } from "~/api/main.js";
 import CountTo from "~/components/CountTo.vue";
 import IndexNavs from "~/components/IndexNavs.vue";
 import IndexChart from "~/components/IndexChart.vue";

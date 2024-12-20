@@ -23,7 +23,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as echarts from "echarts";
-import { getStatistics3 } from "~/api/index.js";
+import { getStatistics3 } from "~/api/main.js";
 import { useResizeObserver } from "@vueuse/core";
 import { markRaw } from 'vue'
 

@@ -72,7 +72,7 @@ import IndexCard from "~/components/IndexCard.vue";
 import {
     getStatistics1,
     getStatistics2
-} from "~/api/index.js"
+} from "~/api/main.js"
 
 const panels = ref([])
 getStatistics1()

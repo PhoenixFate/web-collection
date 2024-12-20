@@ -19,7 +19,7 @@ import { useResizeObserver } from '@vueuse/core'
 
 import {
     getStatistics3
-} from "~/api/index.js"
+} from "~/api/main.js"
 
 const current = ref("week")
 const options = [{
